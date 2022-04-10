@@ -1,7 +1,0 @@
-{% autoescape off %}
-
-{{protocol}}://{{domain}}/
-
-
-{% endautoescape %}
-
