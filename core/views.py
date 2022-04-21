@@ -3,28 +3,24 @@ from django.shortcuts import render,redirect,HttpResponse, get_object_or_404
 from .models import Articles,Comments
 from django.views.generic import ListView, DetailView,CreateView, UpdateView,DeleteView
 from django.views.generic.edit import FormMixin
-from .forms import ArticleForm, AuthUserForm, RegisterUserForm,CommentForm, EmailPostForm, EditProfileName
-from django.urls import reverse, reverse_lazy 
+from .forms import ArticleForm, AuthUserForm, RegisterUserForm, CommentForm, EmailPostForm, EditProfileName, \
+    PasswordChangingForm
+from django.urls import reverse, reverse_lazy
 from django.contrib import messages
-from django.contrib.auth.views import LoginView,LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.template import Context, Template
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
-from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse
-from django.contrib.auth.forms import PasswordResetForm
-from django.template.loader import render_to_string
-from django.db.models.query_utils import Q
-from django.utils.http import urlsafe_base64_encode
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.encoding import force_bytes
-from django.db.models import Q;
-
+from hitcount.views import HitCountDetailView
+from django.contrib.auth.forms import UserChangeForm ,  PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeForm
+from django.views import generic
+from .forms import EditProfileForm , PasswordChangingForm
 
 
 def post_list(request):
@@ -43,14 +39,6 @@ def post_list(request):
 
 
 
-# chat function
-def chat(request):
-    return render(request, "chat/chat.html")
-
-
-def room(request, room_name):
-    return render(request, "chat/room.html",  {"room_name": room_name})
-
 
 def post_share(request, post_name):
     articles = get_object_or_404(Articles, name=post_name)
@@ -61,7 +49,6 @@ def post_share(request, post_name):
         if(form.is_valid()): 
             cd = form.cleaned_data
             subject_url = '{} ({}) recommends you reading "{}"'.format(cd['name'], cd['email'], post_name)
-
             message = "Read '{}' \n\n{}\'s comments: {}".format(post_name, cd['name'], cd['comments'])
             send_mail(subject_url, message, 'loarsen9@email.com', [cd['to']])
     else: 
@@ -73,44 +60,10 @@ def post_share(request, post_name):
                             'sent': sent})
 
 
-def password_reset_form(request, name):
-    if request.method == "POST":
-        password_reset_form = PasswordResetForm(request.POST)
-
-        if password_reset_form.is_valid():
-            data = password_reset_form.cleaned_data['email']
-
-            associated_users = User.objects.filter(Q(username = name))
-            print(associated_users)
-            if associated_users.exists():
-                for user in associated_users:
-                    subject = "Password Reset Requested"
-                    email_template_name = "accounts/password_reset_email.txt"
-                    c = {
-                    "email": user.email,
-                    'domain':'127.0.0.1:8000',
-                    'site_name': 'Website',
-                    "uid": urlsafe_base64_encode(force_bytes(user.pk)),
-                    "user": user,
-                    'token': default_token_generator.make_token(user),
-                    'protocol': 'http',
-                    }
-                    email = render_to_string(email_template_name, c)
-                    try:
-                        send_mail(subject,  email, 'loarsen9@gmail.com' , [data])
-                    except BadHeaderError:
-                        return HttpResponse('Invalid header found.')
-                    return redirect ("/password_reset/done/")
-    password_reset_form = PasswordResetForm()
-    return render(request=request, template_name="accounts/password-reset-form.html", context={"password_reset_form":password_reset_form})
-
-
-
-#todo: not finished have error need to fiexd
-def user_edit(request, user_name): 
+def user_edit(request, user_name):
     name = get_object_or_404(User, name=user_name);
 
-    if(reuest.method == "POST"):
+    if(request.method == "POST"):
         form = EditProfileName(request.POST)
         if(form.is_valid()):
             cd = form.cleaned_data
@@ -121,20 +74,6 @@ def user_edit(request, user_name):
                             "name": name,
                             "form": form
         })
-
-
-
-
-# search
-def search(request):
-    query = request.GET.get('q') if request.method!= None else ''
-    results = Articles.objects.filter(
-        Q(name__icontains=query) |
-        Q(text__icontains=query)
-    )
-    if query == '':
-        results = Articles.objects.all()
-    return render(request, "search_result.html", {'list_articles': results})
 
 
 
@@ -291,3 +230,23 @@ class ArticleDeleteView(LoginRequiredMixin, DeleteView):
         success_url = self.get_success_url()
         self.object.delete()
         return HttpResponseRedirect(success_url)
+
+
+
+class UserEditView(generic.UpdateView):
+    form_class=EditProfileForm
+    template_name='edit_profile.html'
+    success_url=reverse_lazy('home')
+
+    def get_object(self):
+        return self.request.user
+
+
+
+class PasswordsChangeView(PasswordChangeView):
+    form_class=PasswordChangingForm
+    # from_class=PasswordChangeView
+    success_url = reverse_lazy('password_success')
+
+def password_success(request):
+    return render(request, 'password_success.html', {})

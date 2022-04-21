@@ -1,137 +1,137 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-  <link type="image/x-icon" rel="icon" href="https://i1.sndcdn.com/avatars-000196582053-e3h8g9-t240x240.jpg" />
-  <title>Zero to Hero</title>
-</head>
-
-<body>
-
-
-  <div class="container mt-4">
-    <ul class="nav nav-pills">
-      <li class="nav-item">
-        {% url 'home' as url_home %}
-
-        <a class="nav-link {% if url_home == request.path %}active{% endif %}" href="{{url_home}}">Main page</a>
-      </li>
-      <li class="nav-item">
-        {% url 'edit_page' as url_edit_page %}
-        <a class="nav-link {% if url_edit_page == request.path %}active{% endif %}" href="{{url_edit_page}}">Create</a>
-      </li>
-
-
-
-
-      {% if request.user.is_authenticated %}
-
+    <link type= "image/x-icon" rel = "icon" href = "https://i1.sndcdn.com/avatars-000196582053-e3h8g9-t240x240.jpg"  />
+    <title>Zero to Hero</title>
+  </head>
+  <body>
+      
+      
+<div class="container mt-4">
+          <ul class="nav nav-pills">
+  <li class="nav-item">
+      {% url 'home' as url_home %}
+      
+    <a class="nav-link {% if url_home == request.path %}active{% endif %}" href="{{url_home}}">Main page</a>
+  </li>
+  <li class="nav-item">
+      {% url 'edit_page' as url_edit_page %}
+    <a class="nav-link {% if url_edit_page == request.path %}active{% endif %}" href="{{url_edit_page}}">Create</a>
+  </li>
+  
+  
+  
+  
+  {% if request.user.is_authenticated %}
       <li class="nav-item">
         {% url 'logout_page' as url_logout_page %}
+        
+    <a class="nav-link btn-danger ml-5" href="{{url_logout_page}}">Logout</a>
+  </li>
+        <li class="nav-item">
+        {% url 'edit_profile' as url_edit_profile %}
 
-        <a class="nav-link btn-danger ml-5" href="{{url_logout_page}}">Logout</a>
-      </li>
+    <a class="nav-link btn-danger ml-5" href="{{url_edit_profile}}">Edit Profile</a>
+  </li>
 
-      {% else %}
 
-      <li class="nav-item">
+  {% else %}
+     <li class="nav-item">
         {% url 'login_page' as url_login_page %}
-        <a class="nav-link {% if url_login_page == request.path %}active{% endif %}" href="{{url_login_page}}">Login</a>
-      </li>
-
-      <li class="nav-item">
+    <a class="nav-link {% if url_edit_profile == request.path %}active{% endif %}" href="{{url_edit_profile}}">Edit Profile</a>
+  </li>
+    <li class="nav-item">
+        {% url 'login_page' as url_login_page %}
+    <a class="nav-link {% if url_login_page == request.path %}active{% endif %}" href="{{url_login_page}}">Login</a>
+  </li>
+    <li class="nav-item">
         {% url 'register_page' as url_register_page %}
+        
+    <a class="nav-link {% if url_register_page == request.path %}active{% endif %}" href="{{url_register_page}}">Register</a>
+  </li>
 
-        <a class="nav-link {% if url_register_page == request.path %}active{% endif %}"
-          href="{{url_register_page}}">Register</a>
-      </li>
+  
+  {% endif %}
+  
+  
+  
+  
+  
+  
 
-      {% endif %}
-
-
-
-      <div style="margin: 0 50px; position: absolute; right: 0;">
-        {{request.user}}
-        <a href="/password_reset/{{request.user}}">Password reset</a>
-      </div>
-
-
-
-    </ul>
-
-    {% block content %}
-    <h1 class="mt-4">Zero to Hero</h1>
+<!--  <div style = "margin: 0 50px; position: absolute; right: 0;" >-->
+<!--    {{request.user}}-->
+<!--    <a href = "{% url 'edit_profile'  %}">Edit</a>-->
+<!--  </div>-->
 
 
+  </ul>
 
-    {% for i in list_articles %}
-
-    <ul class="list-group mt-4">
-
-
-      <li class="list-group-item">
-        <img src="{{i.picture.url}}" alt = "{{i.name}}" style = "max-height: 100px; width: 200px; ">
-
-        <b>{{i.create_date}}</b>
-
-        <span class="m-2">{{i.name}}</span>
-        <span>{{i.text|truncatechars:"5"}}</span>
-
-        <span class="float-right mr-3">
-          {% if user.is_authenticated %}
-
-          <a href="/detail/{{i.id}}">go to article</a>
-
-          {%endif%}
-          <!--                          <a class="nav-link {% if url_login_page == request.path %}active{% endif %}" href="{{url_login_page}}">go to article</a> -->
-        </span>
-      </li>
-
-    </ul>
-
-    {% endfor %}
-
-    {% endblock %}
-
-  </div>
-
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
+  {% block content %}
+      <h1 class="mt-4">Zero to Hero</h1>
 
 
-  {% block js %}
 
-  <div class="pagination" style="margin: 10px 50px; color: #000;">
+      {% for i in list_articles %}
 
-    {% include 'pagination.html' with page=list_articles %}
+              <ul class="list-group mt-4">
+                      
+                      
+                  <li class="list-group-item">
+                          
+                          <b>{{i.create_date}}</b>
 
-  </div>
+                      <span class="m-2">{{i.name}}</span>
+                      <span>{{i.text|truncatechars:"5"}}</span>
+
+                      <span class="float-right mr-3">
+                          {% if user.is_authenticated %}
+
+                              <a href="/detail/{{i.id}}">go to article</a>
+
+                          {%endif%}
+      <!--                          <a class="nav-link {% if url_login_page == request.path %}active{% endif %}" href="{{url_login_page}}">go to article</a> -->
+                      </span>
+                  </li>
+                      
+              </ul>
+
+      {% endfor %}
 
   {% endblock %}
 
-  <!-- share block -->
-  {% block contentShare%}
+</div>
 
-  {% endblock %}
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        
+        
+    {% block js %}
 
+    <div class = "pagination" style = "margin: 10px 50px; color: #000;">
+      
+      {% include 'pagination.html' with page=list_articles %}
 
-</body>
+    </div>
 
+{% endblock %}
+
+<!-- share block -->
+{% block contentShare%}
+
+{% endblock %}
+
+    
+  </body>
 </html>
+

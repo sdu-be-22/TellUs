@@ -2,17 +2,27 @@ from django.db import models
 from django.contrib.auth.models import User
 from .middleware import get_current_user
 from django.db.models import Q
-
+from hitcount.models import HitCountMixin, HitCount
+from django.contrib.contenttypes.fields import GenericRelation
+from django.utils.text import slugify
+from ckeditor.fields import RichTextField
 # Create your models here.
-class Articles(models.Model):
+class Articles(models.Model , HitCountMixin):
     author = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name='Article owner', blank = True, null = True )
     create_date = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=200, verbose_name='Post name:')
-    picture = models.ImageField(upload_to="images",blank=True,null=True,  default='images/default/images.png')
-    text = models.TextField(verbose_name='Text')
-    
+    text = RichTextField(blank=True, null=True)
+    # slug = models.SlugField(unique=True, max_length=100)
+    # hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',related_query_name='hit_count_generic_relation')
+
+
     def __str__(self):
         return self.name
+
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:
+    #         self.slug = slugify(self.name)
+    #     return super(Articles, self).save(*args, **kwargs)
     
     # class Meta:
     #     verbose_name='Статью'
