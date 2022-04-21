@@ -16,8 +16,6 @@ urlpatterns = [
     path('search/', views.search, name = "search_results"),
     #url password reset application urls.py
     path('password_reset/<str:name>/', views.password_reset_form, name="password_reset"),
-    path('chat/', views.chat, name = "chat"),
-    path("chat/<str:room_name>/", views.room, name = "room"),
     #ajax
     path('update_comment_status/<int:pk>/<slug:type>', views.update_comment_status, name='update_comment_status')
 

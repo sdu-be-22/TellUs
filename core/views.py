@@ -42,16 +42,6 @@ def post_list(request):
     return render(request, "index.html", {'list_articles': list_articles, 'page':page})
 
 
-
-# chat function
-def chat(request):
-    return render(request, "chat/chat.html")
-
-
-def room(request, room_name):
-    return render(request, "chat/room.html",  {"room_name": room_name})
-
-
 def post_share(request, post_name):
     articles = get_object_or_404(Articles, name=post_name)
     sent = False
