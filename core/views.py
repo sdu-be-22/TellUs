@@ -1,37 +1,148 @@
-import datetime
-from http.client import HTTPResponse
-from unittest import loader
-from django.utils.decorators import method_decorator
-from django.shortcuts import get_object_or_404, render,redirect,HttpResponse
-from django.views import View
-from .models import Articles,Comments, Likes, Notification
+from django.shortcuts import render,redirect,HttpResponse, get_object_or_404
+
+from .models import Articles,Comments
 from django.views.generic import ListView, DetailView,CreateView, UpdateView,DeleteView
 from django.views.generic.edit import FormMixin
-from .forms import ArticleForm, AuthUserForm, RegisterUserForm,CommentForm
-from django.urls import reverse, reverse_lazy
+from .forms import ArticleForm, AuthUserForm, RegisterUserForm,CommentForm, EmailPostForm, EditProfileName
+from django.urls import reverse, reverse_lazy 
 from django.contrib import messages
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.template import Context, Template
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse
 from django.contrib.auth.forms import PasswordResetForm
-from django.utils.http import urlsafe_base64_encode
-from django.utils.encoding import force_bytes
-from django.contrib.auth.tokens import default_token_generator
 from django.template.loader import render_to_string
-from django.db.models import Q
-from django.core.mail import BadHeaderError, send_mail
-from django.utils import timezone
+from django.db.models.query_utils import Q
+from django.utils.http import urlsafe_base64_encode
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from django.db.models import Q;
+
+
+
+def post_list(request):
+    object_list = Articles.objects.all()
+    paginator = Paginator(object_list, 3)
+
+    page = request.GET.get('page')
+
+    try: 
+        list_articles = paginator.page(page)
+    except PageNotAnInteger:
+        list_articles = paginator.page(1)
+    except EmprtPage:
+        list_articles = paginator.page(paginator.num_pages)
+    return render(request, "index.html", {'list_articles': list_articles, 'page':page})
+
+
+
+# chat function
+def chat(request):
+    return render(request, "chat/chat.html")
+
+
+def room(request, room_name):
+    return render(request, "chat/room.html",  {"room_name": room_name})
+
+
+def post_share(request, post_name):
+    articles = get_object_or_404(Articles, name=post_name)
+    sent = False
+
+    if request.method == "POST":
+        form = EmailPostForm(request.POST)  
+        if(form.is_valid()): 
+            cd = form.cleaned_data
+            subject_url = '{} ({}) recommends you reading "{}"'.format(cd['name'], cd['email'], post_name)
+
+            message = "Read '{}' \n\n{}\'s comments: {}".format(post_name, cd['name'], cd['comments'])
+            send_mail(subject_url, message, 'loarsen9@email.com', [cd['to']])
+    else: 
+        form = EmailPostForm()
+
+    return render(request, 'share.html', {
+                            'articles': articles,
+                            'form':  form,
+                            'sent': sent})
+
+
+def password_reset_form(request, name):
+    if request.method == "POST":
+        password_reset_form = PasswordResetForm(request.POST)
+
+        if password_reset_form.is_valid():
+            data = password_reset_form.cleaned_data['email']
+
+            associated_users = User.objects.filter(Q(username = name))
+            print(associated_users)
+            if associated_users.exists():
+                for user in associated_users:
+                    subject = "Password Reset Requested"
+                    email_template_name = "accounts/password_reset_email.txt"
+                    c = {
+                    "email": user.email,
+                    'domain':'127.0.0.1:8000',
+                    'site_name': 'Website',
+                    "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                    "user": user,
+                    'token': default_token_generator.make_token(user),
+                    'protocol': 'http',
+                    }
+                    email = render_to_string(email_template_name, c)
+                    try:
+                        send_mail(subject,  email, 'loarsen9@gmail.com' , [data])
+                    except BadHeaderError:
+                        return HttpResponse('Invalid header found.')
+                    return redirect ("/password_reset/done/")
+    password_reset_form = PasswordResetForm()
+    return render(request=request, template_name="accounts/password-reset-form.html", context={"password_reset_form":password_reset_form})
+
+
+
+#todo: not finished have error need to fiexd
+def user_edit(request, user_name): 
+    name = get_object_or_404(User, name=user_name);
+
+    if(reuest.method == "POST"):
+        form = EditProfileName(request.POST)
+        if(form.is_valid()):
+            cd = form.cleaned_data
+    else:
+        form = EditProfileName()
+
+    return render(request, 'editUser.html', {
+                            "name": name,
+                            "form": form
+        })
+
+
+
+
+# search
+def search(request):
+    query = request.GET.get('q') if request.method!= None else ''
+    results = Articles.objects.filter(
+        Q(name__icontains=query) |
+        Q(text__icontains=query)
+    )
+    if query == '':
+        results = Articles.objects.all()
+    return render(request, "search_result.html", {'list_articles': results})
+
 
 
 class HomeListView(ListView):
-    model = Articles
-    template_name = 'index.html'
-    context_object_name = 'list_articles'
-    
+    pass
+    #model = Articles
+    #template_name = 'index.html'
+    #context_object_name = 'list_articles'
 
 
 # class LoginRequiredMixin(AccessMixin):
@@ -53,9 +164,10 @@ class CustomSuccessMessageMixin:
         return '%s?id=%s' % (self.success_url, self.object.id)
 
 
+# @login_required(login_url='login_page')
 class HomeDetailView(CustomSuccessMessageMixin, FormMixin, DetailView):
     model = Articles
-    template_name = 'detail.html' 
+    template_name = 'detail.html'
     context_object_name = 'get_article'
     form_class = CommentForm
     success_msg = 'Comment successfully created, please wait for moderation'
@@ -76,103 +188,14 @@ class HomeDetailView(CustomSuccessMessageMixin, FormMixin, DetailView):
         self.object.article = self.get_object()
         self.object.author = self.request.user
         self.object.save()
-        notification = Notification.objects.create(notification_type=2, 
-                                                   user_to = self.object.article.author, 
-                                                   user_from = self.object.author,
-                                                   post = self.object.article,
-                                                   comment = self.object,
-                                                   date = timezone.now())
-        notification.save()
         return super().form_valid(form)
     
-def search(request):
-    query = request.GET.get('q') if request.method!= None else ''
-    results = Articles.objects.filter(
-        Q(name__icontains=query) |
-        Q(text__icontains=query)
-    )
-    if query == '':
-        results = Articles.objects.all()
-    return render(request, "search_results.html", {'list_articles': results})
-    
 
 
-@login_required
-def like(request, pk):
-  
-    user = request.user
-    post = Articles.objects.get(id=pk)
-    post_owner = post.author
-    notification_type = 1
-    current_likes = post.likes 
-    liked = Likes.objects.filter(user=user, post=post)
-    
-    
-    if not liked: 
-        like = Likes.objects.create(user=user, post=post)
-        like.save()
-        current_likes = current_likes + 1 
-        notification = Notification.objects.create(notification_type=notification_type, 
-                                                   user_to = post_owner,
-                                                   user_from=user,
-                                                   post=post,
-                                                   likes=like,
-                                                   date = timezone.now())
-        
-        notification.save()
-        
-    else:
-        Likes.objects.filter(user=user, post=post).delete()
-        Notification.objects.filter(notification_type=notification_type, 
-                                                   user_to = post_owner,
-                                                   user_from=user,
-                                                   post=post).delete()
-        current_likes = current_likes - 1
-    
-    
-    
-    post.likes=current_likes
-    post.save()
-    return HttpResponseRedirect(reverse('detail_page', args=[pk]))
-    
-    
-        
-def password_reset_form(request):
-    if request.method == "POST":
-        password_reset_form = PasswordResetForm(request.POST)
-        if password_reset_form.is_valid():
-            data = password_reset_form.cleaned_data['email']
-            associated_users = User.objects.filter(Q(email=data))
-            if associated_users.exists():
-                for user in associated_users:
-                    subject = "Password Reset Requested"
-                    email_template_name = "accounts/password_reset_email.txt"
-                    c = {
-                    "email":user.email,
-                    'domain':'127.0.0.1:8000',
-                    'site_name': 'Website',
-                    "uid": urlsafe_base64_encode(force_bytes(user.pk)),
-                    "user": user,
-                    'token': default_token_generator.make_token(user),
-                    'protocol': 'http',
-                    }
-                    email = render_to_string(email_template_name, c)
-                    try:
-                        send_mail(subject, email, 'arusabitkyzy03@gmail.com' , [user.email])
-                    except BadHeaderError:
-                        return HttpResponse('Invalid header found.')
-                    return redirect ("/password_reset/done/")
-    password_reset_form = PasswordResetForm()
-    return render(request=request, template_name="accounts/password-reset-form.html", context={"password_reset_form":password_reset_form})
-
-@login_required
 def update_comment_status(request, pk, type):
     item = Comments.objects.get(pk=pk)
     if request.user != item.article.author:
         return HttpResponse('deny')
-    
-    if request.user == None:
-        return redirect('login_page')
     
     if type == 'public':
         import operator
@@ -209,6 +232,8 @@ class ArticleCreateView(LoginRequiredMixin, CustomSuccessMessageMixin, CreateVie
         self.object.author = self.request.user
         self.object.save()
         return super().form_valid(form)
+    
+    
 
 class ArticleUpdateView(LoginRequiredMixin, CustomSuccessMessageMixin,UpdateView):
     model = Articles
@@ -251,7 +276,6 @@ class RegisterUserView(CreateView):
 class MyProjectLogout(LogoutView):
     next_page = reverse_lazy('edit_page')
 
-
 class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     model = Articles
     template_name = 'edit_page.html'
@@ -267,15 +291,3 @@ class ArticleDeleteView(LoginRequiredMixin, DeleteView):
         success_url = self.get_success_url()
         self.object.delete()
         return HttpResponseRedirect(success_url)
-
-
-class JsonList(View): 
-    def get(self, *args, **kwargs):
-        notifs = list(Notification.objects.filter(user=self.request.user))
-        return JsonResponse(self, {'data' : notifs}, safe=False)
-    
-@method_decorator(login_required, name='dispatch')
-class NotificationCheck(View):
-    def get(self, request):
-        return HttpResponse(Notification.objects.filter(user_has_seen = False, user_to=request.user).count()) 
-    

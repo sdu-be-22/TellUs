@@ -1,119 +1,120 @@
 {% extends 'index.html' %}
-    
-    {% block content %}
+
+{% block content %}
 
 <br>
 
 <!--    <h1 class="mt-4">Админ панель</h1>-->
-    
-    
-    
-    <!-- Button trigger modal -->
+
+
+
+<!-- Button trigger modal -->
+
+<div class="margin"
+  style="position: absolute; left: 50%; top: 13%; margin: -50px -50px; transform: translate(-50%, -50%);  ">
+  <form action="{%url 'search_results'%}" method="get">
+    <input name="q" type="text" placeholder="Search..." />
+  </form>
+</div>
+
+
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
   Add new article
 </button>
 
 
-    {% if success %}
-    <p style="color:red">Post added</p>
-    {% endif %}
-    
-    {% if messages %}
-    <div class="alert alert-success">
-        {% for m in messages %}
-            {{m}}
-        {% endfor %}
-    </div>
-    
-    
-    {% endif %}
-    
-    
-    
-    
-    
-    {% if update %}
-    
-    {% if success_update %}
-    <p style="color:red">Post updated</p>
-    {% endif %}
-    <p class="mt-4">Edit Page</p>
-    <p><a href="{% url 'edit_page' %}">Back</a></p>
-    
-    <form id="update_data" method="post">
-            {% csrf_token %}
-            {{form}}
-        </form>
-    <button form="update_data" type="submit" class="btn btn-primary">Update</button>
-    
-    {% else %}
-    
-      <form method="get" action="{% url 'search' %}">
-        <input type="text" placeholder="Search..." name="q">
-      </form> 
-    
-    <table class="table table-bordered mt-4">
-  <thead>
-    <tr>
-      <th scope="col">id</th>
-      <th scope="col">Create date</th>
-      <th scope="col">Name</th>
-      <th scope="col">Update</th>
-      <th scope="col">Delete</th>
-    </tr>
-  </thead>
-    
-    {% block postlist %}
-          <tbody>
-            
-            {% for i in list_articles %}
-          <tr {% if i.id|slugify == request.GET.id %} style="background:red" {% endif %}>
-            <th>{{i.id}}</th>
-            <td>{{i.create_date|date:'d.m.Y'}} - {{i.author}}</td>
-            <td>{{i.name}}</td>
-            <td> 
-                
-                {% if request.user == i.author %}
-                <a href="{% url 'update_page' i.id %}">Update</a>
-                {% else %}
-                
-                No access
-                {% endif %}
-                
-                </td>
-            <td>
-              
-              
-              
-                {% if request.user == i.author %}
-                <form id="delete_form{{i.id}}" action="{% url 'delete_page' i.id %}" method="post">{% csrf_token %}</form>
-                <a href="javascript:void()" onclick="delete_question{{i.id}}()">Delete</a>
-                <script>
-                    function delete_question{{i.id}}() {
-                        if (confirm("Are you sure")) {
-                            document.getElementById('delete_form{{i.id}}').submit()
-                        }
-                        
-                    }
-                    
-                    </script>
-        
-                {% else %}
-                
-                No access
-              
-                          
-                  {% endif %}
-                
-                
-                </td>
-          </tr>
-          {% endfor %}
-        
-        </tbody>
-    {% endblock %} 
+{% if success %}
+<p style="color:red">Post added</p>
+{% endif %}
 
-</table>
+{% if messages %}
+<div class="alert alert-success">
+  {% for m in messages %}
+  {{m}}
+  {% endfor %}
+</div>
+
+
+{% endif %}
+
+
+
+
+
+{% if update %}
+
+  {% if success_update %}
+  <p style="color:red">Post updated</p>
+  {% endif %}
+  <p class="mt-4">Edit Page</p>
+  <p><a href="{% url 'edit_page' %}">Back</a></p>
+
+  <form id="update_data" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form}}
+  </form>
+  <button form="update_data" type="submit" class="btn btn-primary">Update</button>
+
+{% else %}
+
+  <table class="table table-bordered mt-4">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Create date</th>
+        <th scope="col">Name</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for i in list_articles %}
+        <tr {% if i.id|slugify == request.GET.id %} style="background:red" {% endif %}>
+          <th>{{i.id}}</th>
+          <td>{{i.create_date|date:'d.m.Y'}} - {{i.author}}</td>
+          <td>{{i.name}}</td>
+          <td>
+
+            {% if request.user == i.author %}
+            <a href="{% url 'update_page' i.id %}">Update</a>
+            {% else %}
+
+            No access
+            {% endif %}
+
+          </td>
+          <td>
+
+
+
+          {% if request.user == i.author %}
+            <form id="delete_form{{i.id}}" action="{% url 'delete_page' i.id %}" method="post">{% csrf_token %}</form>
+            <a href="javascript:void()" onclick="delete_question{{i.id}}()">Delete</a>
+
+            <script>
+              function delete_question{{i.id}}() {
+                if (confirm("Are you sure")) {
+                  document.getElementById('delete_form{{i.id}}').submit()
+                }
+
+              }
+
+            </script>
+
+          {% else %}
+
+            No access
+
+
+          {% endif %}
+
+
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
 {% endif %}
 
@@ -121,7 +122,8 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -131,9 +133,9 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="add_form" method="post">
-            {% csrf_token %}
-            {{form}}
+        <form id="add_form" method="post" enctype = "multipart/form-data">
+          {% csrf_token %}
+          {{form}}
         </form>
       </div>
       <div class="modal-footer">
@@ -143,6 +145,6 @@
     </div>
   </div>
 </div>
-    
-    
-   {% endblock %}
+
+
+{% endblock %}

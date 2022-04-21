@@ -5,10 +5,21 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 
 
+
+class EmailPostForm(forms.Form):
+    name = forms.CharField(max_length = 25)
+    email = forms.EmailField()
+    to = forms.EmailField()
+    comments = forms.CharField(required = False, widget = forms.Textarea)
+
+class EditProfileName(forms.Form): 
+    name = forms.CharField(max_length = 25)
+    
+
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Articles
-        fields = ('name','text')
+        fields = ('name','text', 'picture')
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
         for field in self.fields:
@@ -54,5 +65,5 @@ class CommentForm(forms.ModelForm):
         super().__init__(*args,**kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
-        self.fields['text'].widget = Textarea(attrs={'rows':5}) 
+        self.fields['text'].widget = Textarea(attrs={'rows':5})
         
