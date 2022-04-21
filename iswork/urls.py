@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('core.urls')),
+    path("room/", include("room.urls")),
     path('admin/', admin.site.urls),
     path('reset_password/',
      auth_views.PasswordResetView.as_view(template_name="accounts/password-reset-form.html"),

@@ -4,8 +4,8 @@
     <h1 class="mt-4">Post: {{get_article.name}}</h1>
     <p><a href="/">Back</a></p>
 
-
-    <p>Create date:  {{get_article.create_date}}</p>
+    <img src="{{get_article.picture.url}}" alt="{{get_article.name}}" style="object-fit:cover; padding: 50px 50px;">
+    <p class="mt-5">Create date:  {{get_article.create_date}}</p>
     <p>Name:  {{get_article.name}}</p>
     <p>Text: {{get_article.text}}</p>
     
