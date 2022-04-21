@@ -1,6 +1,10 @@
 from django.contrib import admin
-from core.models import Articles
+from core.models import Articles, Likes, Comments, Notification
 
 
 # Register your models here.
 admin.site.register(Articles)
+admin.site.register(Likes)
+admin.site.register(Comments) 
+admin.site.register(Notification)
+

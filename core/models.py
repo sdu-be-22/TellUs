@@ -1,44 +1,48 @@
+from datetime import datetime, timezone
+import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from .middleware import get_current_user
 from django.db.models import Q
-from hitcount.models import HitCountMixin, HitCount
-from django.contrib.contenttypes.fields import GenericRelation
-from django.utils.text import slugify
-from ckeditor.fields import RichTextField
+
 # Create your models here.
-class Articles(models.Model , HitCountMixin):
+
+
+class Articles(models.Model):
     author = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name='Article owner', blank = True, null = True )
     create_date = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=200, verbose_name='Post name:')
-    text = RichTextField(blank=True, null=True)
-    # slug = models.SlugField(unique=True, max_length=100)
-    # hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',related_query_name='hit_count_generic_relation')
-
-
+    text = models.TextField(verbose_name='Text')
+    likes = models.IntegerField(default=0)
+    
     def __str__(self):
         return self.name
-
-    # def save(self, *args, **kwargs):
-    #     if not self.slug:
-    #         self.slug = slugify(self.name)
-    #     return super(Articles, self).save(*args, **kwargs)
     
     # class Meta:
     #     verbose_name='Статью'
     #     verbose_name_plural='Статьи'
 
-class StatusFilterComments(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(Q(status=False, author = get_current_user()) | Q(status=False, article__author=get_current_user()) | Q(status=True))
+
+class Likes(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')
+    post = models.ForeignKey(Articles, on_delete=models.CASCADE, related_name='post_like') 
     
 
-
 class Comments(models.Model):
-    article = models.ForeignKey(Articles, on_delete = models.CASCADE, verbose_name='Post', blank = True, null = True,related_name='comments_articles' )
+    article = models.ForeignKey(Articles, on_delete = models.CASCADE, verbose_name='Post', blank = True, null = True,related_name='comments_articles')
     author = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name='Comment author', blank = True, null = True )
     create_date = models.DateTimeField(auto_now=True)
     text = models.TextField(verbose_name='Text comment')
     status = models.BooleanField(verbose_name='Post Visibility', default=False)
-    objects  = StatusFilterComments()
-
+    # objects  = StatusFilterComments() 
+    
+    
+class Notification(models.Model):
+    notification_type = models.IntegerField()
+    user_to = models.ForeignKey(User, related_name='notification_to', on_delete=models.CASCADE, null=True)
+    user_from = models.ForeignKey(User, related_name='notification_from',on_delete=models.CASCADE,  null=True)
+    post = models.ForeignKey(Articles, related_name="+", on_delete=models.CASCADE, blank=True, null=True)
+    comment = models.ForeignKey(Comments, related_name='+', on_delete=models.CASCADE, blank=True, null=True)
+    likes = models.ForeignKey(Likes, related_name='+', on_delete=models.CASCADE, blank=True, null=True)
+    date = models.DateTimeField(datetime.datetime.now) 
+    user_has_seen = models.BooleanField(default=False)

@@ -38,11 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'hitcount',
-    'ckeditor',
-    'captcha',
+    'django.contrib.humanize',
 ]
-
+TEMPLATE_LOADERS = (
+    'django.template.loaders.app_directories.load_template_source',
+)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -123,20 +123,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT=os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS=[]
 
 
 LOGIN_URL = 'login_page'
 
-
-
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-#SEND SMTP GOOGLE EMAIL
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "loarsen9@gmail.com"
-EMAIL_HOST_PASSWORD = "Himia.math.$.atom.3"
+# SMTP settings
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'arusabitkyzy03@gmail.com'
+EMAIL_HOST_PASSWORD = 'abiusha11'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+
