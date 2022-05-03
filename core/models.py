@@ -13,10 +13,7 @@ class Articles(models.Model):
     
     def __str__(self):
         return self.name
-    
-    # class Meta:
-    #     verbose_name='Статью'
-    #     verbose_name_plural='Статьи'
+
 
 class StatusFilterComments(models.Manager):
     def get_queryset(self):
