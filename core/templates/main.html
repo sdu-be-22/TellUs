@@ -1,0 +1,103 @@
+{% extends 'index.html' %}
+
+{% block content %} 
+    <section class = "post_sliders">
+        <div class="container">
+            <div class="my-slider">
+            
+                {% for i in list_articles %}
+            
+                    <div class="post_sliders_info">
+
+                        <div class="post_slider_item">
+                        <div class="post_slider_img">
+
+                            <span style="background-image: url('{{i.picture.url}}');" ></span>
+                        </div>
+                        
+                        <div class="post_slider_txt">
+
+                            
+                            <h1 class="post_slider_txt1">{{i.name}}</h1>
+        
+                            <p class = "post_txt">{{i.text|truncatechars:"255"}}</p>
+                            
+                            <div class="post_more_info">
+                            {% if user.is_authenticated %}
+                            
+                            <div>
+                                {{i.create_date}}
+                                <span>
+                                <i class="fa-solid fa-star"></i>
+                                </span>
+                            </div> 
+                            
+                            <div class="post_slider_moreInfo">
+                                
+                                <a class="post_link" href="/detail/{{i.id}}">go to article</a>
+                            </div>
+                            
+                            {%endif%}
+                            </div>
+                        </div>
+                        </div>
+                        
+                    </div>
+            
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    <section class="popular_post">
+        <div class="container"> 
+            <h2 class="popular_post_title">
+                Popular Posts
+            </h2>
+            <div class="popular_post_blocks">
+                {% for i in object_list %}
+            
+                    <div class="popular_post_info">
+        
+                        <div class="popular_post_item">
+                            <div class="popular_post_number">{{i.id}}</div>
+                            <div class="popular_post_img">
+        
+                                <span style="background-image: url('{{i.picture.url}}');" ></span>
+                            </div>
+                        
+                            
+                            <div class="popular_post_txt">
+        
+                                <div class="popular_post_txt1">{{i.name}}</div>
+                                
+                                <div class="popular_post_info">
+                                {% if user.is_authenticated %}
+                                
+                                <div style = "color: rgb(128,  128, 128);">
+                                    {{i.create_date}}
+                                    <span class = "popular_post_star">
+                                    <i class="fa-solid fa-star"></i>
+                                    </span>
+                                </div> 
+                                
+                                <div class="popular_post_moreInfo">
+                                    
+                                    <a class="post_link" href="/detail/{{i.id}}">go to article</a>
+                                </div>
+                                
+                                {%endif%}
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+        
+                {% endfor %}
+            </div>
+           
+        </div>
+    </section>
+  
+{%endblock%}

@@ -1,12 +1,14 @@
 from django.shortcuts import render,redirect,HttpResponse, get_object_or_404
-
-from .models import Articles,Comments
+import datetime
+from unittest import loader
+from django.utils.decorators import method_decorator
+from .models import Articles,Comments, Likes, Notification
 from django.views.generic import ListView, DetailView,CreateView, UpdateView,DeleteView
 from django.views.generic.edit import FormMixin
-from .forms import ArticleForm, AuthUserForm, RegisterUserForm,CommentForm, EmailPostForm, EditProfileName
+from .forms import ArticleForm, AuthUserForm, RegisterUserForm, CommentForm, EmailPostForm, EditProfileName, PasswordChangingForm
 from django.urls import reverse, reverse_lazy 
 from django.contrib import messages
-from django.contrib.auth.views import LoginView,LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -14,7 +16,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.template import Context, Template
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.views import View
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.contrib.auth.forms import PasswordResetForm
@@ -24,6 +26,12 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.db.models import Q;
+from django.utils import timezone
+from hitcount.views import HitCountDetailView
+from django.contrib.auth.forms import UserChangeForm ,  PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeForm
+from django.views import generic
+from .forms import EditProfileForm , PasswordChangingForm
 
 
 
@@ -39,7 +47,7 @@ def post_list(request):
         list_articles = paginator.page(1)
     except EmprtPage:
         list_articles = paginator.page(paginator.num_pages)
-    return render(request, "index.html", {'list_articles': list_articles, 'page':page})
+    return render(request, "main.html", {'list_articles': list_articles, 'page':page, "object_list": object_list})
 
 
 def post_share(request, post_name):
@@ -97,7 +105,7 @@ def password_reset_form(request, name):
 
 
 #todo: not finished have error need to fiexd
-def user_edit(request, user_name): 
+def user_edit(request, user_name):
     name = get_object_or_404(User, name=user_name);
 
     if(reuest.method == "POST"):
@@ -106,7 +114,6 @@ def user_edit(request, user_name):
             cd = form.cleaned_data
     else:
         form = EditProfileName()
-
     return render(request, 'editUser.html', {
                             "name": name,
                             "form": form
@@ -125,6 +132,73 @@ def search(request):
     if query == '':
         results = Articles.objects.all()
     return render(request, "search_result.html", {'list_articles': results})
+
+
+
+
+@login_required
+def update_comment_status(request, pk, type):
+    item = Comments.objects.get(pk=pk)
+    if request.user != item.article.author:
+        return HttpResponse('deny')
+
+    if request.user == None:
+        return redirect('login_page')
+
+    if type == 'public':
+        import operator
+        item.status = operator.not_(item.status)
+        item.save()
+        template = 'comment_item.html'
+        context = {'item':item, 'status_comment':'Comment published'}
+        return render(request, template, context)
+        
+    elif type == 'delete':
+        item.delete()
+        return HttpResponse('''
+        <div class="alert alert-success">
+        Comment has been deleted
+        </div>
+        ''')
+    
+    return HttpResponse('1')
+
+@login_required
+def like(request, pk):
+  
+    user = request.user
+    post = Articles.objects.get(id=pk)
+    post_owner = post.author
+    notification_type = 1
+    current_likes = post.likes 
+    liked = Likes.objects.filter(user=user, post=post)
+    
+    
+    if not liked: 
+        like = Likes.objects.create(user=user, post=post)
+        like.save()
+        current_likes = current_likes + 1 
+        notification = Notification.objects.create(notification_type=notification_type, 
+                                                   user_to = post_owner,
+                                                   user_from=user,
+                                                   post=post,
+                                                   likes=like,
+                                                   date = timezone.now())
+        notification.save()
+        
+    else:
+        Likes.objects.filter(user=user, post=post).delete()
+        Notification.objects.filter(notification_type=notification_type, 
+                                                   user_to = post_owner,
+                                                   user_from=user,
+                                                   post=post).delete()
+        current_likes = current_likes - 1
+    
+    
+    
+    post.likes=current_likes
+    post.save()
+    return HttpResponseRedirect(reverse('detail_page', args=[pk]))
 
 
 
@@ -178,34 +252,17 @@ class HomeDetailView(CustomSuccessMessageMixin, FormMixin, DetailView):
         self.object.article = self.get_object()
         self.object.author = self.request.user
         self.object.save()
+        notification = Notification.objects.create(notification_type=2, 
+                                                   user_to = self.object.article.author, 
+                                                   user_from = self.object.author,
+                                                   post = self.object.article,
+                                                   comment = self.object,
+                                                   date = timezone.now())
+        notification.save()
         return super().form_valid(form)
     
-
-
-def update_comment_status(request, pk, type):
-    item = Comments.objects.get(pk=pk)
-    if request.user != item.article.author:
-        return HttpResponse('deny')
     
-    if type == 'public':
-        import operator
-        item.status = operator.not_(item.status)
-        item.save()
-        template = 'comment_item.html'
-        context = {'item':item, 'status_comment':'Comment published'}
-        return render(request, template, context)
-        
-    elif type == 'delete':
-        item.delete()
-        return HttpResponse('''
-        <div class="alert alert-success">
-        Comment has been deleted
-        </div>
-        ''')
     
-    return HttpResponse('1')
-
-
 
 class ArticleCreateView(LoginRequiredMixin, CustomSuccessMessageMixin, CreateView):
     login_url = reverse_lazy('login_page')
@@ -281,3 +338,33 @@ class ArticleDeleteView(LoginRequiredMixin, DeleteView):
         success_url = self.get_success_url()
         self.object.delete()
         return HttpResponseRedirect(success_url)
+
+
+class JsonList(View): 
+    def get(self, *args, **kwargs):
+        notifs = list(Notification.objects.filter(user=self.request.user))
+        return JsonResponse(self, {'data' : notifs}, safe=False)
+
+@method_decorator(login_required, name='dispatch')
+class NotificationCheck(View):
+    def get(self, request):
+        return HttpResponse(Notification.objects.filter(user_has_seen = False, user_to=request.user).count()) 
+
+
+class UserEditView(generic.UpdateView):
+    form_class=EditProfileForm
+    template_name='edit_profile.html'
+    success_url=reverse_lazy('home')
+
+    def get_object(self):
+        return self.request.user
+
+
+
+class PasswordsChangeView(PasswordChangeView):
+    form_class=PasswordChangingForm
+    # from_class=PasswordChangeView
+    success_url = reverse_lazy('password_success')
+
+def password_success(request):
+    return render(request, 'password_success.html', {}) 
