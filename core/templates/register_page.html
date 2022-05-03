@@ -1,14 +1,23 @@
 {% extends 'index.html' %}
     
     {% block content %}
-    <h1 class="mt-4">Register</h1>
-    <p><a href="/">Back</a></p>
-<div class="col-4">
-<form id="add_form" method="post">
-            {% csrf_token %}
-            {{form}}
-            <button form="add_form" type="submit" class="btn btn-primary mt-4">Add</button>
-        </form>
+    <section class="login">
+        <!-- <p class="login_backPath post_linkPagi" ><a href="/">Back</a></p> -->
+        <div class="container login_pos">
+            <div class="center">    
+                
+                <h1 class="">Register</h1>
+            
+                <form id="add_form" method="post">
+                    <!-- <div class="inputbox"> -->
+                        {{form}}
+                        {% csrf_token %}
+                    <!-- </div> -->
+                    <button form="add_form" type="submit" class="login_btn">Add</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-</div>
 {% endblock %}
+

@@ -40,8 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'channels',
-    "room"
+    "room",
+    'django.contrib.humanize',
+    "hitcount",
+    "ckeditor", 
+    "captcha",
+    "webpack_loader",
 ]
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.app_directories.load_template_source',
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -114,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
@@ -128,17 +137,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+PUBLIC_DIR = os.path.join(BASE_DIR, 'public')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
-MEDIA_URL = '/media/'  
+STATIC_ROOT = os.path.join(PUBLIC_DIR, 'static')
+
+STATIC_URL = '/static/'
+
   
 # Path where media is stored  
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')  
 
-STATIC_URL = '/static/'
+MEDIA_URL = '/media/'  
+
 
 LOGIN_URL = 'login_page'
 
@@ -153,3 +167,9 @@ EMAIL_HOST_PASSWORD = "Himia.math.$.atom.3"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+RECAPTCHA_USE_SSL = False
+RECAPTCHA_PUBLIC_KEY = 'public'
+RECAPTCHA_PRIVATE_KEY = 'private'
+RECAPTCHA_OPTIONS = {'theme': 'white'}

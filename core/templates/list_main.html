@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+<h1 class="mt-4">Zero to Hero</h1>
+
+
+
+{% for i in list_articles %}
+
+            <ul class="list-group mt-4">
+            
+            
+            <li class="list-group-item">
+                <b>{{i.create_date}}</b>
+            <span class="m-2">{{i.name}}</span>
+            <span>{{i.text|truncatechars:"5"}}</span>
+            
+            <span class="float-right mr-3"><a href="/detail/{{i.id}}">go to article</a></span>
+            </li>
+            
+            </ul>
+
+{% endfor %}
+
+{% endblock %}
