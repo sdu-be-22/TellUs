@@ -2,6 +2,34 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./core/static/js/modules/changeRowsCols.js":
+/*!**************************************************!*\
+  !*** ./core/static/js/modules/changeRowsCols.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function changeRowsCols(tagForm, tagTextarea) {
+    try {
+
+        const form = document.getElementById(tagForm),
+                textarea = form.querySelector(tagTextarea);
+    
+        textarea.setAttribute("rows", 30);
+        textarea.setAttribute("cols", 100);
+    }catch {
+        
+    }
+
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (changeRowsCols);
+
+/***/ }),
+
 /***/ "./core/static/js/modules/firstLetterUser.js":
 /*!***************************************************!*\
   !*** ./core/static/js/modules/firstLetterUser.js ***!
@@ -4274,12 +4302,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_labelFormChanged__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/labelFormChanged */ "./core/static/js/modules/labelFormChanged.js");
 /* harmony import */ var _modules_tinySlideModified__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/tinySlideModified */ "./core/static/js/modules/tinySlideModified.js");
 /* harmony import */ var _modules_modalWindow__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/modalWindow */ "./core/static/js/modules/modalWindow.js");
+/* harmony import */ var _modules_changeRowsCols__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/changeRowsCols */ "./core/static/js/modules/changeRowsCols.js");
 /**
  * @param {obj} loaded-DOM elements 
  * @param {DOM} clickShowHide-notification
  * @param {DOM} scrollSubHead - position fixed
  * @param {slide} slider- with npm package tiny slider ❤
- * @param {main} mainScaript - all import in this file 
+ * @param {main} mainScript - all import in this file 
  */
 
 
@@ -4289,6 +4318,7 @@ __webpack_require__.r(__webpack_exports__);
 
  
  
+
 
 
 window.addEventListener('DOMContentLoaded', () => { 
@@ -4303,6 +4333,7 @@ window.addEventListener('DOMContentLoaded', () => {
     (0,_modules_subheaderScroll__WEBPACK_IMPORTED_MODULE_1__["default"])("subheader", document.body);
     (0,_modules_numericPost__WEBPACK_IMPORTED_MODULE_0__["default"])(".popular_post_number");
     (0,_modules_modalWindow__WEBPACK_IMPORTED_MODULE_7__["default"])('#modal', "exampleModal", "label");
+    (0,_modules_changeRowsCols__WEBPACK_IMPORTED_MODULE_8__["default"])("update_data", "textarea");
 
     (0,_modules_labelFormChanged__WEBPACK_IMPORTED_MODULE_5__["default"])({
         labelForm: "label",

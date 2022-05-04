@@ -1130,3 +1130,48 @@ footer .copyright p a {
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 5px;
 }
+
+#update_data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#update_data input {
+    margin-right: 10px;
+    height: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 30px;
+    border: none;
+    background: #fff;
+    border: none;
+    background-color: transparent;
+    resize: none;
+    outline: none;
+    border-bottom: 1px solid #ccc;
+}
+
+#update_data textarea {
+    margin-top: 20px;
+    
+    padding: 20px;
+    border-radius: 15px;
+    border-color: #ccc;
+}
+
+.update_btn {
+    height: 40px;
+    width: 100px;
+    padding: 0;
+    margin: 0;
+    border-radius: 30px;
+    border: none;
+    color: #fff;
+    background: #000;
+    transition: 0.3s all;
+}
+.update_btn:hover {
+    background:#8bc34a;
+}

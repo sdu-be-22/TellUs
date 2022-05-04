@@ -18,13 +18,16 @@ class EditProfileName(forms.Form):
     
 
 class ArticleForm(forms.ModelForm):
+    company_logo = forms.ImageField(label=('Change Image'),required=False, error_messages = {'invalid':("Image files only")}, widget=forms.FileInput)
     class Meta:
         model = Articles
-        fields = ('name','text', 'picture')
+        fields = ('name','text', 'company_logo')
+
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
+            
 
 
 

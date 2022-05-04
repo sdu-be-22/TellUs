@@ -30,18 +30,19 @@
       
       
       {% if update %}
-      
+        <style>
+          .post_edit_btn {display:none;}
+        </style> 
         {% if success_update %}
         <p style="color:red">Post updated</p>
         {% endif %}
-        <p class="mt-4">Edit Page</p>
-        <p><a href="{% url 'edit_page' %}">Back</a></p>
+        <p class="mt-4 alert">Edit Page</p>
       
         <form id="update_data" method="post" enctype="multipart/form-data">
-          {% csrf_token %}
           {{form}}
+          {% csrf_token %}
         </form>
-        <button form="update_data" type="submit" class="btn btn-primary">Update</button>
+        <button form="update_data" type="submit" class="update_btn">Update</button>
       
       {% else %}
           <section class = "post_sliders post_edit_block">
@@ -153,7 +154,7 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary" id = "modal"  data-dismiss="modal">Close</button>
               <button form="add_form" type="submit" class="btn btn-primary">Add</button>
             </div>
           </div>

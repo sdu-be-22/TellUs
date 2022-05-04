@@ -3,7 +3,7 @@
  * @param {DOM} clickShowHide-notification
  * @param {DOM} scrollSubHead - position fixed
  * @param {slide} slider- with npm package tiny slider ❤
- * @param {main} mainScaript - all import in this file 
+ * @param {main} mainScript - all import in this file 
  */
 
 import numericPost          from "./modules/numericPost";
@@ -14,6 +14,7 @@ import slider               from "./modules/tinySlide";
 import labelFormChanged     from "./modules/labelFormChanged"; 
 import tinySlideModified    from "./modules/tinySlideModified"; 
 import modalWindow          from "./modules/modalWindow";
+import changeRowsCols       from "./modules/changeRowsCols";
 
 window.addEventListener('DOMContentLoaded', () => { 
     
@@ -27,6 +28,7 @@ window.addEventListener('DOMContentLoaded', () => {
     subheaderScroll("subheader", document.body);
     numericPost(".popular_post_number");
     modalWindow('#modal', "exampleModal", "label");
+    changeRowsCols("update_data", "textarea");
 
     labelFormChanged({
         labelForm: "label",
