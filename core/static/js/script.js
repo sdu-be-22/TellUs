@@ -15,6 +15,7 @@ import labelFormChanged     from "./modules/labelFormChanged";
 import tinySlideModified    from "./modules/tinySlideModified"; 
 import modalWindow          from "./modules/modalWindow";
 import changeRowsCols       from "./modules/changeRowsCols";
+import globeIO              from "./modules/globe";
 
 window.addEventListener('DOMContentLoaded', () => { 
     
@@ -23,7 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
      */
 
     slider();
-    //globeIO();
+    globeIO();
     firstLetterUser(".subheader_user_name");
     subheaderScroll("subheader", document.body);
     numericPost(".popular_post_number");

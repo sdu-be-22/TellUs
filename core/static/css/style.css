@@ -1175,3 +1175,14 @@ footer .copyright p a {
 .update_btn:hover {
     background:#8bc34a;
 }
+
+#globalArea {
+    position: absolute;
+    left: 70%;
+    transform: translate(-50%, -50%);
+}
+
+#globalArea canvas {
+    border-radius: 10px;
+
+}
