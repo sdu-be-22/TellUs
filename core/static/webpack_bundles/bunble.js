@@ -127,6 +127,48 @@ function labelFormChanged({ labelForm, tagForm, tagInputs, justTagP, Textarea })
 
 /***/ }),
 
+/***/ "./core/static/js/modules/modalWindow.js":
+/*!***********************************************!*\
+  !*** ./core/static/js/modules/modalWindow.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+
+// Modal window 
+function modalWindow(modal_Fade, modalBlock, label_form) {
+    try {
+
+        const modalShow = document.querySelectorAll(modal_Fade); 
+        const modal = document.getElementById(modalBlock),
+                labels = modal.querySelectorAll(label_form);
+    
+    
+        labels.forEach(label => {
+            if(label.getAttribute("for") == "id_text") {
+                label.classList.add("modal_labelText");
+            }else if(label.getAttribute("for") == "id_picture") {
+                label.classList.add("moda_labelPic");
+            }
+        });
+    
+        modalShow.forEach(item => {
+            item.addEventListener("click", () => {
+                modal.classList.toggle("fade");
+            });
+        });
+    }catch {
+        ;
+    }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (modalWindow);
+
+/***/ }),
+
 /***/ "./core/static/js/modules/notificationShowHide.js":
 /*!********************************************************!*\
   !*** ./core/static/js/modules/notificationShowHide.js ***!
@@ -4231,11 +4273,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_tinySlide__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/tinySlide */ "./core/static/js/modules/tinySlide.js");
 /* harmony import */ var _modules_labelFormChanged__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/labelFormChanged */ "./core/static/js/modules/labelFormChanged.js");
 /* harmony import */ var _modules_tinySlideModified__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/tinySlideModified */ "./core/static/js/modules/tinySlideModified.js");
+/* harmony import */ var _modules_modalWindow__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/modalWindow */ "./core/static/js/modules/modalWindow.js");
 /**
  * @param {obj} loaded-DOM elements 
  * @param {DOM} clickShowHide-notification
  * @param {DOM} scrollSubHead - position fixed
  * @param {slide} slider- with npm package tiny slider ❤
+ * @param {main} mainScaript - all import in this file 
  */
 
 
@@ -4246,17 +4290,20 @@ __webpack_require__.r(__webpack_exports__);
  
  
 
+
 window.addEventListener('DOMContentLoaded', () => { 
     
     /**
-     * @property.import  allelements-set variables
+     * @property.import  allelements-get variables
      */
 
     (0,_modules_tinySlide__WEBPACK_IMPORTED_MODULE_4__["default"])();
+    //globeIO();
     (0,_modules_firstLetterUser__WEBPACK_IMPORTED_MODULE_2__["default"])(".subheader_user_name");
     (0,_modules_subheaderScroll__WEBPACK_IMPORTED_MODULE_1__["default"])("subheader", document.body);
     (0,_modules_numericPost__WEBPACK_IMPORTED_MODULE_0__["default"])(".popular_post_number");
- 
+    (0,_modules_modalWindow__WEBPACK_IMPORTED_MODULE_7__["default"])('#modal', "exampleModal", "label");
+
     (0,_modules_labelFormChanged__WEBPACK_IMPORTED_MODULE_5__["default"])({
         labelForm: "label",
         tagForm: "add_form",

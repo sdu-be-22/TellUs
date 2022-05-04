@@ -33,15 +33,6 @@
 
   <title>TellUs</title>
 
-  <style>
-    .chat-messages {
-      height: 400px;
-      overflow-y: auto;
-      background-color: #000;
-      color: #fff;
-    }
-  </style>
-
 </head>
 
 
@@ -89,8 +80,8 @@
           </div>
 
           <div class="header_forms">
-            <form action=".">
-              <input type="search" placeholder="search">
+            <form action="{%url 'search_results'%}" method="get">
+              <input type="search" name = "q" placeholder="Search...">
             </form>
             <div class="header_searchBtn">
               <i class="fa-solid fa-magnifying-glass"></i>
@@ -237,7 +228,7 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
     crossorigin="anonymous"></script>
-    
+  
   
     {% block js %}
 

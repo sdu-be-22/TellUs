@@ -1,21 +1,29 @@
 {% extends 'index.html' %}
 
-{% block title %}Rooms | {% endblock %}
 
 {% block content %}
-<div class="p-10 lg:p-20 text-center">
-    <h1 class="text-3xl lg:text-6xl text-black">Rooms</h1>
-</div>
-
-<div class="w-full flex flex-wrap items-center">
-    {% for room in rooms %}
-        <div class="w-full lg:w-1/4 px-3 py-3">
-            <div class="p-4 bg-white shadow rounded-xl text-center">
-                <h2 class="mb-5 text-2xl font-semibold">{{ room.name }}</h2>
-
-                <a href="{% url 'room' room.slug %}" class="px-5 py-3 block rounded-xl text-black bg-teal-600 hover:bg-teal-700">Join</a>
-            </div>
+<section class="rooms">
+    <div class="container">
+        
+        <div class="rooms_title">
+            <h1 class="rooms_txt">Rooms</h1>
         </div>
-    {% endfor %}
-</div>
+        
+        <div class="rooms_list">
+            {% for room in rooms %}
+                <div class="rooms_detail">
+                    <div class="rooms_info">
+                        <h2 class="rooms_name">{{ room.name }}</h2>
+                        <button>
+                            
+                            <a href="{% url 'room' room.slug %}" class="rooms_link">Join</a>
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- <div id="globalArea"></div> -->
+    </div>
+</section>
 {% endblock %}

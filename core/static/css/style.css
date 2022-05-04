@@ -831,3 +831,302 @@ footer .copyright p a {
     margin-top: 63px;
 
 }
+
+.rooms, .room {
+    min-height: 360px; 
+    padding: 20px 0 10px 0;
+
+}
+
+.rooms h1 , .room h1{
+    font-size: 25px;
+    font-weight: 500;
+    margin: 2px;
+    color: #000;
+
+} 
+
+.rooms_list {
+    margin-top: 20px;
+    
+}
+
+.rooms_detail {
+    
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+
+.rooms_detail .rooms_info{
+    font-weight: 400; 
+    font-size: 15px; 
+
+}
+
+.rooms_name  {
+    text-transform:  uppercase;
+}
+
+.rooms_info button {
+    height: 40px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border-radius: 30px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    background: #000;
+    transition: 0.3s all;
+}
+
+.rooms_info button:hover  {
+    background-color:   #8bc34a;    
+}
+
+.rooms_info button a{
+    color: #fff;
+}
+
+
+.room_detail .room_name {
+    font-size: 25px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+
+.chat-messages {
+    height: 400px;
+    margin-top: 20px;
+    padding: 20px;
+    overflow-y: auto;
+    border-radius: 10px;
+    background-color: #000;
+    color: #fff;
+}
+
+.room_form {
+    margin-top: 20px;
+
+} 
+.room_formInput {
+    margin-right: 10px;
+    height: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 30px;
+    border: none;
+    background: #fff;
+    border: none;
+    background-color: transparent;
+    resize: none;
+    outline: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.room_btn {
+    height: 40px;
+    width: 120px;
+    padding: 0;
+    margin: 0;
+    border-radius: 30px;
+    border: none;
+    color: #fff;
+    background: #000;
+    transition: 0.3s all;
+}
+
+
+.modal {
+    display: none;
+    position: absolute;
+    top: 50%;
+    width: 500px;
+    min-height: 500px;
+    background: rgba(128, 128, 128, 0.7);
+    left: 50%;
+    transform: translate(-50%, -50%);
+} 
+.fade {
+    display: inline;
+}
+
+.modal-dialog {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.modal-header {
+    display: flex; 
+    align-items: center;
+}
+
+.modal-header .modal-title {
+    font-size: 20px; 
+    color:#efefef;
+    font-weight: 400; 
+
+}
+
+.modal_close {
+    position: absolute;
+    right: 10px;
+    top:10px;
+    font-size: 25px;
+    color: #fff;
+}
+
+.modal_close:hover {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-body form {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center;
+}
+
+
+
+
+.post_edit {
+    padding: 20px 0 10px 0;
+
+}
+.post_edit_block {
+    margin-top: 0   ;
+}
+
+.post_edit_info {
+    margin-top: 15px;
+}
+
+.post_edit .post_edit_btn {
+    height: 60px;
+    width: 230px;
+    padding: 0;
+    margin: 0;
+    margin-top: 35px;
+    border-radius: 30px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    background: #000;
+    transition: 0.3s all;   
+    text-transform: uppercase;
+
+}
+
+.post_edit .post_edit_btn:hover {
+    background:#8bc34a;
+}
+
+.post_edit_data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.post_edit_more_left {
+    display: flex;
+    flex-direction: column;
+}
+
+.post_edit_more_info {
+    display: flex;
+    justify-content: space-around;
+    align-items:center;
+}
+
+.post_edit_linkPost:nth-child(n) {
+    font-size: 10px;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: .01rem;
+    display: inline-block;
+    text-decoration: none!important;
+    color: rgb(128,  128, 128);
+
+}
+
+.post_edit_linkPost:nth-child(n):after {
+    content: "";
+    display: block; 
+    height: 2px; 
+    width: 0%; 
+    transition: all 0.5s; 
+    background-color: #000;
+}
+
+.post_edit_linkPost:hover:after {
+    width: 100%;
+}
+
+.post_edit_more_into_btns {
+    display: flex;
+    justify-content: space-around;
+}
+
+.post_edit_btns {
+    line-height: 50px;
+    height: 50px;
+    text-align: center;
+    width: auto;
+    cursor: pointer;
+    border: none; 
+    background: transparent;
+    transition: all 0.3s;
+}
+.post_edit_btns  a {
+    color: #000;
+}
+
+.post_edit_btns:hover {
+    background-color:rgba(128, 128, 128, 0.5);
+    border-radius: 5px;
+
+}
+
+.alert {
+    text-align: center;
+    font-size: 30px; 
+    font-weight: 400; 
+
+}
+
+.modal_labelText {
+    position: absolute;
+    left: 100px; 
+    top: 13%;
+}
+
+.moda_labelPic {
+    position: absolute;
+    top: 60%;
+
+}
+
+.modal-footer button {
+
+    margin-top: 30px;
+    line-height: 50px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    transition: all 0.3s;
+}
+
+.modal-footer button:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+}

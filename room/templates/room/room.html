@@ -1,32 +1,36 @@
 {% extends 'index.html' %}
 
-{% block title %}{{ room.name }} | {% endblock %}
-
 {% block content %}
-<div class="p-10 lg:p-20 text-center">
-    <h1 class="text-3xl lg:text-6xl text-white">{{ room.name }}</h1>
-</div>
 
-<div class="lg:w-2/4 mx-4 lg:mx-auto p-4 bg-white rounded-xl">
-    <div class="chat-messages space-y-3" id="chat-messages">
-        {% for message in messages %}
-            <div class="p-4 bg-gray-200 rounded-xl">
-                <p class="font-semibold">{{ message.user.username }}: {{ message.content }}</p>
+<section class="room">
+    <div class="container">
+        <div class="room_detail">
+            <h1 class="room_name">{{ room.name }}</h1>
+        </div>
+        
+        <div class="room_block">
+            <div class="chat-messages room_chat_message " id="chat-messages">
+                {% for message in messages %}
+                    <div class="room_message">
+                        <div class="font-semibold">{{ message.user.username }}: {{ message.content }}</div>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+        </div>
+        
+        <div class="room_form">
+            <form method="post" action="." class="flex">
+                <input type="text" name="content" class="room_formInput" placeholder="Your message..." id="chat-message-input">
+        
+                <button 
+                    class="room_btn"
+                    id="chat-message-submit"
+                >Submit</button>
+            </form>
+        </div>
     </div>
-</div>
+</section>
 
-<div class="lg:w-2/4 mt-6 mx-4 lg:mx-auto p-4 bg-white rounded-xl">
-    <form method="post" action="." class="flex">
-        <input type="text" name="content" class="flex-1 mr-3" placeholder="Your message..." id="chat-message-input">
-
-        <button 
-            class="px-5 py-3 rounded-xl text-white bg-teal-600 hover:bg-teal-700 btn btn-primary"
-            id="chat-message-submit"
-        >Submit</button>
-    </form>
-</div>
 {% endblock %}
 
 {% block scripts %}
