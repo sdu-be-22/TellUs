@@ -44,4 +44,4 @@ yarn-error.log*
 package-lock.json
 webpack-stats.json
 bunble.js.map
-bundle.js
+bunble.js
