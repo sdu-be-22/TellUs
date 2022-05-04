@@ -23,9 +23,9 @@ class Articles(models.Model, HitCountMixin):
         return self.name
 
 
-class StatusFilterComments(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(Q(status=False, author = get_current_user()) | Q(status=False, article__author=get_current_user()) | Q(status=True))
+# class StatusFilterComments(models.Manager):
+#     def get_queryset(self):
+#         return super().get_queryset().filter(Q(status=False, author = get_current_user()) | Q(status=False, article__author=get_current_user()) | Q(status=True))
     
 
 
@@ -35,7 +35,7 @@ class Comments(models.Model):
     create_date = models.DateTimeField(auto_now=True)
     text = models.TextField(verbose_name='Text comment')
     status = models.BooleanField(verbose_name='Post Visibility', default=False)
-    objects  = StatusFilterComments()
+    # objects  = StatusFilterComments()
 
 
 class Likes(models.Model):

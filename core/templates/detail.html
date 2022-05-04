@@ -1,44 +1,66 @@
 {% extends 'index.html' %}
 {% load hitcount_tags %}
 
-
-
-
 {% block content %}
 <section class="post_detail">
     <div class="container">
-        <h1 class="mt-4">Post: {{get_article.name}}</h1>
+        <h1 class="post_detail_title"><span class = "post_detail_subtitle">Post</span> {{get_article.name}}</h1>
 
-        <img src="{{get_article.picture.url}}" alt="{{get_article.name}}" style="object-fit:cover; padding: 50px 50px;">
-        <p class="mt-5">Create date: {{get_article.create_date}}</p>
-        <p>Name: {{get_article.name}}</p>
-        <p>Text: {{get_article.text | safe}} </p>
+        
+        <div class="post_detail_info">
+            
+            <img src="{{get_article.picture.url}}" alt="{{get_article.name}}" width = "730px" height = "440px">
+            <div class="post_detail_info_txt">
 
+                <p class="mt-5">Create date: {{get_article.create_date}}</p>
+                <p class="mt-5">Name: {{get_article.name}}</p>
 
-
-        <p>Comment ({{get_article.comments_articles.all.count}})</p>
-
-
-        <hr>
-
-        <p>Add comment</p>
-
-
-        {% if messages %}
-        <div class="alert alert-success">
-            {% for m in messages %}
-            {{m}}
-            {% endfor %}
+            </div>
         </div>
+        <p class = "post_detail_txt" id  = "postDetail_txt">{{get_article.text | safe}} </p>
 
 
-        {% endif %}
+        <div class="post_detail_comment">
+
+            
+            <div class="like">
+                <a href="{% url 'likes' get_article.id %}" class = "like_icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-heart" viewBox="0 0 16 16">
+                        <path
+                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                    </svg>
+                </a>
+                <p class ="like_count">{{get_article.likes}} Likes </p>
+                 <p class = "like_count"><i class="fa-solid fa-comment"></i> {{get_article.comments_articles.all.count}} Comment</p>
+
+                <div class="post_detail_shareLink">
+                    <i class="fa-solid fa-share post_shareIcon"></i>
+                    <a href="{%url 'post_share' post_name=get_article.name %}">Share post</a>
+                </div>
+            </div>
+    
+            <hr>
+    
+            <!-- <p>Add comment</p> -->
+    
+    
+            {% if messages %}
+            <div class="alert alert-success">
+                {% for m in messages %}
+                {{m}}
+                {% endfor %}
+            </div>
+    
+    
+            {% endif %}
+
+        </div>    
 
 
 
 
-
-        <ul>
+        <ul class = "post_detail_list">
 
             {% for item in get_article.comments_articles.all %}
 
@@ -51,7 +73,7 @@
             {% endfor %}
         </ul>
 
-        <div class="col-4">
+        <div class="post_detail_comment_fill">
 
 
             <form action="" id="add_form" method="post">
@@ -62,22 +84,7 @@
 
 
 
-            <button form="add_form" type="submit" class="btn btn-primary">Add</button>
-
-            <div class="like">
-                <a href="{% url 'likes' get_article.id %}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-heart" viewBox="0 0 16 16">
-                        <path
-                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-                    </svg>
-                </a>
-                <p>{{get_article.likes}} Likes </p>
-            </div>
-
-            <p>
-                <a href="{%url 'post_share' post_name=get_article.name %}">Share are this post</a>
-            </p>
+            <button form="add_form" type="submit" class="post_detail_btn">Add</button>
 
 
         </div>
@@ -87,30 +94,30 @@
         
         {% block js %}
         
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        
-        <script>
-            $('body').on('click', '.update_status', function (event) {
-                event.preventDefault();
-                if (confirm('Are you sure?Article Visibility')) {
-                    var url = $(this).attr('data-url')
-                    var tag_li = $(this).parent()
-                    console.log(url)
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+            
+            <script>
+                $('body').on('click', '.update_status', function (event) {
+                    event.preventDefault();
+                    if (confirm('Are you sure?Article Visibility')) {
+                        var url = $(this).attr('data-url')
+                        var tag_li = $(this).parent()
+                        console.log(url)
+                        
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            success: function (response) {
+                                tag_li.html(response)
+                                console.log(response)
+                            }
+                        })
+                        
+                    }
                     
-                    $.ajax({
-                        url: url,
-                        type: 'GET',
-                        success: function (response) {
-                            tag_li.html(response)
-                            console.log(response)
-                        }
-                    })
-                    
-                }
-                
-            })
+                })
             </script>
-    {% endblock %}
+         {% endblock %}
     </div>
 </section>
 

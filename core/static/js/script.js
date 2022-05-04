@@ -16,6 +16,7 @@ import tinySlideModified    from "./modules/tinySlideModified";
 import modalWindow          from "./modules/modalWindow";
 import changeRowsCols       from "./modules/changeRowsCols";
 import globeIO              from "./modules/globe";
+import paragraphSplit       from "./modules/strSplitOnLength";
 
 window.addEventListener('DOMContentLoaded', () => { 
     

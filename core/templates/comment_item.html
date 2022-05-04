@@ -4,14 +4,14 @@
             
     </div>
     {% endif %}
-    Create date: {{item.create_date}} <br>
-    Comment author: {{item.author}} <br>
+    {{item.author}}: {{item.text}} <br>
+    <span class="date_txt">{{item.create_date}}</span> <br>
 <!--    Comment Status: {{item.status}}-->
     {% if item.article.author == request.user %}
      - 
-    <a class="update_status" data-url="{% url 'update_comment_status' item.id 'public' %}" href="#">Publish</a> /
+    <!-- <a class="update_status" data-url="{% url 'update_comment_status' item.id 'public' %}" href="#">Publish</a> / -->
     <a class="update_status" data-url="{% url 'update_comment_status' item.id 'delete' %}" href="#">Delete</a>
     {% endif %}
-    <br><br>
-    {{item.text}}
+
+    
     <hr>

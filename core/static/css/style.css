@@ -1186,3 +1186,145 @@ footer .copyright p a {
     border-radius: 10px;
 
 }
+
+.post_detail {
+    padding: 10px 0 20px 0;
+    
+}
+
+.post_detail .post_detail_title {
+    text-align: center;
+    font-size: 40px; 
+    margin-top: 10px;
+
+}
+
+.post_detail .post_detail_title .post_detail_subtitle {
+    color:#8bc34a
+}
+
+.post_detail .post_detail_info {
+    display: flex; 
+    align-items: center;
+    margin-top: 40px;
+    justify-content: space-between;
+}
+
+.post_detail .post_detail_info .post_detail_info_txt  {
+    display: flex; 
+    flex-direction: column; 
+
+}
+
+.post_detail .post_detail_info .post_detail_info_txt  .mt-5 {
+    font-size: 20px; 
+    font-weight: 400; 
+    line-height: 10px;
+}
+
+.post_detail_txt {
+
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+    color: rgb(128, 128, 128);
+    line-height: 24px;
+
+}
+
+
+
+.post_detail_comment_fill  form p{
+    display: flex; 
+    flex-direction: column;
+}
+
+.post_detail_comment_fill  form p textarea {
+    margin-top: 10px;
+    width: 300px; 
+    border-radius: 20px; 
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+.post_detail_comment p{
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+    margin-top: 20px;
+}
+
+.post_detail_comment .like {
+    display: flex; 
+    flex-direction: row;
+    
+    align-items: center;
+}
+
+.post_detail_comment .like_count {
+    margin: 0; 
+    margin-right: 20px;
+}
+
+.like_icon {
+    padding-top: 5px;
+    margin-right: 10px;
+}
+
+.post_detail_btn {
+    height: 40px;
+    width: 120px;
+    padding: 0;
+    margin: 0;
+    border-radius: 30px;
+    border: none;
+    color: #fff;
+    background: #000;
+    transition: 0.3s all;
+}
+
+.post_detail_btn:hover {
+    background-color:#8bc34a;
+}
+
+
+.post_detail_shareLink a  {
+    font-family: 'B612 Mono', monospace;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 400;
+    display: inline-block;
+    text-decoration: none!important;
+    color: #000;
+    padding-right: 16px;
+    padding-top: 5px;
+
+}
+
+
+.post_detail_shareLink a:after  {
+    content: "";
+    display: block; 
+    height: 2px; 
+    width: 0%; 
+    transition: all 0.5s; 
+    background-color: #000;
+}
+
+
+.post_detail_shareLink a:hover:after {
+    width: 100%;
+}
+
+.date_txt {
+    font-size: 14px; 
+    color: #777;
+}
+
+.post_detail_list li {
+    margin-top: 25px;   
+        list-style-type: none;
+}
+
+

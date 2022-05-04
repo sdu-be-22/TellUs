@@ -145,21 +145,17 @@ def update_comment_status(request, pk, type):
     if request.user == None:
         return redirect('login_page')
 
-    if type == 'public':
-        import operator
-        item.status = operator.not_(item.status)
-        item.save()
-        template = 'comment_item.html'
-        context = {'item':item, 'status_comment':'Comment published'}
-        return render(request, template, context)
+    # if type == 'public':
+    #     import operator
+    #     item.status = operator.not_(item.status)
+    #     item.save()
+    #     template = 'comment_item.html'
+    #     context = {'item':item, 'status_comment':'Comment published'}
+    #     return render(request, template, context)
         
-    elif type == 'delete':
+    if type == 'delete':
         item.delete()
-        return HttpResponse('''
-        <div class="alert alert-success">
-        Comment has been deleted
-        </div>
-        ''')
+        return HttpResponse()
     
     return HttpResponse('1')
 
@@ -234,7 +230,7 @@ class HomeDetailView(CustomSuccessMessageMixin, FormMixin, DetailView):
     template_name = 'detail.html'
     context_object_name = 'get_article'
     form_class = CommentForm
-    success_msg = 'Comment successfully created, please wait for moderation'
+    # success_msg = 'Comment successfully created, please wait for moderation'
     
     
     def get_success_url(self):

@@ -2,7 +2,6 @@
 {% load static %}
 {% load render_bundle from webpack_loader %}
 
-{% render_bundle 'main' 'js' 'DEFAULT' %}
 
 <!doctype html>
 <html lang="en">
@@ -27,6 +26,7 @@
 
   <link rel="stylesheet" href="{% static 'css/style.css'%}">
 
+  {% render_bundle 'main' 'js' 'DEFAULT' %}
 
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
  
@@ -150,9 +150,9 @@
               <div class="subheader_user_auth_right">
 
                 <span class="subheader_user_name">{{request.user}}</span>
-
+                {% if request.user.is_authenticated %}
                 <a href="/password_reset/{{request.user}}" class = "subheader_pass_reset">Password reset</a>
-
+                {%endif%}
                 <button class="subheader_btn" type="button">
                   <a href="/room/" class="text-white">Rooms</a>
                 </button>
