@@ -148,7 +148,7 @@
               <span aria-hidden="true" class = "modal_close" id = "modal"><i class="fa-solid fa-circle-xmark"></i></span>
             </div>
             <div class="modal-body">
-              <form id="add_form" class = "style_label" method="post">
+              <form id="add_form" class = "style_label" method="post" enctype="multipart/form-data">
                 {{form}}
                 {% csrf_token %}
               </form>

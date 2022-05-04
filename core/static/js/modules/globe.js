@@ -13,7 +13,7 @@ function globeIO() {
      
         // call the init() API to show the IO globe in the browser
         controller.setInitCountry("KZ");
-        controller.init();
+        controller.init(); 
 
     }catch {
         ;

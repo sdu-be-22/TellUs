@@ -19,7 +19,7 @@ class Articles(models.Model, HitCountMixin):
     text = RichTextField(blank=True, null=True)
     likes = models.IntegerField(default=0)
     
-    def __str__(self):
+    def __str__(self):    
         return self.name
 
 
