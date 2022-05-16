@@ -6,6 +6,7 @@ from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter, URLRouter
 
 import room.routing
+import privateRoom.routing
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "iswork.settings")
 
@@ -14,6 +15,12 @@ application = ProtocolTypeRouter({
   "websocket": AuthMiddlewareStack(
         URLRouter(
             room.routing.websocket_urlpatterns
+        )  
+    ),
+    "websocket": AuthMiddlewareStack(
+        URLRouter(
+            privateRoom.routing.websocket_urlpatterns
+           
         )
     ),
 })

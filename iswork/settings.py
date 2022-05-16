@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'core',
     'channels',
     "room",
+    "privateRoom",
     'django.contrib.humanize',
     "hitcount",
     "ckeditor", 
@@ -81,7 +82,7 @@ TEMPLATES = [
     },
 ]
 
-#WSGI_APPLICATION = 'iswork.wsgi.application'
+WSGI_APPLICATION = 'iswork.wsgi.application'
 ASGI_APPLICATION = 'iswork.asgi.application'
 
 CHANNEL_LAYERS = {
