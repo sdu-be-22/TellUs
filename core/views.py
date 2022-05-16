@@ -144,14 +144,6 @@ def update_comment_status(request, pk, type):
 
     if request.user == None:
         return redirect('login_page')
-
-    # if type == 'public':
-    #     import operator
-    #     item.status = operator.not_(item.status)
-    #     item.save()
-    #     template = 'comment_item.html'
-    #     context = {'item':item, 'status_comment':'Comment published'}
-    #     return render(request, template, context)
         
     if type == 'delete':
         item.delete()
@@ -197,20 +189,24 @@ def like(request, pk):
     return HttpResponseRedirect(reverse('detail_page', args=[pk]))
 
 
+def get_list_articles_pagination(request):
+    object_list = Articles.objects.all()
+    paginator = Paginator(object_list, 3)
+
+    page = request.GET.get('page')
+
+    try: 
+        list_articles = paginator.page(page)
+    except PageNotAnInteger:
+        list_articles = paginator.page(1)
+    except EmprtPage:
+        list_articles = paginator.page(paginator.num_pages)
+    return render(request, "edit_page.html", {'list_articles': list_articles, 'page':page, "object_list": object_list})
+
 
 class HomeListView(ListView):
     pass
-    #model = Articles
-    #template_name = 'index.html'
-    #context_object_name = 'list_articles'
 
-
-# class LoginRequiredMixin(AccessMixin):
-#     """Verify that the current user is authenticated."""
-#     def dispatch(self, request, *args, **kwargs):
-#         if not request.user.is_authenticated:
-#             return self.handle_no_permission()
-#         return super().dispatch(request, *args, **kwargs)
 
 class CustomSuccessMessageMixin:
     @property
@@ -266,9 +262,20 @@ class ArticleCreateView(LoginRequiredMixin, CustomSuccessMessageMixin, CreateVie
     template_name = 'edit_page.html'
     form_class = ArticleForm
     success_url = reverse_lazy('edit_page')
-    success_msg = 'Post created'
+    success_msg = 'Post created' 
     def get_context_data(self,**kwargs):
         kwargs['list_articles'] = Articles.objects.all().order_by('-id')
+        object_list = kwargs['list_articles']
+        paginator = Paginator(object_list, 3)
+
+        page = self.request.GET.get('page')
+
+        try: 
+            kwargs['list_articles'] = paginator.page(page)
+        except PageNotAnInteger:
+            kwargs['list_articles'] = paginator.page(1)
+        except EmprtPage:
+            kwargs['list_articles'] = paginator.page(paginator.num_pages)
         return super().get_context_data(**kwargs)
     def form_valid(self,form):
         self.object = form.save(commit=False)

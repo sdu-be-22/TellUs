@@ -56,8 +56,8 @@
 
         if (data.message) {
             let html = '<div class="p-4 bg-gray-200 rounded-xl">';
-                html += '<p class="font-semibold">' + data.username + '</p>';
-                html += '<p>' + data.message + '</p></div>';
+                html += '<p class="font-semibold" style = "display: inline">' + data.username + ': </p>';
+                html += '<p  style = "display: inline">' + data.message + '</p></div>';
 
             document.querySelector('#chat-messages').innerHTML += html;
 
