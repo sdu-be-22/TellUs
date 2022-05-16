@@ -45,3 +45,6 @@ package-lock.json
 webpack-stats.json
 bunble.js.map
 bunble.js
+
+
+media/images/*.jpg
