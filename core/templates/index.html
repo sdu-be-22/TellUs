@@ -25,11 +25,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
   <link rel="stylesheet" href="{% static 'css/style.css'%}">
-
-  {% render_bundle 'main' 'js' 'DEFAULT' %}
-
+  
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
- 
+  
+  {% render_bundle 'main' 'js' 'DEFAULT' %}
 
   <title>TellUs</title>
 
@@ -155,6 +154,10 @@
                 {%endif%}
                 <button class="subheader_btn" type="button">
                   <a href="/room/" class="text-white">Rooms</a>
+                </button>
+
+                <button class="subheader_btn" type="button">
+                  <a href="/chat/" class="text-white">Chats</a>
                 </button>
 
               </div>

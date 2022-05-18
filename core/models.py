@@ -15,7 +15,7 @@ class Articles(models.Model, HitCountMixin):
     author = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name='Article owner', blank = True, null = True )
     create_date = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=200, verbose_name='Post name:')
-    picture = models.ImageField(upload_to="images",blank=True,null=True,  default='images/default/images.png')
+    picture = models.ImageField(upload_to="images",blank=True,null=True,  default='images/default/defaultPost.png')
     text = RichTextField(blank=True, null=True)
     likes = models.IntegerField(default=0)
     
@@ -26,7 +26,11 @@ class Articles(models.Model, HitCountMixin):
 # class StatusFilterComments(models.Manager):
 #     def get_queryset(self):
 #         return super().get_queryset().filter(Q(status=False, author = get_current_user()) | Q(status=False, article__author=get_current_user()) | Q(status=True))
-    
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(default="images/defaultProfile.png", upload_to="profile_pics")
 
 
 class Comments(models.Model):

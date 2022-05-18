@@ -9,7 +9,7 @@ User = get_user_model()
 @login_required
 def index(request):
     users = User.objects.exclude(username=request.user.username)
-    return render(request, 'privateChat/index.html', context={'users': users})
+    return render(request, 'privateChat/chats.html', context={'users': users})
 
 @login_required
 def chatPage(request, username):
