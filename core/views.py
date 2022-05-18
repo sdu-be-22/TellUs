@@ -2,12 +2,14 @@ from django.shortcuts import render,redirect,HttpResponse, get_object_or_404
 import datetime
 from unittest import loader
 from django.utils.decorators import method_decorator
-from .models import Articles,Comments, Likes, Notification
+from .models import Articles,Comments, Likes, Notification, Profile
 from django.views.generic import ListView, DetailView,CreateView, UpdateView,DeleteView
 from django.views.generic.edit import FormMixin
 from .forms import ArticleForm, AuthUserForm, RegisterUserForm, CommentForm, EmailPostForm, EditProfileName, PasswordChangingForm
 from django.urls import reverse, reverse_lazy 
 from django.contrib import messages
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -121,9 +123,18 @@ def user_edit(request, user_name):
 
 
 
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, created, **kwarge):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_profile(sender, instance, **kwarge):
+    instance.profile.save()
+
 
 # search
-def search(request):
+def searchArticles(request):
     query = request.GET.get('q') if request.method!= None else ''
     results = Articles.objects.filter(
         Q(name__icontains=query) |

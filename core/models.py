@@ -23,7 +23,7 @@ class Articles(models.Model, HitCountMixin):
         return self.name
 
 
-# class StatusFilterComments(models.Manager):
+# class StatusFilterComments(modelпшеs.Manager):
 #     def get_queryset(self):
 #         return super().get_queryset().filter(Q(status=False, author = get_current_user()) | Q(status=False, article__author=get_current_user()) | Q(status=True))
 
@@ -31,6 +31,9 @@ class Articles(models.Model, HitCountMixin):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default="images/defaultProfile.png", upload_to="profile_pics")
+
+    def __str__(self): 
+        return f'{self.user.username} Profile'
 
 
 class Comments(models.Model):
