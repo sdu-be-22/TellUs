@@ -8,32 +8,36 @@ from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 from django.utils.text import slugify
 from ckeditor.fields import RichTextField
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class Articles(models.Model, HitCountMixin):
     author = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name='Article owner', blank = True, null = True )
     create_date = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=200, verbose_name='Post name:')
-    picture = models.ImageField(upload_to="images",blank=True,null=True,  default='images/default/defaultPost.png')
+    picture = models.ImageField(upload_to="images",blank=True, null=True,  default='images/default/defaultPost.png')
     text = RichTextField(blank=True, null=True)
     likes = models.IntegerField(default=0)
-    
+   
     def __str__(self):    
         return self.name 
 
 
-# class StatusFilterComments(modelпшеs.Manager):
-#     def get_queryset(self):
-#         return super().get_queryset().filter(Q(status=False, author = get_current_user()) | Q(status=False, article__author=get_current_user()) | Q(status=True))
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, primary_key=True, verbose_name='user', related_name='profile', on_delete=models.CASCADE)
+    picture = models.ImageField(upload_to='images/user_profiles', default='images/default/defaultProfile.png', blank=True)
+    followers = models.ManyToManyField(User, blank=True, related_name='followers')
 
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs): 
+    if created: 
+        UserProfile.objects.create(user=instance)
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default="images/default/defaultProfile.png", upload_to="profile_pics")
-
-    def __str__(self): 
-        return f'{self.user.username} Profile' 
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs): 
+    instance.profile.save()
 
 
 class Comments(models.Model):

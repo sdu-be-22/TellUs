@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,HttpResponse, get_object_or_404
 import datetime
 from unittest import loader
 from django.utils.decorators import method_decorator
-from .models import Articles,Comments, Likes, Notification, Profile
+from .models import Articles,Comments, Likes, Notification, UserProfile
 from django.views.generic import ListView, DetailView,CreateView, UpdateView,DeleteView
 from django.views.generic.edit import FormMixin
 from .forms import ArticleForm, AuthUserForm, RegisterUserForm, CommentForm, EmailPostForm, EditProfileName, PasswordChangingForm, UpdateProfilePhoto
@@ -13,7 +13,7 @@ from django.dispatch import receiver
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.template import Context, Template
@@ -33,7 +33,7 @@ from hitcount.views import HitCountDetailView
 from django.contrib.auth.forms import UserChangeForm ,  PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeForm
 from django.views import generic
-from .forms import EditProfileForm , PasswordChangingForm
+from .forms import EditProfileForm , PasswordChangingForm, UpdateProfilePhoto
 
 
 
@@ -106,32 +106,6 @@ def password_reset_form(request, name):
 
 
 
-#todo: not finished have error need to fiexd
-def user_edit(request, user_name):
-    name = get_object_or_404(User, name=user_name);
-
-    if(reuest.method == "POST"):
-        form = EditProfileName(request.POST)
-        if(form.is_valid()):
-            cd = form.cleaned_data
-    else:
-        form = EditProfileName()
-    return render(request, 'editUser.html', {
-                            "name": name,
-                            "form": form
-        })
-
-
-
-@receiver(post_save, sender=User)
-def create_profile(sender, instance, created, **kwarge):
-    if created:
-        Profile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_profile(sender, instance, **kwarge):
-    instance.profile.save()
-
 
 # search
 def searchArticles(request):
@@ -161,6 +135,7 @@ def update_comment_status(request, pk, type):
         return HttpResponse()
     
     return HttpResponse('1')
+
 
 @login_required
 def like(request, pk):
@@ -199,21 +174,21 @@ def like(request, pk):
     post.save()
     return HttpResponseRedirect(reverse('detail_page', args=[pk]))
 
-
-def get_list_articles_pagination(request):
-    object_list = Articles.objects.all()
-    paginator = Paginator(object_list, 3)
-
-    page = request.GET.get('page')
-
-    try: 
-        list_articles = paginator.page(page)
-    except PageNotAnInteger:
-        list_articles = paginator.page(1)
-    except EmprtPage:
-        list_articles = paginator.page(paginator.num_pages)
-    return render(request, "edit_page.html", {'list_articles': list_articles, 'page':page, "object_list": object_list})
-
+@login_required 
+def profileEdit(request):
+    if request.method == 'POST':
+        user_form = EditProfileForm(request.POST, instance = request.user)
+        profile_form  = UpdateProfilePhoto(request.POST, request.FILES,instance = request.user.profile)
+        
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='edit_profile')
+    else: 
+        user_form = EditProfileForm(instance= request.user)
+        profile_form = UpdateProfilePhoto(instance=request.user.profile)
+    return render(request, 'edit_profile.html', {'user_form' : user_form, 'profile_form' : profile_form})
 
 class HomeListView(ListView):
     pass
@@ -365,41 +340,6 @@ class NotificationCheck(View):
         return HttpResponse(Notification.objects.filter(user_has_seen = False, user_to=request.user).count()) 
 
 
-# class UserEditView(generic.UpdateView):
-#     model = Profile
-#     form_class=EditProfileForm
-#     template_name='edit_profile.html'
-#     success_url=reverse_lazy('home')
-
-#     def get_object(self):
-#         return self.request.user
-    
-#     def post(self, request, *args, **kwargs):
-#         user_info = EditProfileForm(request.POST, request.FILES, instance= self.request.user)
-#         if user_info.is_valid():
-#             save_user = user_info.save(commit=False)
-#             save_user.save()
-#             print("successsful! user info changed")
-#         else:
-#             messages.error(request, "Something wrong happened!")
-#         return render(request, 'edit_profile.html')
-        
-@login_required 
-def profile(request):
-    if request.method == 'POST':
-        user_form = EditProfileForm(request.POST, instance = request.user)
-        profile_form  = UpdateProfilePhoto(request.POST, request.FILES,instance = request.user.profile)
-        
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='edit_profile')
-    else: 
-        user_form = EditProfileForm(instance= request.user)
-        profile_form = UpdateProfilePhoto(instance=request.user.profile)
-    return render(request, 'edit_profile.html', {'user_form' : user_form, 'profile_form' : profile_form})
-
 class PasswordsChangeView(PasswordChangeView):
     form_class=PasswordChangingForm
     # from_class=PasswordChangeView
@@ -407,3 +347,61 @@ class PasswordsChangeView(PasswordChangeView):
 
 def password_success(request):
     return render(request, 'password_success.html', {}) 
+
+
+
+class ProfileView(View):
+    def get(self, request, pk, *args, **kwargs):
+        profile = UserProfile.objects.get(pk=User.objects.get(pk=pk))
+        user = profile.user
+        #posts= ""
+        posts = Articles.objects.filter(author=user)
+
+        followers = profile.followers.all()
+
+        if len(followers) == 0:
+            is_following = False
+
+        for follower in followers:
+            if follower == request.user:
+                is_following = True
+                break
+            else:
+                is_following = False
+
+        number_of_followers = len(followers)
+
+        context = {
+            'user': user,
+            'profile': profile,
+            'posts': posts,
+            'number_of_followers': number_of_followers,
+            'is_following': is_following,
+        }
+
+        return render(request, 'profile.html', context)
+
+class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = UserProfile
+    fields= ["image"]
+    template_name = "edit_profile.html"
+
+    def get_success_url(self):
+        pk =  self.kwargs['pk']
+        return reverse_lazy('profile', kwargs={"pk": pk})
+    
+    def test_func(self):
+        profile = self.get_object()
+        return self.request.user == profile.user
+
+class AddFollower(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        profile = UserProfile.objects.get(pk=pk)
+        profile.followers.add(request.user)
+        return redirect('profile', pk=profile.pk)
+
+class RemoveFollower(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        profile = UserProfile.objects.get(pk=pk)
+        profile.followers.remove(request.user)
+        return redirect('profile', pk=profile.pk)

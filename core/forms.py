@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import Textarea
-from .models import Articles, Comments, Profile
+from .models import Articles, Comments, UserProfile
 from django.contrib.auth.forms import AuthenticationForm , UserCreationForm , UserChangeForm , PasswordChangeForm
 from django.contrib.auth.models import User
 from captcha.fields import CaptchaField
@@ -76,6 +76,7 @@ class EditProfileForm(UserChangeForm):
     username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_login = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     date_joined = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+   
     class Meta:
         model=User
         fields=('username','first_name' , 'last_name' , 'email' ,'last_login' ,'date_joined')
@@ -83,10 +84,17 @@ class EditProfileForm(UserChangeForm):
 class UpdateProfilePhoto(forms.ModelForm):
     image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
     class Meta:
-        model  = Profile
+        model  = UserProfile
         fields = ('image',)
 
         
+class UpdateProfilePhoto(forms.ModelForm):
+    picture = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    class Meta:
+        model  = UserProfile
+        fields = ('picture',)
+
+
 class PasswordChangingForm(PasswordChangeForm):
     old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control' , 'type': 'password'}))
     new_password1 = forms.CharField(max_length=100, widget=forms.PasswordInput(attrs={'class': 'form-control' , 'type': 'password'}))
