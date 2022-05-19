@@ -14,23 +14,15 @@
                 <div class="contact-table-scroll">
                     <table class="table table-hover">
                         <tbody>
-                            {% for user in users %}
+                            {% for user_follower in user_followers %}
                             <tr>
-                                <td><img src="{% static 'assets/dp.png' %}" alt="" class="profile-image rounded-circle">
+                                <td><img src="{{ user_follower.profile.picture.url }}" class="rounded-circle" width="30" height="30" style="border-radius:100%; position:relative; top:7px" />
                                 </td>
                                 
-                                <td><a href="{% url 'chat' username=user.username%}">{{user.username}}</a></td>
+                                <td><a href="{% url 'chat' user_follower%}">{{user_follower}}</a></td>
                           
                             </tr>
                             {% endfor %}
-
-                            {% for user_follower in user_followers%}
-                            <ul>
-                                {% if user_follower.user_id == user.id %}
-                                <li>{{user_follower.username}}</li>
-                                {%endif%}
-                            </ul>
-                            {%endfor%}
 
                             <!-- end -->
                         </tbody>
