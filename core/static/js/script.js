@@ -23,7 +23,8 @@ window.addEventListener('DOMContentLoaded', () => {
     /**
      * @property.import  allelements-get variables
      */
-
+    // Scroll certain amounts from current position 
+    
     slider();
     globeIO();
     firstLetterUser(".subheader_user_name");

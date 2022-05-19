@@ -8,14 +8,15 @@ function subheaderScroll(subHeader, body) {
     };
     
     function scrollSubHeader() {
-        if(body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        if(body.scrollTop > 70 || document.documentElement.scrollTop > 70) {
             subheader.classList.add("navBar");
             subheader.style.position = `fixed`;
             subheader.style.paddingTop = "30px";
             subheader.style.verticalAlign = "top";
-            subheader.style.transition = "0.3s all ease";
+            subheader.style.transition = "0.5s all ease-in-out";
+           
         }else {
-            subheader.style.position = `relative`;
+            subheader.style.position = `static`;
             subheader.className = subheader.className.replace("navBar", "subheader");
         }
     }

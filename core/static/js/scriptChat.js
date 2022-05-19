@@ -31,4 +31,4 @@
 //         'message': message
 //     }));
 //     messageInputDom.value = '';
-// };
+// }; 

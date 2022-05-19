@@ -7,7 +7,7 @@
 
 html{
     scroll-padding-top: 9rem; 
-    scroll-behavior: smooth; 
+    scroll-behavior: smooth;
 }
 
 html::-webkit-scrollbar {
@@ -206,15 +206,16 @@ ul, li{
     top: 0; 
     z-index: 100; 
     background: #fff;
-    transition: .3s all ease;
+    transition: all ease-in-out 0.3s;
     margin-top: 0; 
 }
 
 .header .subheader {
     padding-top: 30px;
     position: relative;
+    top: 0;
     width: 100%;
-    transition: .3s all ease;
+    transition: all ease-in-out 0.3s;
 }
 
 
