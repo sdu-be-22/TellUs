@@ -20,7 +20,7 @@ class Articles(models.Model, HitCountMixin):
     likes = models.IntegerField(default=0)
     
     def __str__(self):    
-        return self.name
+        return self.name 
 
 
 # class StatusFilterComments(modelпшеs.Manager):
@@ -30,10 +30,10 @@ class Articles(models.Model, HitCountMixin):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default="images/defaultProfile.png", upload_to="profile_pics")
+    image = models.ImageField(default="images/default/defaultProfile.png", upload_to="profile_pics")
 
     def __str__(self): 
-        return f'{self.user.username} Profile'
+        return f'{self.user.username} Profile' 
 
 
 class Comments(models.Model):

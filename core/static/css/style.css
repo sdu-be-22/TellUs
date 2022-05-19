@@ -1328,3 +1328,7 @@ footer .copyright p a {
 }
 
 
+
+.profile_circle {
+    border-radius: 100%;
+}

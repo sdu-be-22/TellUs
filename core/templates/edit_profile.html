@@ -7,10 +7,12 @@
             <div class="center">    
                 
                 <h1 class="">Edit Profile</h1>
-            
-                <form id="add_form" method="post">
+                <img src="{{user.profile.image.url}}" class="profile_pic" width="100px" height="100px"></img>
+                <form id="add_form" method="post" enctype = "multipart/form-data">
                     <!-- <div class="inputbox"> -->
-                        {{form}}
+                        
+                        {{user_form}}
+                        {{profile_form}}
                         {% csrf_token %}
                     <!-- </div> -->
                     <button form="add_form" type="submit" class="login_btn">Update Profile</button>

@@ -147,7 +147,7 @@
             <div class="subheader_user_auth">
 
               <div class="subheader_user_auth_right">
-
+                <image src="{{user.profile.image.url}}" width="20px" class="profile_circle" style="border-radius: 100%"></image>
                 <span class="subheader_user_name">{{request.user}}</span>
                 {% if request.user.is_authenticated %}
                 <a href="/password_reset/{{request.user}}" class = "subheader_pass_reset">Password reset</a>

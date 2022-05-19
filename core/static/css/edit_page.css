@@ -2,3 +2,7 @@
     width: 860px;
 }
 
+
+.profile_circle {
+    border-radius: 100%;
+}
