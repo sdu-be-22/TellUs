@@ -18,9 +18,19 @@
                             <tr>
                                 <td><img src="{% static 'assets/dp.png' %}" alt="" class="profile-image rounded-circle">
                                 </td>
+                                
                                 <td><a href="{% url 'chat' username=user.username%}">{{user.username}}</a></td>
+                          
                             </tr>
                             {% endfor %}
+
+                            {% for user_follower in user_followers%}
+                            <ul>
+                                {% if user_follower.user_id == user.id %}
+                                <li>{{user_follower.username}}</li>
+                                {%endif%}
+                            </ul>
+                            {%endfor%}
 
                             <!-- end -->
                         </tbody>
