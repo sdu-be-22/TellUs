@@ -152,7 +152,7 @@
                   {% url 'profile' user.profile.pk as url_profile %}
                   <a  class=" {% if url_register_page == request.path %}active{% endif %}" href="  {{url_profile}}">
                     
-                    <img src="{{ request.user.profile.image.url }}" class="rounded-circle" width="30" height="30" style="border-radius:100%; position:relative; top:7px" />
+                    <img src="{{ request.user.profile.picture.url }}" class="rounded-circle" width="30" height="30" style="border-radius:100%; position:relative; top:7px" />
                   </a>
                   {%endif%}
                 </div>

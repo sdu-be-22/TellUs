@@ -82,10 +82,10 @@ class EditProfileForm(UserChangeForm):
         fields=('username','first_name' , 'last_name' , 'email' ,'last_login' ,'date_joined')
 
 class UpdateProfilePhoto(forms.ModelForm):
-    image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    picture = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
     class Meta:
         model  = UserProfile
-        fields = ('image',)
+        fields = ('picture',)
 
 
 class PasswordChangingForm(PasswordChangeForm):

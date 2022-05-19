@@ -27,7 +27,7 @@ class Articles(models.Model, HitCountMixin):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, primary_key=True, verbose_name='user', related_name='profile', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='images/user_profiles', default='images/default/defaultProfile.png', blank=True)
+    picture = models.ImageField(upload_to='images/user_profiles', default='images/default/defaultProfile.png', blank=True)
     followers = models.ManyToManyField(User, blank=True, related_name='followers')
 
 @receiver(post_save, sender=User)
