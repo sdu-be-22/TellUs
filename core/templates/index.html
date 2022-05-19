@@ -147,9 +147,17 @@
             <div class="subheader_user_auth">
 
               <div class="subheader_user_auth_right">
-
-                <span>
+                <div class="subheader_user_img" style="display:inline;">
+                  {% if request.user.is_authenticated %}
                   {% url 'profile' user.profile.pk as url_profile %}
+                  <a  class=" {% if url_register_page == request.path %}active{% endif %}" href="  {{url_profile}}">
+                    
+                    <img src="{{ request.user.profile.image.url }}" class="rounded-circle" width="30" height="30" style="border-radius:100%; position:relative; top:7px" />
+                  </a>
+                  {%endif%}
+                </div>
+                <span>
+                  {% url 'profile' request.user.profile.pk as url_profile %}
                   <a  class="subheader_user_name {% if url_register_page == request.path %}active{% endif %}" href="  {{url_profile}}">{{request.user}}</a>
                 </span>
 

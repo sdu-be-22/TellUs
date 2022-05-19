@@ -33,7 +33,7 @@ from hitcount.views import HitCountDetailView
 from django.contrib.auth.forms import UserChangeForm ,  PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeForm
 from django.views import generic
-from .forms import EditProfileForm , PasswordChangingForm
+from .forms import EditProfileForm , PasswordChangingForm, UpdateProfilePhoto
 
 
 
@@ -174,7 +174,21 @@ def like(request, pk):
     post.save()
     return HttpResponseRedirect(reverse('detail_page', args=[pk]))
 
-
+@login_required 
+def profileEdit(request):
+    if request.method == 'POST':
+        user_form = EditProfileForm(request.POST, instance = request.user)
+        profile_form  = UpdateProfilePhoto(request.POST, request.FILES,instance = request.user.profile)
+        
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='edit_profile')
+    else: 
+        user_form = EditProfileForm(instance= request.user)
+        profile_form = UpdateProfilePhoto(instance=request.user.profile)
+    return render(request, 'edit_profile.html', {'user_form' : user_form, 'profile_form' : profile_form})
 
 class HomeListView(ListView):
     pass
@@ -326,16 +340,6 @@ class NotificationCheck(View):
         return HttpResponse(Notification.objects.filter(user_has_seen = False, user_to=request.user).count()) 
 
 
-class UserEditView(generic.UpdateView):
-    form_class=EditProfileForm
-    template_name='edit_profile.html'
-    success_url=reverse_lazy('home')
-
-    def get_object(self):
-        return self.request.user
-
-
-
 class PasswordsChangeView(PasswordChangeView):
     form_class=PasswordChangingForm
     # from_class=PasswordChangeView
@@ -350,6 +354,7 @@ class ProfileView(View):
     def get(self, request, pk, *args, **kwargs):
         profile = UserProfile.objects.get(pk=User.objects.get(pk=pk))
         user = profile.user
+        #posts= ""
         posts = Articles.objects.filter(author=user)
 
         followers = profile.followers.all()
@@ -375,6 +380,19 @@ class ProfileView(View):
         }
 
         return render(request, 'profile.html', context)
+
+class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = UserProfile
+    fields= ["image"]
+    template_name = "edit_profile.html"
+
+    def get_success_url(self):
+        pk =  self.kwargs['pk']
+        return reverse_lazy('profile', kwargs={"pk": pk})
+    
+    def test_func(self):
+        profile = self.get_object()
+        return self.request.user == profile.user
 
 class AddFollower(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):

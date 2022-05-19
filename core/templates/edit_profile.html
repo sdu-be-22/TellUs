@@ -10,7 +10,8 @@
             
                 <form id="add_form" method="post" enctype="multipart/form-data">
                     <!-- <div class="inputbox"> -->
-                        {{form}}
+                        {{user_form}}
+                        {{profile_form}}
                         {% csrf_token %}
                     <!-- </div> -->
                     <button form="add_form" type="submit" class="login_btn">Update Profile</button>

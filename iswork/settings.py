@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "ckeditor", 
     "captcha",
     "webpack_loader",
+    'django_extensions'
 ]
 
 TEMPLATE_LOADERS = (

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, re_path
 from core import views
-from .views import UserEditView , PasswordsChangeView
+from .views import PasswordsChangeView
 from django.contrib.auth import views as auth_views
 from . import views
 
@@ -19,7 +19,7 @@ urlpatterns = [
     path('like/<int:pk>/', views.like, name='likes'),
     path('notifs_json/', views.JsonList.as_view(), name='json_notif_lists'),
     path('ajax_notification/', views.NotificationCheck.as_view(), name='ajax_notification'),
-    path('edit_profile/', UserEditView.as_view() ,name ='edit_profile' ),
+    path('edit_profile/', views.profileEdit ,name ='edit_profile' ),
     path('profile/<int:pk>/', views.ProfileView.as_view(), name='profile'),
     path('profile/<int:pk>/followers/add', views.AddFollower.as_view(), name='add-follower'),
     path('profile/<int:pk>/followers/remove', views.RemoveFollower.as_view(), name='remove-follower'),

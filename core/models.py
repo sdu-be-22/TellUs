@@ -17,7 +17,7 @@ class Articles(models.Model, HitCountMixin):
     author = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name='Article owner', blank = True, null = True )
     create_date = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=200, verbose_name='Post name:')
-    picture = models.ImageField(upload_to="images",blank=True,null=True,  default='images/default/defaultPost.png')
+    picture = models.ImageField(upload_to="images",blank=True, null=True,  default='images/default/defaultPost.png')
     text = RichTextField(blank=True, null=True)
     likes = models.IntegerField(default=0)
    
@@ -27,7 +27,7 @@ class Articles(models.Model, HitCountMixin):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, primary_key=True, verbose_name='user', related_name='profile', on_delete=models.CASCADE)
-    picture = models.ImageField(upload_to='images/user_profiles', default='images/default/defaultProfile.png', blank=True)
+    image = models.ImageField(upload_to='images/user_profiles', default='images/default/defaultProfile.png', blank=True)
     followers = models.ManyToManyField(User, blank=True, related_name='followers')
 
 @receiver(post_save, sender=User)
