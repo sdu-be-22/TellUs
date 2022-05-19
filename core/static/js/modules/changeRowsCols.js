@@ -7,7 +7,7 @@ function changeRowsCols(tagForm, tagTextarea) {
         textarea.setAttribute("rows", 30);
         textarea.setAttribute("cols", 100);
     }catch {
-        
+       
     }
 
 }

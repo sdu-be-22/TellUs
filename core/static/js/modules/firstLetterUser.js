@@ -9,7 +9,7 @@ function firstLetterUser(USER_NAME) {
         */
              userName.innerHTML = userName.innerHTML[0].toUpperCase() + userName.innerHTML.slice(1);
     }catch {
-        ;
+      
     }
 
 }

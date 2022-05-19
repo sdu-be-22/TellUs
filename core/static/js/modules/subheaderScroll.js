@@ -3,6 +3,7 @@ function subheaderScroll(subHeader, body) {
     
     
     //scroll
+    // Scroll certain amounts from current position 
     window.onscroll = function() {
         scrollSubHeader();
     };

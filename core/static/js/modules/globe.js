@@ -16,7 +16,6 @@ function globeIO() {
         controller.init(); 
 
     }catch {
-        ;
     }
 } 
 

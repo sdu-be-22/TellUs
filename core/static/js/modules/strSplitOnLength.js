@@ -28,7 +28,7 @@ function paragraphSplit(tagP) {
     }
 
 
-    const arrStr = strSplitOnLength(para.innerHTML, 140)
+    const arrStr = strSplitOnLength(para.innerHTML, 140);
     console.log(arrStr);
     para.innerHTML = arrStr[0];
 }

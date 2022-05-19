@@ -22,7 +22,7 @@ function modalWindow(modal_Fade, modalBlock, label_form) {
             });
         });
     }catch {
-        ;
+       
     }
 }
 

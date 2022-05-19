@@ -9,21 +9,15 @@ function notificationShowHide({showNotification, notificationIcon, body}) {
                 let target = event.target;
         
                 if(target === notiIcon) {
-                    showNoti.classList.add("subheader_show");
+                    
+                    showNoti.classList.toggle("subheader_show");
                 }else {
                     showNoti.classList.remove("subheader_show");
                 }
             });
         
-            notiIcon.addEventListener("click", () => {
-                if(!showNoti.classList.contains("subheader_show")) {
-                    showNoti.classList.add("subheader_show");
-                }else {
-                    showNoti.classList.remove("subheader_show");
-                }
-            });
-        }catch(e) {
-            console.log("Plase sign in", e.message);
+        }catch {
+           
         }
 }
 

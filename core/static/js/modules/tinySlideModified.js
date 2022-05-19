@@ -24,7 +24,7 @@ function tinySlideModified({buttonPrev, buttonNext, naviga_Tns}) {
         btnNext.classList.add("btnNext");
         btnPrev.classList.add("btnNext");
     }catch(e) {
-        console.log("Plase sign in", e.message);
+        console.log(e.message);
     }
 }
 

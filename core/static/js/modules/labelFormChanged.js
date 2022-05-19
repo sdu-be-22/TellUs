@@ -18,7 +18,7 @@ function labelFormChanged({ labelForm, tagForm, tagInputs, justTagP, Textarea })
 
             //hidden label when user cliced
             textArea.addEventListener("click", () => {
-                if (label_form[i].getAttribute("for") == "id_comments")
+                if (label_form[i].getAttribute("for") == "id_comments") 
                     label_form[i].style.opacity = "0";
             });
 
@@ -78,7 +78,7 @@ function labelFormChanged({ labelForm, tagForm, tagInputs, justTagP, Textarea })
                 form.append(input_box);
             });
         }catch {
-            ;
+
         }
     }
 }

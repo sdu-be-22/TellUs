@@ -62,6 +62,14 @@ ul, li{
     letter-spacing: 0.2px;
     padding-right: 16px;
 }
+.subheader_user_name p {
+    display: inline-block;
+}
+
+.subheader_user_name p::first-letter {
+    text-transform: uppercase;
+
+}
 
 .subheader_pass_reset {
     font-family: 'B612 Mono', monospace;
@@ -261,13 +269,16 @@ ul, li{
     background-color: #000;
 }
 
+.header .subheader .subheader_navi .subheader_menu .subheader_menu_item .logout:after {
+    background-color: #cc0000;
+}
+
 .header .subheader .subheader_navi .subheader_menu .subheader_menu_item a:hover:after {
     width: 100%;
 }
 
 .header .subheader .subheader_navi .subheader_menu .subheader_user_auth 
 {
-
     color: black;
     margin: 0 0 0 auto; 
 }
@@ -294,6 +305,7 @@ ul, li{
     right: 336px;
     margin-top: 50px;
     transition: 0.5s all;
+    visibility: hidden;
 }
 
 .subheader_show {
@@ -301,6 +313,7 @@ ul, li{
     z-index: 5;
     opacity: 1;
     display: inline;
+    visibility: visible;
     position: absolute;
     right: 336px;
     margin-top: 50px;

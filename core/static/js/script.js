@@ -23,11 +23,10 @@ window.addEventListener('DOMContentLoaded', () => {
     /**
      * @property.import  allelements-get variables
      */
-    // Scroll certain amounts from current position 
     
     slider();
     globeIO();
-    firstLetterUser(".subheader_user_name");
+    // firstLetterUser(".subheader_user_name");
     subheaderScroll("subheader", document.body);
     numericPost(".popular_post_number");
     modalWindow('#modal', "exampleModal", "label");
