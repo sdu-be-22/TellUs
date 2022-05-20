@@ -23,6 +23,7 @@ urlpatterns = [
     path('profile/<int:pk>/', views.ProfileView.as_view(), name='profile'),
     path('profile/<int:pk>/followers/add', views.AddFollower.as_view(), name='add-follower'),
     path('profile/<int:pk>/followers/remove', views.RemoveFollower.as_view(), name='remove-follower'),
+    path("theme/", views.theme, name="theme"),
     # path('password/' , auth_views.PasswordChangeView.as_view(template_name='change-password.html')) ,
     path('password/' , PasswordsChangeView.as_view(template_name='change-password.html')),
     path('password_success/' , views.password_success, name ="password_success"),

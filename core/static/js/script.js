@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
     /**
      * @property.import  allelements-get variables
      */
-    
+
     slider();
     globeIO();
     // firstLetterUser(".subheader_user_name");

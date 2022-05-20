@@ -63,3 +63,11 @@ class Notification(models.Model):
     likes = models.ForeignKey(Likes, related_name='+', on_delete=models.CASCADE, blank=True, null=True)
     date = models.DateTimeField(datetime.datetime.now) 
     user_has_seen = models.BooleanField(default=False)
+
+
+class ThemePage(models.Model):
+    color = models.CharField(max_length=1000)
+    user=models.CharField(max_length=1000)
+
+    def __str__(self):
+        return self.user

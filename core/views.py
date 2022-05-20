@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,HttpResponse, get_object_or_404
 import datetime
 from unittest import loader
 from django.utils.decorators import method_decorator
-from .models import Articles,Comments, Likes, Notification, UserProfile
+from .models import Articles,Comments, Likes, Notification, UserProfile, ThemePage
 from django.views.generic import ListView, DetailView,CreateView, UpdateView,DeleteView
 from django.views.generic.edit import FormMixin
 from .forms import ArticleForm, AuthUserForm, RegisterUserForm, CommentForm, EmailPostForm, EditProfileName, PasswordChangingForm, UpdateProfilePhoto
@@ -20,7 +20,7 @@ from django.template import Context, Template
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views import View
 from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.forms import PasswordResetForm
 from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
@@ -42,6 +42,11 @@ def post_list(request):
     paginator = Paginator(object_list, 3)
 
     page = request.GET.get('page')
+    
+    if ThemePage.objects.filter(user=request.user.username).exists():
+        color = ThemePage.objects.get(user=request.user.username).color
+    else: 
+        color = ""
 
     try: 
         list_articles = paginator.page(page)
@@ -49,7 +54,7 @@ def post_list(request):
         list_articles = paginator.page(1)
     except EmprtPage:
         list_articles = paginator.page(paginator.num_pages)
-    return render(request, "main.html", {'list_articles': list_articles, 'page':page, "object_list": object_list})
+    return render(request, "main.html", {'list_articles': list_articles, 'page':page, "object_list": object_list, "color": color})
 
 
 def post_share(request, post_name):
@@ -189,6 +194,33 @@ def profileEdit(request):
         user_form = EditProfileForm(instance= request.user)
         profile_form = UpdateProfilePhoto(instance=request.user.profile)
     return render(request, 'edit_profile.html', {'user_form' : user_form, 'profile_form' : profile_form})
+
+
+def theme(request):
+    color = request.GET.get("color")
+
+    if(color == 'dark'):
+        if ThemePage.objects.filter(user=request.user.username).exists():
+            user_theme = ThemePage.objects.get(user=request.user.username)
+            user_theme.user = request.user.username
+            user_theme.color = "grey"
+            user_theme.save()
+        else:
+            user2 = ThemePage(user=request.user.username, color="grey")
+            user2.save()
+    
+    elif(color == 'light'):
+        if ThemePage.objects.filter(user=request.user.username).exists():
+            user_theme1 = ThemePage.objects.get(user=request.user.username)
+            user_theme1.user = request.user.username
+            user_theme1.color = "white"
+            user_theme1.save()
+        else:
+            user4 = ThemePage(user=request.user.username, color="white")
+            user4s.save()
+    
+    return redirect("/")
+    
 
 class HomeListView(ListView):
     pass
