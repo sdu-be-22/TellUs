@@ -17,7 +17,8 @@ function subheaderScroll(subHeader, body) {
             subheader.style.transition = "0.5s all ease-in-out";
            
         }else {
-            subheader.style.position = `static`;
+            subheader.style.position = `relative`;
+            subheader.style.zIndex = "10";
             subheader.className = subheader.className.replace("navBar", "subheader");
         }
     }

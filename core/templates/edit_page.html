@@ -135,36 +135,27 @@
       {% endif %}
       
       
-      
-      
-      <!-- Modal -->
-      <div class="modal" id="exampleModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-              <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              </button> -->
-              <span aria-hidden="true" class = "modal_close" id = "modal"><i class="fa-solid fa-circle-xmark"></i></span>
-            </div>
-            <div class="modal-body">
-              <form id="add_form" class = "style_label" method="post" enctype="multipart/form-data">
-                {{form}}
-                {% csrf_token %}
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" id = "modal"  data-dismiss="modal">Close</button>
-              <button form="add_form" type="submit" class="btn btn-primary">Add</button>
-            </div>
-          </div>
-        </div>
-      </div>
+    
       
       
     </div>
   </section>
+    <!-- Modal -->
+  <div class="modal" id="exampleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
 
+        <div class="modal_close" id="modal">&times;</div>
+        <h5 class="modal_subtitle" id="exampleModalLabel">Add article</h5>
+      
+        <form id="add_form" class = "style_label style_label_mt25" method="post" enctype="multipart/form-data">
+          {{form}}
+          {% csrf_token %}
+          <!-- <button type="button" class="btn btn-secondary" id = "modal"  data-dismiss="modal">Close</button> -->
+        </form>
+        
+        <button form="add_form" type="submit" class="btn btn-primary">Add</button>
+    </div>
+  </div>
   <div class="pagination">
   
     {% include 'pagination.html' with page=list_articles %}

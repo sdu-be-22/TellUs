@@ -4,7 +4,7 @@ from .models import Articles, Comments, UserProfile
 from django.contrib.auth.forms import AuthenticationForm , UserCreationForm , UserChangeForm , PasswordChangeForm
 from django.contrib.auth.models import User
 from captcha.fields import CaptchaField
-
+from django.utils.translation import gettext_lazy as _
 
 class EmailPostForm(forms.Form):
     name = forms.CharField(max_length = 25)
@@ -21,10 +21,16 @@ class ArticleForm(forms.ModelForm):
     class Meta:
         model = Articles
         fields = ('name','text', 'picture')
+        # labels = {
+        #     "name": _(""),
+        #     "text": _(""),
+        #     "picture": _("")
+        # }
     def __init__(self,*args,**kwargs):
-        super().__init__(*args,**kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'form-control'
+        super(ArticleForm, self).__init__(*args,**kwargs)
+        for field_name, field in self.fields.items():
+            self.fields[field_name].widget.attrs['class'] = 'form-control'
+            self.fields[field_name].widget.attrs['placeholder'] = field.label
             
 
 

@@ -26,7 +26,7 @@
 
   <link rel="stylesheet" href="{% static 'css/style.css'%}">
   
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
   
   {% render_bundle 'main' 'js' 'DEFAULT' %}
 
@@ -155,18 +155,18 @@
 
               <div class="subheader_user_auth_right">
 
-                <div class="subheader_user_img" style="display:inline;">
+                <div class="subheader_user_img">
                   {% if request.user.is_authenticated %}
-                  {% url 'profile' user.profile.pk as url_profile %}
-                  <a  class=" {% if url_register_page == request.path %}active{% endif %}" href="  {{url_profile}}">
+                  {% url 'profile' request.user.profile.pk as url_profile %}
+                  <a  class=" {% if url_register_page == request.path %}active{% endif %}" href="{{url_profile}}">
                     
-                    <img src="{{ request.user.profile.picture.url }}" class="rounded-circle" width="30" height="30" style="border-radius:100%; position:relative; top:7px" />
+                    <img src="{{ request.user.profile.picture.url }}" class="rounded-circle" width="35" height="35" />
                   </a>
                   {%endif%}
                 </div>
                 <span class="subheader_username">
                   {% url 'profile' request.user.profile.pk as url_profile %}
-                  <a  class="subheader_user_name {% if url_register_page == request.path %}active{% endif %}" href="  {{url_profile}}"><p>{{request.user}}</p></a>
+                  <a  class="subheader_user_name {% if url_register_page == request.path %}active{% endif %}" href="{{url_profile}}"><p>{{request.user}}</p></a>
                 </span>
 
                 <button class="subheader_btn" type="button">

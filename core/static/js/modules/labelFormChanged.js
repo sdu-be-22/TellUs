@@ -24,13 +24,14 @@ function labelFormChanged({ labelForm, tagForm, tagInputs, justTagP, Textarea })
 
             //check to append in input
             if (input.getAttribute("name") != "csrfmiddlewaretoken") {
-                if (label_form[i] == undefined) {
+                if (label_form[0] == undefined) {
                     input.after(label_form[0]);
                     if(tagP[i] != undefined) {
                         
                         input.after(tagP[0]);
                     }
                 } else {
+
                     input.after(label_form[i]);
                     if(tagP[i] != undefined) {
                         
@@ -60,13 +61,14 @@ function labelFormChanged({ labelForm, tagForm, tagInputs, justTagP, Textarea })
     
                 //check to append in input
                 if (input.getAttribute("name") != "csrfmiddlewaretoken") {
-                    if (label_form[i] == undefined) {
+                    if (label_form[0] == undefined) {
                         input.after(label_form[0]);
                         if(tagP[i] != undefined) {
                             
                             input.after(tagP[0]);
                         }
                     } else {
+                      
                         input.after(label_form[i]);
                         if(tagP[i] != undefined) {
                             

@@ -5,6 +5,9 @@ function slider() {
 
             tns({
                 container: '.my-slider',
+                mode: "carousel",
+                speed: 1200,
+                swipeAngle: false,
                 items: 1,
                 slideBy: 'page',
                 autoplay: true,

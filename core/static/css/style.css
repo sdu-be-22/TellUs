@@ -48,6 +48,10 @@ ul, li{
     margin: 0;
 }
 
+textarea {
+    resize: none;
+}
+
 .container {
     width: 1140px; 
     margin: 0 auto;
@@ -64,6 +68,20 @@ ul, li{
 }
 .subheader_user_name p {
     display: inline-block;
+}
+
+.subheader_user_img {
+    display: inline;
+    position: relative;
+}
+
+.subheader_user_img .rounded-circle  {
+    position: absolute; 
+    z-index: 3;
+    top: -8px;
+    left: -40px;
+    border-radius: 100%;
+    
 }
 
 .subheader_user_name p::first-letter {
@@ -306,11 +324,12 @@ ul, li{
     margin-top: 50px;
     transition: 0.5s all;
     visibility: hidden;
+    z-index: 1;
 }
 
 .subheader_show {
     transition: 0.5s all;
-    z-index: 5;
+    z-index: 100;
     opacity: 1;
     display: inline;
     visibility: visible;
@@ -369,6 +388,7 @@ ul, li{
     font-size: 26px; 
     font-weight: 400;
     margin: 2px;
+    line-height: 33px;
 }
 
 .post_txt {
@@ -518,12 +538,17 @@ ul, li{
     width: 250px;
     min-height: 200px;
 }
+.popular_post .popular_post_info  .popular_post_item .popular_post_img {
+    background: rgb(248, 249, 250);
+}
 
 .popular_post .popular_post_info  .popular_post_item .popular_post_img  span {
-    width: 245px; 
+    width: 250px; 
     height: 150px; 
     display: inline-block;
     background: center center/cover no-repeat;  
+    border: none; 
+    border-radius: 5px;
 }
 
 .popular_post .popular_post_info  .popular_post_item .popular_post_txt {
@@ -533,7 +558,6 @@ ul, li{
     width: 100%;
     height: 150px;
     background-color:rgb(248, 249, 250);
-
     
 }
 
@@ -957,55 +981,108 @@ footer .copyright p a {
 
 .modal {
     display: none;
-    position: absolute;
-    top: 50%;
-    width: 500px;
-    min-height: 500px;
-    background: rgba(128, 128, 128, 0.7);
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 200;
+    background-color: rgba(0, 0, 0, 0.56); 
 } 
+
 .fade {
     display: inline;
 }
 
 .modal-dialog {
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center;
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    width: 380px; 
+    min-height: 400px ; 
+    background: #f2f2f2;
+    border-radius: 15px;
+    border: none;
+    padding: 38px 40px 40px 40px ; 
+
 }
 
-.modal-header {
-    display: flex; 
-    align-items: center;
+.modal-dialog  .btn-primary {
+    width: 100%;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    border-radius: 30px;
+    border: none;
+    color: #fff;
+    background: #000;
+    transition: 0.3s all;
 }
 
-.modal-header .modal-title {
-    font-size: 20px; 
-    color:#efefef;
-    font-weight: 400; 
-
+.modal-dialog  .btn-primary:hover  {
+    background:#8BC467;
 }
 
 .modal_close {
-    position: absolute;
-    right: 10px;
-    top:10px;
-    font-size: 25px;
-    color: #fff;
+    position: absolute; 
+    top: 0; 
+    right: -40px ; 
+    font-size: 41px; 
+    line-height: 21px; 
+    color: rgb(247, 247, 247); 
+    cursor: pointer;
 }
 
-.modal_close:hover {
-    color: rgba(0, 0, 0, 0.8);
+
+.modal_subtitle {
+    color: #0d0d0d;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
 }
 
-.modal-body form {
+.style_label {
+    margin-top: 36px;
     display: flex; 
     flex-direction: column; 
-    justify-content: center;
+    width: 300px;
+
 }
 
+.style_label_mt25 {
+    margin-top: 25px;
+}
+
+.style_label input {
+    width: 100%;
+    height: 50px; 
+    background-color: #fff; 
+    border-radius: 5px; 
+    margin-bottom: 15px;
+    border: none; 
+    padding: 0 20px ; 
+    color: #4b4b4b;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.style_label textarea  {
+    border-radius: 5px; 
+    border: none; 
+    padding: 0 20px;
+    padding-top: 10px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #4b4b4b;
+    width: 100%;
+    
+}
+
+.style_label input[type=file] {
+    background: none; 
+
+    margin-bottom: 20px;
+}
 
 
 
@@ -1210,6 +1287,7 @@ footer .copyright p a {
     text-align: center;
     font-size: 40px; 
     margin-top: 10px;
+    line-height: 55px;
 
 }
 
@@ -1234,6 +1312,7 @@ footer .copyright p a {
     font-size: 20px; 
     font-weight: 400; 
     line-height: 10px;
+    line-height: 33px;
 }
 
 .post_detail_txt {
@@ -1345,4 +1424,8 @@ footer .copyright p a {
 
 .profile_circle {
     border-radius: 100%;
+}
+
+.hideLabels {
+    display: none;
 }
