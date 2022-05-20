@@ -2,7 +2,7 @@ function labelFormHide({ labelForm, tagForm }) {
     try {
 
         const form = document.querySelector(tagForm);
-        const label_form = document.querySelectorAll(labelForm);
+        const label_form = form.querySelectorAll(labelForm);
         label_form.forEach((input, i) => {  
             if(input.getAttribute("name") != "csrfmiddlewaretoken") {
                // if(label_form[i] == undefined) {
