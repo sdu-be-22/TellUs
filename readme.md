@@ -33,5 +33,5 @@ $ python manage.py runserver
      Ruslan Adilkhanov - 200103198
 
 ## Project
-[![Watch the video]](https://drive.google.com/file/d/1Al4A15_bZKsU0-q07hoJzGvheVSJ31r_/view?usp=sharing)
+https://user-images.githubusercontent.com/91275970/169530945-d128ac94-5122-4a55-923a-3ac702a293e7.mp4
     
