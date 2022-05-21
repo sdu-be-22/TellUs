@@ -18,9 +18,11 @@ def show_notifications_new(context):
     return {'notifications': notifications, 'read' : read}
 
 
-# @register.inclusion_tag('index.html', takes_context=True)
-# def change_language(context):
-#     lang = context['']
+@register.inclusion_tag('index.html', takes_context=True)
+def change_language(context):
+    lang = context['request'].post['form-select']
+    
+    
 
 @register.inclusion_tag('notification.html', takes_context=True)
 def show_notifications_old(context):

@@ -24,13 +24,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
-] 
-urlpatterns += i18n_patterns(
     path('', include('core.urls')),
     path("room/", include("room.urls")),
     path("chat/", include("privateRoom.urls")),
     path('captcha/', include('captcha.urls')),
-     path('reset_password/',
+    path('reset_password/',
      auth_views.PasswordResetView.as_view(template_name="accounts/password-reset-form.html"),
      name="reset_password"),
 
@@ -46,8 +44,30 @@ urlpatterns += i18n_patterns(
         auth_views.PasswordResetCompleteView.as_view(template_name="accounts/password-reset-complete.html"), 
         name="password_reset_complete"),
     path('captcha/', include('captcha.urls')),
-    prefix_default_language=False
-)
+] 
+# urlpatterns += i18n_patterns(
+#     path('', include('core.urls')),
+#     path("room/", include("room.urls")),
+#     path("chat/", include("privateRoom.urls")),
+#     path('captcha/', include('captcha.urls')),
+#     path('reset_password/',
+#      auth_views.PasswordResetView.as_view(template_name="accounts/password-reset-form.html"),
+#      name="reset_password"),
+
+#     path('reset_password_sent/', 
+#         auth_views.PasswordResetDoneView.as_view(template_name="accounts/password-reset-done.html"), 
+#         name="password_reset_done"),
+
+#     path('reset/<uidb64>/<token>/',
+#      auth_views.PasswordResetConfirmView.as_view(template_name="accounts/password-reset-confirm.html"), 
+#      name="password_reset_confirm"),
+
+#     path('reset_password_complete/', 
+#         auth_views.PasswordResetCompleteView.as_view(template_name="accounts/password-reset-complete.html"), 
+#         name="password_reset_complete"),
+#     path('captcha/', include('captcha.urls')),
+#     prefix_default_language=False
+# )
 
 if settings.DEBUG:  
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) 
