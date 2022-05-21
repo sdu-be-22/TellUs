@@ -16,6 +16,7 @@ import tinySlideModified    from "./modules/tinySlideModified";
 import modalWindow          from "./modules/modalWindow";
 import changeRowsColsTextArea       from "./modules/changeRowsColsTextArea";
 import globeIO              from "./modules/globe";
+import selectFlagChanges    from "./modules/selectFlagChanges";
 
 window.addEventListener('DOMContentLoaded', () => { 
     
@@ -27,14 +28,16 @@ window.addEventListener('DOMContentLoaded', () => {
     globeIO();
     subheaderScroll("subheader", document.body);
     numericPost(".popular_post_number");
+    selectFlagChanges(".language_choose_block_select", "option");
     modalWindow('#modal', "exampleModal", "label", "modal_block");
     changeRowsColsTextArea("#update_data", "textarea", 30, 100);
+    changeRowsColsTextArea(".style_label_mt25", "textarea", 10, 37);
+
     labelFormHide({
         labelForm: "label",
         tagForm: ".style_label_mt25",
         TextArea: "id_text"
     });
-    changeRowsColsTextArea(".style_label_mt25", "textarea", 10, 37);
 
 
     labelFormChanged({

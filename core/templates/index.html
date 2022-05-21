@@ -1,7 +1,7 @@
 {% load custom_tags %}
 {% load static %}
 {% load render_bundle from webpack_loader %}
-
+{% load i18n %}
 
 <!doctype html>
 <html lang="en">
@@ -45,15 +45,15 @@
         
         <div class="header_icon_form">
           <div class="header_icons_img">
-            <a href="#" class="header_icons_img_face">
+            <a href="https://ru-ru.facebook.com/" class="header_icons_img_face">
               <i class="fa-brands fa-facebook-f"></i>
             </a>
 
-            <a href="#" class="header_icons_img_face">
+            <a href="https://twitter.com/?lang=ru" class="header_icons_img_face">
               <i class="fa-brands fa-twitter"></i>
             </a>
 
-            <a href="#" class="header_icons_img_face">
+            <a href="https://www.instagram.com/" class="header_icons_img_face">
               <i class="fa-brands fa-instagram"></i>
             </a>
 
@@ -80,13 +80,38 @@
           </div>
 
           <div class="header_forms">
-            <form action="{%url 'search_results'%}" method="get">
-              <input type="search" name = "q" placeholder="Search...">
+            <form id = "search-form" action="{%url 'search_results'%}" method="get">
+              <input type="search" name = "q" placeholder="{% trans 'Search ...' %}">
             </form>
-            <div class="header_searchBtn">
+            <button form = "search-form" type = "submit" class="header_searchBtn">
               <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
+            </button>
           </div>
+
+          <div class="language">
+            <form action="{% url 'set_language' %}" method="post">
+              {% csrf_token %}
+              <div class="language_choose">
+                <div class="language_choose_block">
+                  <div class="form-floating">
+                    <input name="next" type="hidden" value="{{ request.get_full_path|slice:"3:" }}">
+               
+                    <select class="language_choose_block_select" name="language" onchange="this.form.submit()" id="language">
+
+                      {% get_current_language as LANGUAGE_CODE %}
+                      {% get_available_languages as LANGUAGES %}
+                      {% get_language_info_list for LANGUAGES as languages %}
+                      {% for language in languages %}
+                        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                          {{ language.name_local }} ({{ language.code }})
+                        </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div> 
         </div>
 
       </div>
@@ -99,13 +124,13 @@
 
             <li class="subheader_menu_item">
               {% url 'home' as url_home %}
-              <a class="nav-link {% if url_home == request.path %}active{% endif %}" href="{{url_home}}">Main page</a>
+              <a class="nav-link {% if url_home == request.path %}active{% endif %}" href="{{url_home}}">{% trans 'Main page' %}</a>
             </li>
 
             <li class="subheader_menu_item">
               {% url 'edit_page' as url_edit_page %}
               <a class="nav-link {% if url_edit_page == request.path %}active{% endif %}"
-                href="{{url_edit_page}}">Create</a>
+                href="{{url_edit_page}}">{% trans 'Create' %}</a>
             </li>
 
             {% if request.user.is_authenticated %}
@@ -113,39 +138,39 @@
             <li class="subheader_menu_item">
               {% url 'edit_profile' as url_edit_profile %}
               
-              <a class="" href="{{url_edit_profile}}">Edit Profile</a>
+                <a class="" href="{{url_edit_profile}}">{% trans 'Edit Profile' %}</a>
             </li>
             
             <li class="subheader_menu_item">
               {% url 'logout_page' as url_logout_page %}
 
-              <a class="logout" href="{{url_logout_page}}">Logout</a>
+              <a class="logout" href="{{url_logout_page}}">{% trans 'Logout' %}</a>
             </li>
 
             <li class="subheader_menu_item">
               {% url 'logout_page' as url_logout_page %}
 
-              <a href="/password_reset/{{request.user}}" class = "logout">Password reset</a>
+              <a href="/password_reset/{{request.user}}" class = "logout">{% trans 'Password reset' %}</a>
             </li>
 
             {% else %}
             <li class="subheader_menu_item">
               {% url 'login_page' as url_login_page %}
               <a class="nav-link {% if url_edit_profile == request.path %}active{% endif %}"
-                href="{{url_edit_profile}}">Edit Profile</a>
+                href="{{url_edit_profile}}">{%trans 'Edit Profile'%}</a>
             </li>
 
             <li class="subheader_menu_item">
               {% url 'login_page' as url_login_page %}
               <a class="nav-link {% if url_login_page == request.path %}active{% endif %}"
-                href="{{url_login_page}}">Login</a>
+                href="{{url_login_page}}">{%trans 'Login'%}</a>
             </li>
 
             <li class="subheader_menu_item">
               {% url 'register_page' as url_register_page %}
 
               <a class="nav-link {% if url_register_page == request.path %}active{% endif %}"
-                href="{{url_register_page}}">Register</a>
+                href="{{url_register_page}}">{%trans 'Register' %}</a>
             </li>
 
             {% endif %}
@@ -171,11 +196,11 @@
                 </span>
 
                 <button class="subheader_btn" type="button">
-                  <a href="/room/" class="text-white">Rooms</a>
+                  <a href="/room/" class="text-white">{%trans 'Rooms'%}</a>
                 </button>
 
                 <button class="subheader_btn" type="button">
-                  <a href="/chat/" class="text-white">Chats</a>
+                  <a href="/chat/" class="text-white">{%trans 'Chats'%}</a>
                 </button>
 
               </div>
@@ -208,7 +233,7 @@
 
         <div class="prefooter_form">
           <form action=".">
-            <input class = "form_control" type="email" placeholder = "Enter your email">
+            <input class = "form_control" type="email" placeholder = "{%trans 'Enter your email' %}">
             <span>
               <i class="fa-solid fa-paper-plane"></i>
             </span>
@@ -259,6 +284,9 @@
       }else {
           document.querySelector("body").classList.remove('dark');
       }
+
+    const flagsRussianImg = "{% static 'assets/russianFlag.png'%}",
+          flagUSAImg = "{% static 'assets/USAFlag.png'%} ";
     </script>
 
     {% block js %}

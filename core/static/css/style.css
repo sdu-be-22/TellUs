@@ -218,7 +218,8 @@ textarea {
     color: #fff;
     height: 55px;
     transition: 0.3s all;
-   
+    cursor: pointer;
+    border: none;
   
 }
 
@@ -737,6 +738,27 @@ footer .copyright p i {
 footer .copyright p a {
     color: #8bc34a;
 
+}
+
+.language {
+   position: relative; 
+    
+}
+
+.language .language_choose {
+    position: absolute; 
+    top: -45px;
+    right: -165px;
+}
+
+.language_choose_block_select {
+    border: none; 
+    background: none;
+}
+
+.language_choose_block_select option {
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.56);
+    background-color: inherit;
 }
 
 /* login */
@@ -1441,13 +1463,15 @@ footer .copyright p a {
 
 .profile .profile_user_info  {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    
 }
 
 .profile .profile_user_info  .profile_user_info_card  {
-    text-align: center;
-    flex: 0 0 340px;
+   display: flex;
+   justify-content: space-around;
+   
 }
 
 

@@ -8,21 +8,17 @@
     
         <div class="profile_user_info">
             <div class="profile_user_info_card">
-                <div class="profile_user_info_card_mod">
-
-                    <img src="{{ profile.picture.url }}" class="rounded-circle" width="200" height="200" />
-                        {% if profile.name %}
-                    <h3 class="profile_user_name">
-                        Name: {{ profile.name }}
-                    </h3>
-                        {% else %}
-                    <h3 class="profile_user_name">
-                        Name: {{ user.username }}
-                    </h3>
-                        {% endif %}
-        
-                </div>
+                
                 <div class="profile_user_followers">
+                    {% if profile.name %}
+                 <h3 class="profile_user_name">
+                    {{ profile.name }}
+                </h3>
+                    {% else %}
+                <h3 class="profile_user_name">
+                    {{ user.username }}
+                </h3>
+                     {% endif %}
                     <p>{{ number_of_followers }} followers</p>
                     {% if user == request.user %}
                     {% else %}
@@ -38,6 +34,13 @@
                     </form>
                     {% endif %}
                     {% endif %}
+
+                </div>
+
+                <div class="profile_user_info_card_mod">
+
+                    <img src="{{ profile.picture.url }}" class="rounded-circle" width="200" height="200" />
+                    
                 </div>
             </div>
             <div class="user_profile_info_posts">
