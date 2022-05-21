@@ -1,19 +1,19 @@
 {% extends 'index.html' %}
-    
+{% load static i18n %}   
     {% block content %}
     <section class="login">
         <!-- <p class="login_backPath post_linkPagi" ><a href="/">Back</a></p> -->
         <div class="container login_pos">
             <div class="center">    
                 
-                <h1 class="">Register</h1>
+                <h1 class="">{% trans 'Registration' %}</h1>
             
                 <form id="add_form" method="post">
                     <!-- <div class="inputbox"> -->
                         {{form}}
                         {% csrf_token %}
                     <!-- </div> -->
-                    <button form="add_form" type="submit" class="login_btn">Add</button>
+                    <button form="add_form" type="submit" class="login_btn">{% trans 'Register' %}</button>
                 </form>
             </div>
         </div>

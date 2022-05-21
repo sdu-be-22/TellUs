@@ -1,22 +1,22 @@
 {% extends 'index.html' %}
-
+{% load static i18n %}
 {% block content %}
 	<section class="login">
 		<div class="container login_pos">
 			<div class="center">
 			{% if sent %}
-				<h1>E-mail succesfully sent</h1>
+				<h1>{% trans 'E-mail has been sent' %}</h1>
 				<p>
-					'{{articles.name}}'  was successfully sent to {{ cd.to }}
+					'{{articles.name}}'  {% trans 'was successfully sent to' %} {{ cd.to }}
 	
 				</p>
 			{% else %}
-				<h1>Share "{{articles.name}}" by e-mail</h1>
+				<h1>{% trans 'Share ' %} "{{articles.name}}" {% trans 'by email' %}</h1>
 	
 				<form action = "." id="add_form" method = "post">
 					{{form.as_p}}
 					{%csrf_token%}
-					<button type = "submit" form="add_form" class="login_btn">Send e-maill</button>
+					<button type = "submit" form="add_form" class="login_btn">{% trans 'Send e-mail' %}</button>
 				</form>
 	
 			{%endif%}

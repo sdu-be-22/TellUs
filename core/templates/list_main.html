@@ -1,5 +1,5 @@
 {% extends 'index.html' %}
-
+{% load static i18n %}
 
 {% block content %}
 <h1 class="mt-4">Zero to Hero</h1>
@@ -16,7 +16,7 @@
             <span class="m-2">{{i.name}}</span>
             <span>{{i.text|truncatechars:"5"}}</span>
             
-            <span class="float-right mr-3"><a href="/detail/{{i.id}}">go to article</a></span>
+            <span class="float-right mr-3"><a href="/detail/{{i.id}}">{% trans 'go to article' %}</a></span>
             </li>
             
             </ul>

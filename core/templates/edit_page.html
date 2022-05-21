@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 {% load static %}
-
+{% load i18n %}
 
 {% block content %}
   <section class="post_edit">
@@ -9,7 +9,7 @@
       
       
       {% if success %}
-      <p style="color:red">Post added</p>
+      <p style="color:red">{% trans 'Post added' %}</p>
       {% endif %}
       
       {% if messages %}
@@ -25,7 +25,7 @@
       
       
       <button type="button" class="post_edit_btn" data-toggle="modal" id="modal">
-        Add new article
+        {% trans 'Add new article' %}
       </button>
       
       
@@ -34,15 +34,15 @@
           .post_edit_btn {display:none;}
         </style> 
         {% if success_update %}
-        <p style="color:red">Post updated</p>
+        <p style="color:red">{% trans 'Post updated' %}</p>
         {% endif %}
-        <p class="mt-4 alert">Edit Page</p>
+        <p class="mt-4 alert">{% trans 'Edit page' %}</p>
       
         <form id="update_data" method="post" enctype="multipart/form-data">
           {{form}}
           {% csrf_token %}
         </form>
-        <button form="update_data" type="submit" class="update_btn">Update</button>
+        <button form="update_data" type="submit" class="update_btn">{% trans 'Done' %}</button>
       
       {% else %}
           <section class = "post_sliders post_edit_block">
@@ -79,28 +79,28 @@
                                         <i class="fa-solid fa-star"></i>
                                         </span>
 
-                                        <a class="post_edit_linkPost" href="/detail/{{i.id}}">go to article</a>
+                                        <a class="post_edit_linkPost" href="/detail/{{i.id}}">{% trans 'go to article' %}</a>
                                     </div> 
                                     
                                     <div class="post_slider_moreInfo">
                                         
                                         <div class="post_edit_data">
                                           <span class="post_edit_id">id: {{i.id}}</span>
-                                          <span class="post_edit_id">Create data: {{i.create_date|date:'d.m.Y'}} - {{i.author}}</span>
+                                          <span class="post_edit_id">{% trans 'Create date: ' %} {{i.create_date|date:'d.m.Y'}} - {{i.author}}</span>
                                           <div class="post_edit_more_into_btns">
                                             {% if request.user == i.author %}
                                               <button class="post_edit_btns btn-three">
-                                                <a href="{% url 'update_page' i.id %}">Update</a>
+                                                <a href="{% url 'update_page' i.id %}">{% trans 'Update' %}</a>
                                               </button>
                                             {% else %}
                                 
-                                               No access update📛
+                                            {% trans 'No access update' %}📛
                                             {% endif %}
                                             {% if request.user == i.author %}
                                                 <form id="delete_form{{i.id}}" action="{% url 'delete_page' i.id %}" method="post">{% csrf_token %}</form>
                                                 
                                                 <button class="post_edit_btns btn-three">
-                                                  <a href="javascript:void()" onclick="delete_question{{i.id}}()">Delete</a>
+                                                  <a href="javascript:void()" onclick="delete_question{{i.id}}()">{% trans 'Delete' %}</a>
                                                 </button>
                                     
                                                 <script>
@@ -115,7 +115,7 @@
                                     
                                             {% else %}
                                     
-                                                No access delete❌
+                                            {% trans 'No access delete' %}❌
                                             {% endif %}
                                           </div>
                                         </div>       
@@ -142,7 +142,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="exampleModalLabel">{% trans 'New post' %}</h5>
               <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               </button> -->
               <span aria-hidden="true" class = "modal_close" id = "modal"><i class="fa-solid fa-circle-xmark"></i></span>
@@ -154,8 +154,8 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" id = "modal"  data-dismiss="modal">Close</button>
-              <button form="add_form" type="submit" class="btn btn-primary">Add</button>
+              <button type="button" class="btn btn-secondary" id = "modal"  data-dismiss="modal">{% trans 'Cancel' %}</button>
+              <button form="add_form" type="submit" class="btn btn-primary">{% trans 'Publish' %}</button>
             </div>
           </div>
         </div>

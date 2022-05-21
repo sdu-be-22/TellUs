@@ -33,11 +33,14 @@ from hitcount.views import HitCountDetailView
 from django.contrib.auth.forms import UserChangeForm ,  PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeForm
 from django.views import generic
+from django.utils.translation import gettext as _
 from .forms import EditProfileForm , PasswordChangingForm
 
 
 
 def post_list(request):
+    go_to = _('go to article')
+    popular_posts = _('Popular posts')
     object_list = Articles.objects.all().order_by('-likes')
     paginator = Paginator(object_list, 3)
 
@@ -49,7 +52,7 @@ def post_list(request):
         list_articles = paginator.page(1)
     except EmprtPage:
         list_articles = paginator.page(paginator.num_pages)
-    return render(request, "main.html", {'list_articles': list_articles, 'page':page, "object_list": object_list})
+    return render(request, "main.html", {'list_articles': list_articles, 'page':page,'go_to': go_to, 'pp' : popular_posts,  "object_list": object_list})
 
 
 def post_share(request, post_name):
@@ -273,7 +276,7 @@ class ArticleCreateView(LoginRequiredMixin, CustomSuccessMessageMixin, CreateVie
     template_name = 'edit_page.html'
     form_class = ArticleForm
     success_url = reverse_lazy('edit_page')
-    success_msg = 'Post created' 
+    success_msg = _('Post created')
     def get_context_data(self,**kwargs):
         kwargs['list_articles'] = Articles.objects.all().order_by('-id')
         object_list = kwargs['list_articles']
@@ -301,7 +304,7 @@ class ArticleUpdateView(LoginRequiredMixin, CustomSuccessMessageMixin,UpdateView
     template_name = 'edit_page.html'
     form_class = ArticleForm
     success_url = reverse_lazy('edit_page')
-    success_msg = 'Post successfully updated'
+    success_msg = _('Post successfully updated')
     def get_context_data(self,**kwargs):
         kwargs['update'] = True
         return super().get_context_data(**kwargs)
@@ -341,7 +344,7 @@ class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     model = Articles
     template_name = 'edit_page.html'
     success_url = reverse_lazy('edit_page')
-    success_msg = 'Post removed'
+    success_msg = _('Post removed')
     def post(self,request,*args,**kwargs):
         messages.success(self.request, self.success_msg)
         return super().post(request)

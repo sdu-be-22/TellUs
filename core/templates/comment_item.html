@@ -1,4 +1,5 @@
-    {% if status_comment %}
+{% load static i18n %}
+ {% if status_comment %}
     <div class="alert alert-success">
             {{status_comment}}
             
@@ -10,7 +11,7 @@
     {% if item.article.author == request.user %}
      - 
     <!-- <a class="update_status" data-url="{% url 'update_comment_status' item.id 'public' %}" href="#">Publish</a> / -->
-    <a class="update_status" data-url="{% url 'update_comment_status' item.id 'delete' %}" href="#">Delete</a>
+    <a class="update_status" data-url="{% url 'update_comment_status' item.id 'delete' %}" href="#">{% trans 'Delete' %}</a>
     {% endif %}
 
     

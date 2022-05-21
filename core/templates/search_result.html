@@ -1,3 +1,4 @@
+{% load static i18n %}
 {% extends 'edit_page.html' %}
   <form method="get" action="{% url 'search' %}">
     <input type="text" placeholder="Search..." name="q">
@@ -13,7 +14,7 @@
     <td> 
         
         {% if request.user == i.author %}
-        <a href="{% url 'update_page' i.id %}">Update</a>
+        <a href="{% url 'update_page' i.id %}">{% trans 'Update' %}</a>
         {% else %}
         
         No access
@@ -26,7 +27,7 @@
        
         {% if request.user == i.author %}
         <form id="delete_form{{i.id}}" action="{% url 'delete_page' i.id %}" method="post">{% csrf_token %}</form>
-        <a href="javascript:void()" onclick="delete_question{{i.id}}()">Delete</a>
+        <a href="javascript:void()" onclick="delete_question{{i.id}}()">{% trans 'Delete' %}</a>
         <script>
             function delete_question{{i.id}}() {
                 if (confirm("Are you sure")) {

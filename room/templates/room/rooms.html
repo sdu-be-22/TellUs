@@ -1,12 +1,12 @@
 {% extends 'index.html' %}
-
+{% load static i18n %}
 
 {% block content %}
 <section class="rooms">
     <div class="container">
         
         <div class="rooms_title">
-            <h2 class="rooms_txt">Rooms</h2>
+            <h2 class="rooms_txt">{% trans 'Rooms' %}</h2>
         </div>
         
         <div class="rooms_list">
@@ -16,7 +16,7 @@
                         <h2 class="rooms_name">{{ room.name }}</h2>
                         <button>
                             
-                            <a href="{% url 'room' room.slug %}" class="rooms_link">Join</a>
+                            <a href="{% url 'room' room.slug %}" class="rooms_link">{% trans 'Join' %}</a>
                         </button>
                     </div>
                 </div>

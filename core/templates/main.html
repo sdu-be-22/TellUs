@@ -1,5 +1,5 @@
 {% extends 'index.html' %}
-
+{% load static i18n %}
 {% block content %} 
     <section class = "post_sliders">
         <div class="container">
@@ -34,7 +34,7 @@
                             
                             <div class="post_slider_moreInfo">
                                 
-                                <a class="post_link" href="/detail/{{i.id}}">go to article</a>
+                                <a class="post_link" href="/detail/{{i.id}}">{{go_to}}</a>
                             </div>
                             
                             {%endif%}
@@ -53,7 +53,7 @@
     <section class="popular_post">
         <div class="container"> 
             <h2 class="popular_post_title">
-                Popular Posts
+                {{pp}}
             </h2>
             <div class="popular_post_blocks">
                 {% for i in object_list %}
@@ -84,7 +84,7 @@
                                 
                                 <div class="popular_post_moreInfo">
                                     
-                                    <a class="post_link" href="/detail/{{i.id}}">go to article</a>
+                                    <a class="post_link" href="/detail/{{i.id}}">{{go_to}}</a>
                                 </div>
                                 
                                 {%endif%}

@@ -1,7 +1,7 @@
 {% load custom_tags %}
 {% load static %}
 {% load render_bundle from webpack_loader %}
-
+{% load i18n %}
 
 <!doctype html>
 <html lang="en">
@@ -36,7 +36,6 @@
 
 
 <body>
-
   <header class="header">
     <div class="container">
       <div class="header_logo">
@@ -55,6 +54,9 @@
             <a href="#" class="header_icons_img_face">
               <i class="fa-brands fa-instagram"></i>
             </a>
+
+           
+        
 
             {% if request.user.is_authenticated %}
          
@@ -80,12 +82,35 @@
 
           <div class="header_forms">
             <form action="{%url 'search_results'%}" method="get">
-              <input type="search" name = "q" placeholder="Search...">
+              <input type="search" name = "q" placeholder="{% trans 'Search... ' %}">
             </form>
             <div class="header_searchBtn">
               <i class="fa-solid fa-magnifying-glass"></i>
             </div>
           </div>
+          
+          <div class="language">
+            <form action="{% url 'set_language' %}" method="post">
+              {% csrf_token %}
+              <div class="row g-2">
+                <div class="col col-sm-12 col-lg-3 col-md-4">
+                  <div class="form-floating">
+                    <input name="next" type="hidden" value="{{ request.get_full_path|slice:"3:" }}">
+                    <select class="form-select" name="language" onchange="this.form.submit()" id="language">
+                      {% get_current_language as LANGUAGE_CODE %}
+                      {% get_available_languages as LANGUAGES %}
+                      {% get_language_info_list for LANGUAGES as languages %}
+                      {% for language in languages %}
+                        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                          {{ language.name_local }} ({{ language.code }})
+                        </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div> 
         </div>
 
       </div>
@@ -98,46 +123,46 @@
 
             <li class="subheader_menu_item">
               {% url 'home' as url_home %}
-              <a class="nav-link {% if url_home == request.path %}active{% endif %}" href="{{url_home}}">Main page</a>
+              <a class="nav-link {% if url_home == request.path %}active{% endif %}" href="{{url_home}}">{% trans 'Main page' %}</a>
             </li>
 
             <li class="subheader_menu_item">
               {% url 'edit_page' as url_edit_page %}
               <a class="nav-link {% if url_edit_page == request.path %}active{% endif %}"
-                href="{{url_edit_page}}">Create</a>
+                href="{{url_edit_page}}">{% trans 'Create' %}</a>
             </li>
 
             {% if request.user.is_authenticated %}
             <li class="subheader_menu_item">
               {% url 'logout_page' as url_logout_page %}
 
-              <a class="" href="{{url_logout_page}}">Logout</a>
+              <a class="" href="{{url_logout_page}}">{% trans 'Logout' %}</a>
             </li>
 
             <li class="subheader_menu_item">
               {% url 'edit_profile' as url_edit_profile %}
 
-              <a class="" href="{{url_edit_profile}}">Edit Profile</a>
+              <a class="" href="{{url_edit_profile}}">{% trans 'Edit Profile' %}</a>
             </li>
 
             {% else %}
             <li class="subheader_menu_item">
               {% url 'login_page' as url_login_page %}
               <a class="nav-link {% if url_edit_profile == request.path %}active{% endif %}"
-                href="{{url_edit_profile}}">Edit Profile</a>
+                href="{{url_edit_profile}}">{% trans 'Edit Profile' %}</a>
             </li>
 
             <li class="subheader_menu_item">
               {% url 'login_page' as url_login_page %}
               <a class="nav-link {% if url_login_page == request.path %}active{% endif %}"
-                href="{{url_login_page}}">Login</a>
+                href="{{url_login_page}}">{% trans 'Login' %}</a>
             </li>
 
             <li class="subheader_menu_item">
               {% url 'register_page' as url_register_page %}
 
               <a class="nav-link {% if url_register_page == request.path %}active{% endif %}"
-                href="{{url_register_page}}">Register</a>
+                href="{{url_register_page}}">{% trans 'Register' %}</a>
             </li>
 
             {% endif %}
@@ -150,14 +175,14 @@
                 <image src="{{user.profile.image.url}}" width="20px" class="profile_circle" style="border-radius: 100%"></image>
                 <span class="subheader_user_name">{{request.user}}</span>
                 {% if request.user.is_authenticated %}
-                <a href="/password_reset/{{request.user}}" class = "subheader_pass_reset">Password reset</a>
+                <a href="/password_reset/{{request.user}}" class = "subheader_pass_reset">{% trans 'Password reset' %}</a>
                 {%endif%}
                 <button class="subheader_btn" type="button">
-                  <a href="/room/" class="text-white">Rooms</a>
+                  <a href="/room/" class="text-white">{% trans 'Rooms' %}</a>
                 </button>
 
                 <button class="subheader_btn" type="button">
-                  <a href="/chat/" class="text-white">Chats</a>
+                  <a href="/chat/" class="text-white">{% trans 'Chats' %}</a>
                 </button>
 
               </div>
@@ -183,14 +208,14 @@
       <div class="prefooter_txt_form">
 
         <div class="prefooter_txt">
-          <h2>Newsletter Subcribe</h2>
+          <h2>{% trans 'Newsletter Subscribe' %}</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quia, ipsum vel totam aspernatur maiores expedita voluptatem soluta exercitationem magni dolor mollitia illum quasi qui iste quod corporis explicabo. Numquam.
           </p>
         </div>
 
         <div class="prefooter_form">
           <form action=".">
-            <input class = "form_control" type="email" placeholder = "Enter your email">
+            <input class = "form_control" type="email" placeholder = "{% trans 'Enter your email' %}">
             <span>
               <i class="fa-solid fa-paper-plane"></i>
             </span>

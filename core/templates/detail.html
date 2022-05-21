@@ -1,10 +1,10 @@
 {% extends 'index.html' %}
 {% load hitcount_tags %}
-
+{% load static i18n %}
 {% block content %}
 <section class="post_detail">
     <div class="container">
-        <h1 class="post_detail_title"><span class = "post_detail_subtitle">Post</span> {{get_article.name}}</h1>
+        <h1 class="post_detail_title"><span class = "post_detail_subtitle">{% trans 'Post' %}</span> {{get_article.name}}</h1>
 
         
         <div class="post_detail_info">
@@ -12,8 +12,8 @@
             <img src="{{get_article.picture.url}}" alt="{{get_article.name}}" width = "730px" height = "440px">
             <div class="post_detail_info_txt">
 
-                <p class="mt-5">Create date: {{get_article.create_date}}</p>
-                <p class="mt-5">Name: {{get_article.name}}</p>
+                <p class="mt-5">{% trans 'Date created: ' %}{{get_article.create_date}}</p>
+                <p class="mt-5">{% trans 'Name : ' %} {{get_article.name}}</p>
 
             </div>
         </div>
@@ -31,12 +31,12 @@
                             d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
                     </svg>
                 </a>
-                <p class ="like_count">{{get_article.likes}} Likes </p>
-                 <p class = "like_count"><i class="fa-solid fa-comment"></i> {{get_article.comments_articles.all.count}} Comment</p>
+                <p class ="like_count">{{get_article.likes}} {% trans 'Likes' %} </p>
+                 <p class = "like_count"><i class="fa-solid fa-comment"></i> {{get_article.comments_articles.all.count}} {% trans 'Comments' %}</p>
 
                 <div class="post_detail_shareLink">
                     <i class="fa-solid fa-share post_shareIcon"></i>
-                    <a href="{%url 'post_share' post_name=get_article.name %}">Share post</a>
+                    <a href="{%url 'post_share' post_name=get_article.name %}">{% trans 'Share' %}</a>
                 </div>
             </div>
     
@@ -84,7 +84,7 @@
 
 
 
-            <button form="add_form" type="submit" class="post_detail_btn">Add</button>
+            <button form="add_form" type="submit" class="post_detail_btn">{% trans 'Publish' %}</button>
 
 
         </div>

@@ -1,0 +1,285 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-21 12:07+0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\core\templates\change-password.html:4
+#: .\core\templates\change-password.html:11
+msgid "Change password"
+msgstr "Изменить пароль"
+
+#: .\core\templates\change-password.html:5
+#: .\core\templates\password_success.html:6
+msgid "Back"
+msgstr "Назад"
+
+#: .\core\templates\comment_item.html:14 .\core\templates\edit_page.html:103
+#: .\core\templates\search_result.html:30
+msgid "Delete"
+msgstr "Удалить"
+
+#: .\core\templates\detail.html:7
+msgid "Post"
+msgstr "Пост"
+
+#: .\core\templates\detail.html:15
+#, fuzzy
+#| msgid "Create"
+msgid "Date created: "
+msgstr "Создано: "
+
+#: .\core\templates\detail.html:16
+msgid "Name : "
+msgstr "Название: "
+
+#: .\core\templates\detail.html:34
+msgid "Likes"
+msgstr "Нравится"
+
+#: .\core\templates\detail.html:35
+msgid "Comments"
+msgstr "Комментарии"
+
+#: .\core\templates\detail.html:39
+msgid "Share"
+msgstr "Поделиться"
+
+#: .\core\templates\detail.html:87 .\core\templates\edit_page.html:158
+msgid "Publish"
+msgstr "Опубликовать"
+
+#: .\core\templates\edit_page.html:12
+msgid "Post added"
+msgstr "Добавлено"
+
+#: .\core\templates\edit_page.html:28
+#, fuzzy
+#| msgid "go to article"
+msgid "Add new article"
+msgstr "Переходить"
+
+#: .\core\templates\edit_page.html:37
+msgid "Post updated"
+msgstr "Обновлено"
+
+#: .\core\templates\edit_page.html:39
+#, fuzzy
+#| msgid "Main page"
+msgid "Edit page"
+msgstr "Главная страница"
+
+#: .\core\templates\edit_page.html:45
+msgid "Done"
+msgstr "Готово"
+
+#: .\core\templates\edit_page.html:82 .\core\templates\list_main.html:19
+#: .\core\views.py:42
+msgid "go to article"
+msgstr "Переходить"
+
+#: .\core\templates\edit_page.html:89
+#, fuzzy
+#| msgid "Create"
+msgid "Create date: "
+msgstr "Создано: "
+
+#: .\core\templates\edit_page.html:93 .\core\templates\search_result.html:17
+msgid "Update"
+msgstr "Обновить"
+
+#: .\core\templates\edit_page.html:97
+msgid "No access update"
+msgstr "редактировать"
+
+#: .\core\templates\edit_page.html:118
+msgid "No access delete"
+msgstr "удалить"
+
+#: .\core\templates\edit_page.html:145
+msgid "New post"
+msgstr "Новый пост"
+
+#: .\core\templates\edit_page.html:157
+msgid "Cancel"
+msgstr "Отмена"
+
+#: .\core\templates\edit_profile.html:9 .\core\templates\index.html:146
+#: .\core\templates\index.html:153
+msgid "Edit Profile"
+msgstr "Редактировать профиль"
+
+#: .\core\templates\edit_profile.html:18
+#, fuzzy
+#| msgid "Edit Profile"
+msgid "Update Profile"
+msgstr "Редактировать профиль"
+
+#: .\core\templates\index.html:86
+msgid "Search... "
+msgstr "Поиск..."
+
+#: .\core\templates\index.html:127
+msgid "Main page"
+msgstr "Главная страница"
+
+#: .\core\templates\index.html:133
+msgid "Create"
+msgstr "Создать"
+
+#: .\core\templates\index.html:140
+msgid "Logout"
+msgstr "Выйти"
+
+#: .\core\templates\index.html:159 .\core\templates\login.html:9
+#: .\core\templates\login.html:16
+msgid "Login"
+msgstr "Вход"
+
+#: .\core\templates\index.html:166 .\core\templates\register_page.html:16
+msgid "Register"
+msgstr "Регистрация"
+
+#: .\core\templates\index.html:179
+msgid "Password reset"
+msgstr "Забыли пароль?"
+
+#: .\core\templates\index.html:182 .\room\templates\room\rooms.html:9
+msgid "Rooms"
+msgstr "Комнаты"
+
+#: .\core\templates\index.html:186
+msgid "Chats"
+msgstr "Чат"
+
+#: .\core\templates\index.html:212
+msgid "Newsletter Subscribe"
+msgstr "Подписаться на информационный бюллетень"
+
+#: .\core\templates\index.html:219
+msgid "Enter your email"
+msgstr "Ваша электронная почта..."
+
+#: .\core\templates\notification.html:5
+msgid "liked your post"
+msgstr "нравится ваш пост"
+
+#: .\core\templates\notification.html:10
+msgid "commented your post"
+msgstr "прокомментировал ваш пост"
+
+#: .\core\templates\notification.html:15
+msgid "shared your post"
+msgstr "поделился вашим постом"
+
+#: .\core\templates\pagination.html:5
+msgid "Previous"
+msgstr "Назад"
+
+#: .\core\templates\pagination.html:8
+msgid "Page "
+msgstr "Страница "
+
+#: .\core\templates\pagination.html:8
+msgid "of"
+msgstr "из"
+
+#: .\core\templates\pagination.html:11
+msgid "Next"
+msgstr "След"
+
+#: .\core\templates\password_success.html:5
+#, fuzzy
+#| msgid "Password reset"
+msgid "Password Update"
+msgstr "Забыли пароль?"
+
+#: .\core\templates\password_success.html:8
+msgid "Your password has been changed successfully..."
+msgstr "Ваш пароль успешно изменен"
+
+#: .\core\templates\register_page.html:9
+#, fuzzy
+#| msgid "Register"
+msgid "Registration"
+msgstr "Регистрация"
+
+#: .\core\templates\share.html:8
+msgid "E-mail has been sent"
+msgstr "Письмо отправлено"
+
+#: .\core\templates\share.html:10
+msgid "was successfully sent to"
+msgstr "успешно отправлено"
+
+#: .\core\templates\share.html:14
+msgid "Share "
+msgstr "Поделиться "
+
+#: .\core\templates\share.html:14
+msgid "by email"
+msgstr "через e-mail"
+
+#: .\core\templates\share.html:19
+msgid "Send e-mail"
+msgstr "Отправить e-mail"
+
+#: .\core\views.py:43
+msgid "Popular posts"
+msgstr "Популярные посты"
+
+#: .\core\views.py:279
+#, fuzzy
+#| msgid "Post updated"
+msgid "Post created"
+msgstr "Обновлено"
+
+#: .\core\views.py:307
+#, fuzzy
+#| msgid "No access update"
+msgid "Post successfully updated"
+msgstr "редактировать"
+
+#: .\core\views.py:347
+#, fuzzy
+#| msgid "Post added"
+msgid "Post removed"
+msgstr "Добавлено"
+
+#: .\iswork\settings.py:141
+msgid "English"
+msgstr "Английский"
+
+#: .\iswork\settings.py:142
+#, fuzzy
+#| msgid "Russia"
+msgid "Russian"
+msgstr "Россия"
+
+#: .\privateRoom\templates\privateChat\main_chat.html:138
+#: .\room\templates\room\room.html:28
+msgid "Send"
+msgstr "Отправить"
+
+#: .\room\templates\room\rooms.html:19
+msgid "Join"
+msgstr "Присоединиться"
+
+#~ msgid "Page {{ page.number }} of {{ page.paginator.num_pages }}."
+#~ msgstr "Страница {{page.number}} из {{page.paginator.num_pages}}"
