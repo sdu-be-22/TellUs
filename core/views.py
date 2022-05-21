@@ -191,31 +191,6 @@ def profileEdit(request):
         profile_form = UpdateProfilePhoto(instance=request.user.profile)
     return render(request, 'edit_profile.html', {'user_form' : user_form, 'profile_form' : profile_form})
 
-
-def theme(request):
-    color = request.GET.get("color")
-
-    if(color == 'dark'):
-        if ThemePage.objects.filter(user=request.user.username).exists():
-            user_theme = ThemePage.objects.get(user=request.user.username)
-            user_theme.user = request.user.username
-            user_theme.color = "grey"
-            user_theme.save()
-        else:
-            user2 = ThemePage(user=request.user.username, color="grey")
-            user2.save()
-    
-    elif(color == 'light'):
-        if ThemePage.objects.filter(user=request.user.username).exists():
-            user_theme1 = ThemePage.objects.get(user=request.user.username)
-            user_theme1.user = request.user.username
-            user_theme1.color = "white"
-            user_theme1.save()
-        else:
-            user4 = ThemePage(user=request.user.username, color="white")
-            user4s.save()
-    
-    return redirect("/")
     
 
 class HomeListView(ListView):
@@ -409,18 +384,6 @@ class ProfileView(View):
 
         return render(request, 'profile.html', context)
 
-class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = UserProfile
-    fields= ["image"]
-    template_name = "edit_profile.html"
-
-    def get_success_url(self):
-        pk =  self.kwargs['pk']
-        return reverse_lazy('profile', kwargs={"pk": pk})
-    
-    def test_func(self):
-        profile = self.get_object()
-        return self.request.user == profile.user
 
 class AddFollower(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):

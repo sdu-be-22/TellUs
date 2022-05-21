@@ -1433,3 +1433,103 @@ footer .copyright p a {
 .hideLabels {
     display: none;
 }
+
+.profile {
+    min-height: 200px; 
+    
+}
+
+.profile .profile_user_info  {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.profile .profile_user_info  .profile_user_info_card  {
+    text-align: center;
+    flex: 0 0 340px;
+}
+
+
+
+.profile .profile_user_info  .profile_user_info_card .profile_user_info_card_mod .rounded-circle {
+    border-radius: 100%;
+}
+
+.profile_user_name {
+    font-weight: 300;
+    font-size: 15.5px;
+    text-align: left;
+}
+
+.profile_user_followers {
+    text-align: left;
+}
+
+
+.profile .profile_user_info  .user_profile_info_posts {
+    flex: 0 0 700px;
+    
+}
+
+.user_profile_info_posts h2 {
+    margin-top: 7px;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 43px;
+}
+
+.user_profile_info_post_name{
+    font-weight: 500;
+    font-size: 18px;
+    color: #000; 
+    line-height: 29px;
+}
+
+.user_profile_info_post_name:after {
+    content: "";
+    display: block; 
+    height: 2px; 
+    width: 0%; 
+    transition: all 0.5s; 
+    background-color: #000;
+}
+
+.user_profile_info_post_name:hover:after {
+    width: 31%;
+}
+
+.profile_user_btn-outline-danger {
+    width: 100%;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    border-radius: 30px;
+    border: none;
+    color: #fff;
+    background: #000;
+    transition: all .3s ease; 
+    cursor: pointer;
+}
+
+.profile_user_btn-outline-danger:hover {
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.56);
+}
+
+
+.profile_user_btn-outline-success {
+    width: 100%;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    border-radius: 30px;
+    border: none;
+    color: #fff;
+    background:#8bc34a;
+    transition: all .3s ease; 
+    cursor: pointer;
+}
+
+.profile_user_btn-outline-success:hover {
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.56);
+}
