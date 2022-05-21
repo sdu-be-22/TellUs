@@ -1,11 +1,12 @@
 
 // Modal window 
-function modalWindow(modal_Fade, modalBlock, label_form) {
+function modalWindow(modal_Fade, modalBlock, label_form, modal_Mainblock) {
     try {
 
         const modalShow = document.querySelectorAll(modal_Fade); 
         const modal = document.getElementById(modalBlock),
-                labels = modal.querySelectorAll(label_form);
+                labels = modal.querySelectorAll(label_form),
+                modal_block = document.getElementById(modal_Mainblock);
     
     
         labels.forEach(label => {
@@ -17,10 +18,30 @@ function modalWindow(modal_Fade, modalBlock, label_form) {
         });
     
         modalShow.forEach(item => {
-            item.addEventListener("click", () => {
+            item.addEventListener("click", (e) => {
+  
                 modal.classList.toggle("fade");
+                bodyScroll("fade");
             });
         });
+
+        modal.addEventListener("click",  (e) => {
+            if(e.target == modal) {
+                modal.classList.toggle("fade");
+                bodyScroll("fade");
+            }
+        });
+
+        const bodyScroll = (className) => {
+                 
+            if(modal.classList.contains(className)) {
+                document.body.style.overflow = "hidden";
+            }else if(!modal.classList.contains(className)){
+                document.body.style.overflow = "auto";
+            }
+
+        };
+
     }catch {
        
     }

@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', () => {
     globeIO();
     subheaderScroll("subheader", document.body);
     numericPost(".popular_post_number");
-    modalWindow('#modal', "exampleModal", "label");
+    modalWindow('#modal', "exampleModal", "label", "modal_block");
     changeRowsColsTextArea("#update_data", "textarea", 30, 100);
     labelFormHide({
         labelForm: "label",
