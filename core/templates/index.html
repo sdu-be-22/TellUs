@@ -150,7 +150,7 @@
             <li class="subheader_menu_item">
               {% url 'logout_page' as url_logout_page %}
 
-              <a href="/password_reset/{{request.user}}" class = "logout">{% trans 'Password reset' %}</a>
+              <a href="/password_reset/{{request.user}}" class = "logout">{% trans 'Password reset' %} <i class="fa-solid fa-question"></i></a>
             </li>
 
             {% else %}
@@ -226,14 +226,15 @@
       <div class="prefooter_txt_form">
 
         <div class="prefooter_txt">
-          <h2>Newsletter Subcribe</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quia, ipsum vel totam aspernatur maiores expedita voluptatem soluta exercitationem magni dolor mollitia illum quasi qui iste quod corporis explicabo. Numquam.
+          <h2>Telegram Bot Zero-to-Hero  <i class="fa-solid fa-robot"></i></h2>
+         
+          <p>{% trans 'If you need help or do not understand what it is, you can ask questions to our bot Zero-to-hero'%}
           </p>
         </div>
 
         <div class="prefooter_form">
           <form action=".">
-            <input class = "form_control" type="email" placeholder = "{%trans 'Enter your email' %}">
+            <input class = "form_control" type="email" placeholder = "{%trans 'Questions?' %}">
             <span>
               <i class="fa-solid fa-paper-plane"></i>
             </span>

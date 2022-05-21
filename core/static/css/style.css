@@ -1478,16 +1478,21 @@ footer .copyright p a {
 
 .profile .profile_user_info  .profile_user_info_card .profile_user_info_card_mod .rounded-circle {
     border-radius: 100%;
+    flex: 0 0 700px;
+    text-align: center;
 }
 
 .profile_user_name {
-    font-weight: 300;
-    font-size: 15.5px;
-    text-align: left;
+    font-weight: 400;
+    display: block;
+    font-size: 30px;
+    /* text-align: left; */
+    text-align: center;
 }
 
 .profile_user_followers {
     text-align: left;
+    flex: 0 0 300px;
 }
 
 
