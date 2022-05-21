@@ -18,7 +18,7 @@ function subheaderScroll(subHeader, body) {
            
         }else {
             subheader.style.position = `relative`;
-            subheader.style.zIndex = "10";
+            subheader.style.zIndex = "90";
             subheader.className = subheader.className.replace("navBar", "subheader");
         }
     }

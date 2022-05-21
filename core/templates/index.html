@@ -25,8 +25,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
   <link rel="stylesheet" href="{% static 'css/style.css'%}">
-
-  <link id="mystylesheet"  rel="stylesheet" type="text/css" href="{% static 'css/light.css' %}">
   
   <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
   
@@ -37,14 +35,14 @@
 </head>
 
 
-<body style = "background-color: {{color}};">
+<body>
   <header class="header">
     <div class="container">
       <div class="header_logo">
         {% url 'home' as url_home %}
-        <a href="{{url_home}}" class="header_logo_txt">TellUs</a>
-        <a href="theme?color=dark">Dark</a>
-        <a href="theme?color=light">Light</a>
+        <a href="" onclick="localStorage.setItem('mode', (localStorage.getItem('mode') || 'dark') === 'dark' ? 'light' : 'dark'); localStorage.getItem('mode') === 'dark' ? document.querySelector('body').classList.add('dark') : document.querySelector('body').classList.remove('dark')" title="Dark/light" class="header_logo_txt">TellUs</a>
+
+        
         <div class="header_icon_form">
           <div class="header_icons_img">
             <a href="#" class="header_icons_img_face">
@@ -245,6 +243,23 @@
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
     crossorigin="anonymous"></script>
 
+    <script asyn>
+      if((localStorage.getItem('mode') || 'dark') === 'dark') {
+          
+          document.querySelector("body").classList.add('dark');
+
+          var head  = document.getElementsByTagName('head')[0];
+          var link  = document.createElement('link');
+          link.rel  = 'stylesheet';
+          link.type = 'text/css';
+          link.href = '{% static "css/dark.css" %}';
+          link.media = 'all';
+          head.appendChild(link);
+
+      }else {
+          document.querySelector("body").classList.remove('dark');
+      }
+    </script>
 
     {% block js %}
 

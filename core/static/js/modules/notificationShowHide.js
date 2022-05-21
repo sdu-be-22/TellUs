@@ -1,10 +1,11 @@
 function notificationShowHide({showNotification, notificationIcon, body}) {
-    const  showNoti = document.querySelector(showNotification),
-            notiIcon = document.getElementById(notificationIcon);
-
-        //show hide - notification
-        try {
-
+    
+    //show hide - notification
+    try {
+        
+        const  showNoti = document.querySelector(showNotification),
+                notiIcon = document.getElementById(notificationIcon);
+            
             body.addEventListener("click", (event) => {
                 let target = event.target;
         

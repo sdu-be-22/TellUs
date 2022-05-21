@@ -42,11 +42,6 @@ def post_list(request):
     paginator = Paginator(object_list, 3)
 
     page = request.GET.get('page')
-    
-    if ThemePage.objects.filter(user=request.user.username).exists():
-        color = ThemePage.objects.get(user=request.user.username).color
-    else: 
-        color = ""
 
     try: 
         list_articles = paginator.page(page)
@@ -54,12 +49,13 @@ def post_list(request):
         list_articles = paginator.page(1)
     except EmprtPage:
         list_articles = paginator.page(paginator.num_pages)
-    return render(request, "main.html", {'list_articles': list_articles, 'page':page, "object_list": object_list, "color": color})
+    return render(request, "main.html", {'list_articles': list_articles, 'page':page, "object_list": object_list})
 
 
 def post_share(request, post_name):
     articles = get_object_or_404(Articles, name=post_name)
     sent = False
+
 
     if request.method == "POST":
         form = EmailPostForm(request.POST)  
