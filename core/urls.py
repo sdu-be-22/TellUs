@@ -29,8 +29,8 @@ urlpatterns = [
     #url password reset application urls.py
     path('password_reset/<str:name>/', views.password_reset_form, name="password_reset"),
     #ajax
-    path('update_comment_status/<int:pk>/<slug:type>/', views.update_comment_status, name='update_comment_status')
-
+    path('update_comment_status/<int:pk>/<slug:type>/', views.update_comment_status, name='update_comment_status'),
+    #path("post/<int:post_pk>/comment/reply/<int:pk>", views.CommentReplyView.as_view(), name="comment-reply"),
 
 
 ]

@@ -14,10 +14,12 @@
                 <div class="rooms_detail">
                     <div class="rooms_info">
                         <h2 class="rooms_name">{{ room.name }}</h2>
-                        <button>
-                            
-                            <a href="{% url 'room' room.slug %}" class="rooms_link">Join</a>
-                        </button>
+                        <a href="{% url 'room' room.slug %}" class="rooms_link">
+
+                            <button>
+                                Join
+                            </button>
+                        </a>
                     </div>
                 </div>
             {% endfor %}

@@ -18,6 +18,7 @@ import changeRowsColsTextArea       from "./modules/changeRowsColsTextArea";
 import globeIO              from "./modules/globe";
 import selectFlagChanges    from "./modules/selectFlagChanges";
 
+
 window.addEventListener('DOMContentLoaded', () => { 
     
     /**
@@ -27,7 +28,7 @@ window.addEventListener('DOMContentLoaded', () => {
     slider();
     globeIO();
     subheaderScroll("subheader", document.body);
-    numericPost(".popular_post_number");
+    numericPost(".popular_post_number", "dynamicCountArticles");
     selectFlagChanges(".language_choose_block_select", "option");
     modalWindow('#modal', "exampleModal", "label", "modal_block");
     changeRowsColsTextArea("#update_data", "textarea", 30, 100);

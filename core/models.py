@@ -46,8 +46,7 @@ class Comments(models.Model):
     create_date = models.DateTimeField(auto_now=True)
     text = models.TextField(verbose_name='Text comment')
     status = models.BooleanField(verbose_name='Post Visibility', default=False)
-    # objects  = StatusFilterComments()
-
+   
 
 class Likes(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')

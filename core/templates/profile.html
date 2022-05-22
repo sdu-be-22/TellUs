@@ -19,7 +19,11 @@
                     {{ user.username }}
                 </h3>
                      {% endif %}
-                    <p>{{ number_of_followers }} followers</p>
+                    <div class="profile_user_data">
+                        
+                        <p>{{ number_of_followers }} followers</p>
+                        <p id = "dynamicCountArticles">0</p>
+                    </div>
                     {% if user == request.user %}
                     {% else %}
                     {% if is_following %}
@@ -45,18 +49,21 @@
             </div>
             <div class="user_profile_info_posts">
                 <h2> Articles</h2>
-                {% for post in posts %}
-                <div class="user_profile_info_posts_block">
-                    <p>
-                        <span class="popular_post_number">post.id</span>
-                        <a class="user_profile_info_post_name" href="/detail/{{post.id}}">{{ post.name }}</a>
-                    </p>
-                    <div class="user_profile_info_post_txt">
-                        <p>{{post.text|truncatechars:"255"}}</p>  
-                        @{{ post.author }}
+                <div class="user_profile_info_post_card">
+                    
+                    {% for post in posts %}
+                    <div class="user_profile_info_posts_block">
+                        <p>
+                            <span class="popular_post_number">post.id</span>
+                            <a class="user_profile_info_post_name" href="/detail/{{post.id}}">{{ post.name }}</a>
+                        </p>
+                        <div class="user_profile_info_post_txt">
+                            <p>{{post.text|truncatechars:"255"}}</p>  
+                            @{{ post.author }}
+                        </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
 
         </div>

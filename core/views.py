@@ -102,8 +102,10 @@ def password_reset_form(request, name):
                     email = render_to_string(email_template_name, c)
                     try:
                         send_mail(subject,  email, 'loarsen9@gmail.com' , [data])
+                        messages.success(request, 'Check your email')
                     except BadHeaderError:
                         return HttpResponse('Invalid header found.')
+                    
                     return redirect ("/password_reset/done/")
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="accounts/password-reset-form.html", context={"password_reset_form":password_reset_form})
@@ -245,7 +247,7 @@ class HomeDetailView(CustomSuccessMessageMixin, FormMixin, DetailView):
         notification.save()
         return super().form_valid(form)
     
-    
+
     
 
 class ArticleCreateView(LoginRequiredMixin, CustomSuccessMessageMixin, CreateView):

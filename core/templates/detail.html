@@ -11,14 +11,14 @@
         
         <div class="post_detail_info">
             
-            <img src="{{get_article.picture.url}}" alt="{{get_article.name}}" width = "730px" height = "440px">
+            <img src="{{get_article.picture.url}}" alt="{{get_article.name}}" >
             <div class="post_detail_info_txt">
                 
                 {% url 'profile' get_article.author.profile.pk as url_profile %}
 
-                <p class="mt-5">Create date: {{get_article.create_date}}</p>
-                <p class="mt-5">Name: {{get_article.name}}</p>
-                <p class="mt-5">Author: <a href="{{url_profile}}"> {{get_article.author}}</a> </p>
+                <p class="mt-5">{% trans 'Create date:' %} {{get_article.create_date}}</p>
+                <p class="mt-5">{%trans 'Name: '%} {{get_article.name}}</p>
+                <p class="mt-5">{%trans 'Author:' %} <a class= "author_post" href="{{url_profile}}"> {{get_article.author}}</a> </p>
 
             </div>
         </div>
@@ -48,17 +48,7 @@
             <hr>
     
             <!-- <p>Add comment</p> -->
-    
-    
-            {% if messages %}
-            <div class="alert alert-success">
-                {% for m in messages %}
-                {{m}}
-                {% endfor %}
-            </div>
-    
-    
-            {% endif %}
+
 
         </div>    
 
