@@ -1,165 +1,166 @@
 {% extends 'index.html' %}
 {% load static %}
-{% load static i18n %}
+
 
 {% block content %}
-<section class="post_edit">
-  <div class="container">
+  <section class="post_edit">
+    <div class="container">
+      
+      
+      
+      {% if success %}
+      <p style="color:red">Post added</p>
+      {% endif %}
+      
+      {% if messages %}
+      <div class="alert alert-success">
+        {% for m in messages %}
+        {{m}}
+        {% endfor %}
+      </div>
+      
+      
+      {% endif %}
+      
+      
+      
+      <button type="button" class="post_edit_btn" data-toggle="modal" id="modal">
+        Add new article
+      </button>
+      
+      
+      {% if update %}
+        <style>
+          .post_edit_btn {display:none;}
+        </style> 
+        {% if success_update %}
+        <p style="color:red">Post updated</p>
+        {% endif %}
+        <p class="mt-4 alert">Edit Page</p>
+      
+        <form id="update_data" method="post" enctype="multipart/form-data">
+          {{form}}
+          {% csrf_token %}
+        </form>
+        <button form="update_data" type="submit" class="update_btn">Update</button>
+      
+      {% else %}
+          <section class = "post_sliders post_edit_block">
+            <div class="container">
+                <div class="post_edit">
+                
+                    {% for i in list_articles %}
+                
+                        <div class="post_sliders_info post_edit_info">
 
+                            <div class="post_slider_item">
+                            <div class="post_slider_img">
 
+                                <span style="background-image: url('{{i.picture.url}}');" ></span>
+                            </div>
+                            
+                            <div class="post_slider_txt">
 
+                                
+                                <h1 class="post_slider_txt1">{{i.name}}</h1>
+            
+                                <p class = "post_txt">{{i.text|truncatechars:"255"}}</p>
+                                 
+                                <div class="post_more_info post_edit_more_info">
+                          
+                                
+                                    <div class="post_edit_more_left">
+                                        {{i.create_date}}
+                                        <span>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        </span>
 
-
-    {% if messages %}
-    <div class="alert alert-success">
-      {% for m in messages %}
-      {{m}}
-      {% endfor %}
-    </div>
-
-
-    {% endif %}
-
-
-
-    <button type="button" class="post_edit_btn" data-toggle="modal" id="modal">
-      Add new article
-    </button>
-
-
-    {% if update %}
-    <style>
-      .post_edit_btn {
-        display: none;
-      }
-    </style>
-    {% if success_update %}
-    <p style="color:red">Post updated</p>
-    {% endif %}
-    <p class="mt-4 alert">Edit Page</p>
-
-    <form id="update_data" method="post" enctype="multipart/form-data">
-      {{form}}
-      {% csrf_token %}
-    </form>
-    <button form="update_data" type="submit" class="update_btn">Update</button>
-
-    {% else %}
-    <section class="post_sliders post_edit_block">
-      <div class="container">
-        <div class="post_edit">
-
-          {% for i in list_articles %}
-
-          <div class="post_sliders_info post_edit_info">
-
-            <div class="post_slider_item">
-              <div class="post_slider_img">
-
-                <span style="background-image: url('{{i.picture.url}}');"></span>
-              </div>
-
-              <div class="post_slider_txt">
-
-
-                <h1 class="post_slider_txt1">{{i.name}}</h1>
-
-                <p class="post_txt">{{i.text|truncatechars:"255"}}</p>
-
-                <div class="post_more_info post_edit_more_info">
-
-
-                  <div class="post_edit_more_left">
-                    {{i.create_date}}
-                    <span>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </span>
-
-                    <a class="post_edit_linkPost" href="/detail/{{i.id}}">go to article</a>
-                  </div>
-
-                  <div class="post_slider_moreInfo">
-
-                    <div class="post_edit_data">
-                      <span class="post_edit_id">id: {{i.id}}</span>
-                      <span class="post_edit_id">Create data: {{i.create_date|date:'d.m.Y'}} - {{i.author}}</span>
-                      <div class="post_edit_more_into_btns">
-                        {% if request.user == i.author %}
-                        <button class="post_edit_btns btn-three">
-                          <a href="{% url 'update_page' i.id %}">Update</a>
-                        </button>
-                        {% else %}
-
-                        No access update📛
-                        {% endif %}
-                        {% if request.user == i.author %}
-                        <form id="delete_form{{i.id}}" action="{% url 'delete_page' i.id %}" method="post">{% csrf_token
-                          %}</form>
-
-                        <button class="post_edit_btns btn-three">
-                          <a href="javascript:void()" onclick="delete_question{{i.id}}()">Delete</a>
-                        </button>
-
-                        <script>
-                          function delete_question{ { i.id } } () {
-                            if (confirm("Are you sure")) {
-                              document.getElementById('delete_form{{i.id}}').submit()
-                            }
-
-                          }
-
-                        </script>
-
-                        {% else %}
-
-                        No access delete❌
-                        {% endif %}
-                      </div>
-                    </div>
-                  </div>
+                                        <a class="post_edit_linkPost" href="/detail/{{i.id}}">go to article</a>
+                                    </div> 
+                                    
+                                    <div class="post_slider_moreInfo">
+                                        
+                                        <div class="post_edit_data">
+                                          <span class="post_edit_id">id: {{i.id}}</span>
+                                          <span class="post_edit_id">Create data: {{i.create_date|date:'d.m.Y'}} - {{i.author}}</span>
+                                          <div class="post_edit_more_into_btns">
+                                            {% if request.user == i.author %}
+                                              <button class="post_edit_btns btn-three">
+                                                <a href="{% url 'update_page' i.id %}">Update</a>
+                                              </button>
+                                            {% else %}
+                                
+                                               No access update📛
+                                            {% endif %}
+                                            {% if request.user == i.author %}
+                                                <form id="delete_form{{i.id}}" action="{% url 'delete_page' i.id %}" method="post">{% csrf_token %}</form>
+                                                
+                                                <button class="post_edit_btns btn-three">
+                                                  <a href="javascript:void()" onclick="delete_question{{i.id}}()">Delete</a>
+                                                </button>
+                                    
+                                                <script>
+                                                  function delete_question{{i.id}}() {
+                                                    if (confirm("Are you sure")) {
+                                                      document.getElementById('delete_form{{i.id}}').submit()
+                                                    }
+                                    
+                                                  }
+                                    
+                                                </script>
+                                    
+                                            {% else %}
+                                    
+                                                No access delete❌
+                                            {% endif %}
+                                          </div>
+                                        </div>       
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            </div>
+                            
+                        </div>
+                
+                    {% endfor %}
 
                 </div>
-              </div>
             </div>
+          </section>
+      {% endif %}
+      
+      
+    
+      
+      
+    </div>
+  </section>
+    <!-- Modal -->
+  <div class="modal" id="exampleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" id = "modal_block" role="document">
 
-          </div>
-
-          {% endfor %}
-
-        </div>
-      </div>
-    </section>
-    {% endif %}
-
-
-
-
+        <div class="modal_close" id="modal">&times;</div>
+        <h5 class="modal_subtitle" id="exampleModalLabel">Add article</h5>
+      
+        <form id="add_form" class = "style_label style_label_mt25" method="post" enctype="multipart/form-data">
+          {{form}}
+          {% csrf_token %}
+          <!-- <button type="button" class="btn btn-secondary" id = "modal"  data-dismiss="modal">Close</button> -->
+        </form>
+        
+        <button form="add_form" type="submit" class="btn btn-primary">Add</button>
+    </div>
+  </div>
+  <div class="pagination">
+  
+    {% include 'pagination.html' with page=list_articles %}
 
   </div>
-</section>
-<!-- Modal -->
-<div class="modal" id="exampleModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" id="modal_block" role="document">
+  {% endblock %}
+  
 
-    <div class="modal_close" id="modal">&times;</div>
-    <h5 class="modal_subtitle" id="exampleModalLabel">Add article</h5>
-
-    <form id="add_form" class="style_label style_label_mt25" method="post" enctype="multipart/form-data">
-      {{form}}
-      {% csrf_token %}
-      <!-- <button type="button" class="btn btn-secondary" id = "modal"  data-dismiss="modal">Close</button> -->
-    </form>
-
-    <button form="add_form" type="submit" class="btn btn-primary">Add</button>
-  </div>
-</div>
-<div class="pagination">
-
-  {% include 'pagination.html' with page=list_articles %}
-
-</div>
-{% endblock %}
