@@ -74,7 +74,7 @@
                 {% show_notifications_new %}
                 <hr>
                 {% show_notifications_old %}
-                {% comment %} <li class='dropdown-item'>Hello</li>
+                {% comment %}
                 <hr class="dropdown-divider"> {% endcomment %}
 
               </ul>
@@ -148,12 +148,6 @@
               {% url 'logout_page' as url_logout_page %}
 
               <a class="logout" href="{{url_logout_page}}">{% trans 'Logout' %}</a>
-            </li>
-
-            <li class="subheader_menu_item">
-              {% url 'logout_page' as url_logout_page %}
-
-              <a href="/password_reset/{{request.user}}" class = "logout">{% trans 'Password reset' %} <i class="fa-solid fa-question"></i></a>
             </li>
 
             {% else %}
@@ -272,6 +266,7 @@
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
     crossorigin="anonymous"></script>
 
+    <!-- dark mode -->
     <script asyn>
       if((localStorage.getItem('mode') || 'dark') === 'dark') {
           

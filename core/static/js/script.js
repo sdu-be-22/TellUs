@@ -17,7 +17,7 @@ import modalWindow          from "./modules/modalWindow";
 import changeRowsColsTextArea       from "./modules/changeRowsColsTextArea";
 import globeIO              from "./modules/globe";
 import selectFlagChanges    from "./modules/selectFlagChanges";
-
+import defaultNotificationTxt       from "./modules/defaultNotificationText";
 
 window.addEventListener('DOMContentLoaded', () => { 
     
@@ -27,6 +27,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     slider();
     globeIO();
+    defaultNotificationTxt("#notifications-dropdown", 'li', "You haven't received any notifications yet");
+    defaultNotificationTxt(".user_list", "#list_userFollwers", "you don't have followers");
     subheaderScroll("subheader", document.body);
     numericPost(".popular_post_number", "dynamicCountArticles");
     selectFlagChanges(".language_choose_block_select", "option");

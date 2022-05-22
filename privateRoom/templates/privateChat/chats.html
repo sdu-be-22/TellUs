@@ -3,36 +3,54 @@
 
 
 {% block content %}
-<div class="back-container">
-    <div class="container-fluid front-container">
-        <div class="back-top"></div>
-        <div class="back-main"></div>
-    </div>
-    <div class="container front-container1">
-        <div class="row">
-            <div class="col-sm-4 contacts">
+<div class="chat_bg_globe" id = "chat_bg_globe">
+    
+    <section class="chat_list">
+        <div class="container">
+            <div class="chat_list_cen">
+    
+    
                 <div class="contact-table-scroll">
-                    <table class="table table-hover">
-                        <tbody>
+                    <ul class="chat_user_list">
+                        <li class="user_list" >
                             {% for user_follower in user_followers %}
-                            <tr>
-                                <td><img src="{{ user_follower.profile.picture.url }}" class="rounded-circle" width="30" height="30" style="border-radius:100%; position:relative; top:7px" />
-                                </td>
-                                
-                                <td><a href="{% url 'chat' user_follower%}">{{user_follower}}</a></td>
-                          
-                            </tr>
+                            <div class="user_info" id="list_userFollwers" >
+                                <img src="{{ user_follower.profile.picture.url }}" width="65" height="65" alt="img" class="rounded-circle">
+                                <a class = "chat_list_userName" href="{%url 'profile' user_follower.profile.pk %}" id = "user_follower">{{user_follower}}</a>
+                                <a href="{%url 'chat' user_follower%}">
+                                    <button class="chat_list_btn">Message</button>
+                                </a>
+                            </div>
                             {% endfor %}
-
-                            <!-- end -->
-                        </tbody>
-                    </table>
+                        </li>
+                    </ul>
                 </div>
-
+    
+    
             </div>
         </div>
-    </div>
-
+    </section>
 </div>
 
+
 {% endblock %}
+
+
+{%block js%}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <script>
+        VANTA.GLOBE({
+        el: "#chat_bg_globe",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00
+        })
+    </script>
+
+{%endblock%}

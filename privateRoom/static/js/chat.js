@@ -26,15 +26,15 @@ socket.onmessage = function(e){
     if(data.username == message_username){
         document.querySelector('#chat-body').innerHTML += `<tr>
                                                                 <td>
-                                                                <p class="bg-success p-2 mt-2 mr-5 shadow-sm text-white float-right rounded">${data.message}</p>
+                                                                <p class="chat-body_message_right">${data.message}</p>
                                                                 </td>
-                                                            </tr>`
+                                                            </tr>`;
     }else{
         document.querySelector('#chat-body').innerHTML += `<tr>
                                                                 <td>
-                                                                <p class="bg-primary p-2 mt-2 mr-5 shadow-sm text-white float-left rounded">${data.message}</p>
+                                                                <p class="chat-body_message_left">${data.message}</p>
                                                                 </td>
-                                                            </tr>`
+                                                            </tr>`;
     }
 };
 

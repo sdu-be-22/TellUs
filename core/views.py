@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from .models import Articles,Comments, Likes, Notification, UserProfile, ThemePage
 from django.views.generic import ListView, DetailView,CreateView, UpdateView,DeleteView
 from django.views.generic.edit import FormMixin
-from .forms import ArticleForm, AuthUserForm, RegisterUserForm, CommentForm, EmailPostForm, EditProfileName, PasswordChangingForm, UpdateProfilePhoto
+from .forms import ArticleForm, AuthUserForm, RegisterUserForm, CommentForm, EmailPostForm, ProfileNameEmail, PasswordChangingForm, UpdateProfilePhoto
 from django.urls import reverse, reverse_lazy 
 from django.contrib import messages
 from django.db.models.signals import post_save
@@ -59,7 +59,7 @@ def post_share(request, post_name):
     articles = get_object_or_404(Articles, name=post_name)
     sent = False
 
-
+    messages.success(request, 'Your profile is updated successfully')
     if request.method == "POST":
         form = EmailPostForm(request.POST)  
         if(form.is_valid()): 
@@ -77,13 +77,14 @@ def post_share(request, post_name):
                             'sent': sent})
 
 
-def password_reset_form(request, name):
+def password_reset_form(request):
     if request.method == "POST":
         password_reset_form = PasswordResetForm(request.POST)
+        profile_name_email = ProfileNameEmail(request.POST)
 
-        if password_reset_form.is_valid():
+        if password_reset_form.is_valid() and profile_name_email.is_valid():
             data = password_reset_form.cleaned_data['email']
-
+            name = profile_name_email.cleaned_data["username"]
             associated_users = User.objects.filter(Q(username = name))
             print(associated_users)
             if associated_users.exists():
@@ -106,9 +107,10 @@ def password_reset_form(request, name):
                     except BadHeaderError:
                         return HttpResponse('Invalid header found.')
                     
-                    return redirect ("/password_reset/done/")
+                    #return redirect ("/password_reset/done/")
     password_reset_form = PasswordResetForm()
-    return render(request=request, template_name="accounts/password-reset-form.html", context={"password_reset_form":password_reset_form})
+    profile_name_email = ProfileNameEmail()
+    return render(request=request, template_name="accounts/password-reset-form.html", context={"password_reset_form":password_reset_form, "profile_name_email":profile_name_email})
 
 
 

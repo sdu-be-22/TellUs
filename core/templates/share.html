@@ -5,6 +5,9 @@
 	<section class="login">
 		<div class="container login_pos">
 			<div class="center">
+				{% for m in messages %}
+				<h1>{{m}}</h1>
+				{% endfor %}
 			{% if sent %}
 				<h1>E-mail succesfully sent</h1>
 				<p>

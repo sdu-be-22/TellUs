@@ -13,19 +13,15 @@ class EmailPostForm(forms.Form):
     comments = forms.CharField(required = False, widget = forms.Textarea)
     captcha = CaptchaField()
 
-class EditProfileName(forms.Form): 
-    name = forms.CharField(max_length = 25)
-    
+class ProfileNameEmail(forms.Form): 
+   username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
+
 
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Articles
         fields = ('name','text', 'picture')
-        # labels = {
-        #     "name": _(""),
-        #     "text": _(""),
-        #     "picture": _("")
-        # }
+
     def __init__(self,*args,**kwargs):
         super(ArticleForm, self).__init__(*args,**kwargs)
         for field_name, field in self.fields.items():
