@@ -36,6 +36,7 @@ socket.onmessage = function(e){
                                                                 </td>
                                                             </tr>`;
     }
+   
 };
 
 document.querySelector('#chat-message-submit').onclick = function(e){
@@ -68,9 +69,9 @@ document.querySelector("#message_input").addEventListener("keypress", (e) => {
 });
 
 
-function scrollToBottom() {
-    const objDiv = document.querySelector('.message-table-scroll');
-    objDiv.scrollTop = objDiv.scrollHeight;
-}
+// function scrollToBottom() {
+//     const objDiv = document.querySelector('#chat-body');
+//     objDiv.scrollTop = objDiv.scrollHeight;
+// }
 
-scrollToBottom();
+// scrollToBottom();

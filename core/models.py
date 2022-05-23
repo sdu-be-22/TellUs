@@ -30,6 +30,9 @@ class UserProfile(models.Model):
     picture = models.ImageField(upload_to='images/user_profiles', default='images/default/defaultProfile.png', blank=True)
     followers = models.ManyToManyField(User, blank=True, related_name='followers')
 
+    def __str__(self):
+        return self.user.username
+        
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs): 
     if created: 
@@ -38,7 +41,6 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs): 
     instance.profile.save()
-
 
 class Comments(models.Model):
     article = models.ForeignKey(Articles, on_delete = models.CASCADE, verbose_name='Post', blank = True, null = True,related_name='comments_articles' )

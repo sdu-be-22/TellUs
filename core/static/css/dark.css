@@ -237,3 +237,41 @@ color: black;
 .chat_user_ulist li a, .chat_users_name a {
 	color: #fff;
 }
+
+.login, .center h1, label, #id_password {
+	color: rgb(128, 128, 128);
+}
+
+.icon-plane {
+	color:rgb(0, 0, 0);
+}
+
+.chat-body_message_left {
+	background-color: #fff;
+	color: #000;
+}
+
+.author_post {
+    color: #fff;
+}
+
+.author_post:after {
+	background: #fff;
+}
+
+.post_detail_shareLink a {
+	color: #fff;
+}
+
+
+.post_detail_shareLink  i {
+	color: #fff;
+}
+
+.post_detail_list {
+	color: #fff;
+}
+
+.forgot_password_link {
+	color: #fff;
+}

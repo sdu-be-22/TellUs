@@ -22,6 +22,8 @@ db.sqlite3
 /.pnp
 .pnp.js
 
+/public
+
 # testing
 /coverage
 
@@ -45,6 +47,7 @@ package-lock.json
 webpack-stats.json
 bunble.js.map
 bunble.js
+
 
 
 media/images/*.jpg

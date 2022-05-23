@@ -160,13 +160,14 @@ def like(request, pk):
         like = Likes.objects.create(user=user, post=post)
         like.save()
         current_likes = current_likes + 1 
-        notification = Notification.objects.create(notification_type=notification_type, 
-                                                   user_to = post_owner,
-                                                   user_from=user,
-                                                   post=post,
-                                                   likes=like,
-                                                   date = timezone.now())
-        notification.save()
+        if user != post_owner:
+            notification = Notification.objects.create(notification_type=notification_type, 
+                                                    user_to = post_owner,
+                                                    user_from=user,
+                                                    post=post,
+                                                    likes=like,
+                                                    date = timezone.now())
+            notification.save()
         
     else:
         Likes.objects.filter(user=user, post=post).delete()
@@ -240,13 +241,14 @@ class HomeDetailView(CustomSuccessMessageMixin, FormMixin, DetailView):
         self.object.article = self.get_object()
         self.object.author = self.request.user
         self.object.save()
-        notification = Notification.objects.create(notification_type=2, 
-                                                   user_to = self.object.article.author, 
-                                                   user_from = self.object.author,
-                                                   post = self.object.article,
-                                                   comment = self.object,
-                                                   date = timezone.now())
-        notification.save()
+        if  self.object.author != self.object.article.author:
+            notification = Notification.objects.create(notification_type=2, 
+                                                    user_to = self.object.article.author, 
+                                                    user_from = self.object.author,
+                                                    post = self.object.article,
+                                                    comment = self.object,
+                                                    date = timezone.now())
+            notification.save()
         return super().form_valid(form)
     
 

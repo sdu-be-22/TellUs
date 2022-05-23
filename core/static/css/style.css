@@ -1443,6 +1443,7 @@ footer .copyright p a {
     color: #fff;
     background: #000;
     transition: 0.3s all;
+    cursor: pointer;
 }
 
 .post_detail_btn:hover {
@@ -1868,6 +1869,11 @@ footer .copyright p a {
     height: 24px; 
     width: 24px;
     cursor: pointer;
+    transition: 0.5s all;
+}
+
+.icon-plane:hover {
+    color:#8bc34a;
 }
 
 #chat-body .chat-body_right {
@@ -1882,7 +1888,7 @@ footer .copyright p a {
     width: auto; 
     height: 38px;
     background: rgba(88, 49, 199, 0.8);
-    border-radius: 12px;
+    border-radius: 12px 12px 0 12px;
     padding: 5px 17px;
     float:right;
 
@@ -1899,7 +1905,7 @@ footer .copyright p a {
     width: auto; 
     height: 38px;
     background: rgba(88, 49, 199, 0.1);
-    border-radius: 12px;
+    border-radius: 12px 12px 12px 0;
     padding: 5px 17px;
     float:left;
 }
