@@ -66,3 +66,11 @@ document.querySelector("#message_input").addEventListener("keypress", (e) => {
         
     }
 });
+
+
+function scrollToBottom() {
+    const objDiv = document.querySelector('.message-table-scroll');
+    objDiv.scrollTop = objDiv.scrollHeight;
+}
+
+scrollToBottom();

@@ -1,104 +1,155 @@
 {% extends 'index.html' %}
 {% load static i18n %}
 
-{% block content %} 
-    <section class = "post_sliders">
-        <div class="container">
-            <div class="my-slider">
-            
-                {% for i in object_list %}
-            
-                    <div class="post_sliders_info">
+{% block content %}
 
-                        <div class="post_slider_item">
-                        <div class="post_slider_img">
+<section class="hero">
+    <div class="container">
+        <div class="hero-inner">
+            <div class="hero-copy">
+                <h1 class="hero-title mt-0">Welcome to TellUs!</h1>
+                <p class="hero-paragraph">Perfect platform to share your ideas and insights with the world and get feedback from other users. What's more, it is convenient to communicate with your friends and family wherever you are via our user-friendly chat room.</p>
+            </div>
+            <div class="hero-figure anime-element">
+                <div class="hero-figure-box hero-figure-box-01" data-rotation="16deg">
+                    <img src="https://img.buzzfeed.com/buzzfeed-static/static/2019-12/6/16/campaign_images/771a0fe910ad/let-your-voice-be-heard-tell-us-your-opinions-2-1273-1575649462-6_big.jpg"
+                        alt="">
+                </div>
 
-                            <span style="background-image: url('{{i.picture.url}}');" ></span>
-                        </div>
-                        
-                        <div class="post_slider_txt">
+            </div>
+        </div>
+    </div>
+</section>
 
-                            
-                            <h1 class="post_slider_txt1">{{i.name}}</h1>
-        
-                            <p class = "post_txt">{{i.text|truncatechars:"255"}}</p>
-                            
-                            <div class="post_more_info">
+
+
+<section class="post_sliders">
+    <div class="container">
+        <div class="my-slider">
+
+            {% for i in object_list %}
+
+            <div class="post_sliders_info">
+
+                <div class="post_slider_item">
+                    <div class="post_slider_img">
+
+                        <span style="background-image: url('{{i.picture.url}}');"></span>
+                    </div>
+
+                    <div class="post_slider_txt">
+
+
+                        <h1 class="post_slider_txt1">{{i.name}}</h1>
+
+                        <p class="post_txt">{{i.text|truncatechars:"255"}}</p>
+
+                        <div class="post_more_info">
                             {% if user.is_authenticated %}
-                            
+
                             <div>
                                 {{i.create_date}}
                                 <span>
-                                <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
                                 </span>
-                            </div> 
-                            
+                            </div>
+
                             <div class="post_slider_moreInfo">
-                                
+
                                 <a class="post_link" href="/detail/{{i.id}}">{{go_to}}</a>
                             </div>
-                            
-                            {%endif%}
-                            </div>
-                        </div>
-                        </div>
-                        
-                    </div>
-            
-                {% endfor %}
-
-            </div>
-        </div>
-    </section>
-
-    <section class="popular_post">
-        <div class="container"> 
-            <h2 class="popular_post_title">
-                {{popular_post}}
-            </h2>
-            <div class="popular_post_blocks">
-                {% for i in object_list %}
-            
-                    <div class="popular_post_info">
-        
-                        <div class="popular_post_item">
-                            <div class="popular_post_number">{{i.id}}</div>
-                            <div class="popular_post_img">
-        
-                                <span style="background-image: url('{{i.picture.url}}');" ></span>
-                            </div>
-                            <div class="popular_post_txt">
-        
-                                <div class="popular_post_txt1">{{i.name}}</div>
-                                
-                                <div class="popular_post_data">
-                                {% if user.is_authenticated %}
-                                
-                                <div style = "color: rgb(128,  128, 128);">
+                            {% else %}
+                                <div style="color: rgb(128,  128, 128);">
                                     {{i.create_date}}
-                                    <span class = "popular_post_star">
-                                    <i class="fa-solid fa-star"></i>
+                                    <span class="popular_post_star">
+                                        <i class="fa-solid fa-star"></i>
                                     </span>
-                                </div> 
-                                
+                                </div>
+
                                 <div class="popular_post_moreInfo">
-                                    
-                                    <a class="post_link" href="/detail/{{i.id}}">{{go_to}}</a>
+                                    {% url 'login_page' as url_login_page %}
+                                    <a class="post_link" href="{{url_login_page}}">{{go_to}}</a>
                                 </div>
-                                
-                                {%endif%}
-                                </div>
-                            </div>
-                        
-                            
+                            {%endif%}
                         </div>
-                        
                     </div>
-        
-                {% endfor %}
+                </div>
+
             </div>
-           
+
+            {% endfor %}
+
         </div>
-    </section>
-  
+    </div>
+</section>
+
+<section class="popular_post">
+    <div class="container">
+        <h2 class="popular_post_title">
+            {{popular_post}}
+        </h2>
+        <div class="popular_post_blocks">
+            {% for i in object_list %}
+
+            <div class="popular_post_info">
+
+                <div class="popular_post_item">
+                    <div class="popular_post_number">{{i.id}}</div>
+                    <div class="popular_post_img">
+
+                        <span style="background-image: url('{{i.picture.url}}');"></span>
+                    </div>
+                    <div class="popular_post_txt">
+
+                        <div class="popular_post_txt1">{{i.name}}</div>
+
+                        <div class="popular_post_data">
+                            {% if user.is_authenticated %}
+
+                            <div style="color: rgb(128,  128, 128);">
+                                {{i.create_date}}
+                                <span class="popular_post_star">
+                                    <i class="fa-solid fa-star"></i>
+                                </span>
+                            </div>
+
+                            <div class="popular_post_moreInfo">
+
+                                <a class="post_link" href="/detail/{{i.id}}">{{go_to}}</a>
+                            </div>
+                            {% else %}
+                                <div style="color: rgb(128,  128, 128);">
+                                    {{i.create_date}}
+                                    <span class="popular_post_star">
+                                        <i class="fa-solid fa-star"></i>
+                                    </span>
+                                </div>
+
+                                <div class="popular_post_moreInfo">
+                                    {% url 'login_page' as url_login_page %}
+                                    <a class="post_link" href="{{url_login_page}}">{{go_to}}</a>
+                                </div>
+                            {%endif%}
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+
+{%endblock%}
+
+{%block js%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+{%block scripts%}
+    <script src="{%static 'js/modules/tellUs_descr.js'%}"></script>
+{%endblock%}
 {%endblock%}

@@ -5,16 +5,11 @@
 	<section class="login">
 		<div class="container login_pos">
 			<div class="center">
-				{% for m in messages %}
-				<h1>{{m}}</h1>
-				{% endfor %}
+
 			{% if sent %}
 				<h1>E-mail succesfully sent</h1>
-				<p>
-					'{{articles.name}}'  was successfully sent to {{ cd.to }}
-	
-				</p>
-			{% else %}
+			
+			{%endif%}
 				<h1>Share "{{articles.name}}" by e-mail</h1>
 	
 				<form action = "." id="add_form" method = "post">
@@ -23,7 +18,6 @@
 					<button type = "submit" form="add_form" class="login_btn">Send e-maill</button>
 				</form>
 	
-			{%endif%}
 			</div>
 		</div>
 	</section>

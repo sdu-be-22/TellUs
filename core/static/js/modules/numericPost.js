@@ -11,7 +11,7 @@ function numericPost(numbercPost, dynamicCountArticles) {
             numberic_post.forEach((posts, n) => {
                 count++;
                 dynamicCount.count = count;
-                console.log(dynamicCount); 
+             
                 if(count < 10) {
                     posts.innerHTML = `0${count}`;
                    

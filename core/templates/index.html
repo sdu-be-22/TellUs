@@ -25,8 +25,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
   <link rel="stylesheet" href="{% static 'css/style.css'%}">
-  
-  <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
+
+
   
   {% render_bundle 'main' 'js' 'DEFAULT' %}
 
@@ -72,8 +72,7 @@
               <ul class="subheader_drop_down_menu" data-close id="notifications-dropdown">
 
                 {% show_notifications_new %}
-                <hr>
-                {% show_notifications_old %}
+                
                 {% comment %}
                 <hr class="dropdown-divider"> {% endcomment %}
 
@@ -230,9 +229,9 @@
         </div>
 
         <div class="prefooter_form">
-          <form action=".">
-            <input class = "form_control" type="email" placeholder = "{%trans 'Questions?' %}">
-            <span>
+          <form action="." id="prefooter_input">
+            <input type="email"  class="form_control" placeholder="Enter your email..." >
+            <span id="modal2"">
               <i class="fa-solid fa-paper-plane"></i>
             </span>
           </form>
@@ -256,7 +255,22 @@
   </footer>
 
 
+      <!-- Modal -->
+      <div class="modal" id="exampleModal2" tabindex="-1" role="dialog">
+        <div class="modal-dialog" id = "modal_block" role="document">
+          <div class="modal_close" id="modal2">&times;</div>
+          <div class="notice_descr">
 
+            <span class="notice_txt">Notice</span>
+            <span>
+              <img src="{% static 'icons/notification_icon.png'%}" width="30" height="30" alt="icon" />
+            </span>
+          </div>
+          <p class="telegram_bot_descr">
+            Sorry, due to technical problems we cannot redirect you to our telegram bot right now
+          </p>
+        </div>
+      </div>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

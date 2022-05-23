@@ -59,7 +59,6 @@ def post_share(request, post_name):
     articles = get_object_or_404(Articles, name=post_name)
     sent = False
 
-    messages.success(request, 'Your profile is updated successfully')
     if request.method == "POST":
         form = EmailPostForm(request.POST)  
         if(form.is_valid()): 
@@ -68,6 +67,7 @@ def post_share(request, post_name):
 
             message = "Read '{}' \n\n{}\'s comments: {}".format(post_name, cd['name'], cd['comments'])
             send_mail(subject_url, message, 'loarsen9@email.com', [cd['to']])
+            sent = True
     else: 
         form = EmailPostForm()
 

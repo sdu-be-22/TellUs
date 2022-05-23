@@ -17,13 +17,21 @@ function labelFormChanged({ labelForm, tagForm, tagInputs, justTagP, Textarea })
             input_box.append(input);
 
             //hidden label when user cliced
-            textArea.addEventListener("click", () => {
-                if (label_form[i].getAttribute("for") == "id_comments") 
-                    label_form[i].style.opacity = "0";
-            });
+            
+
+            if (textArea.getAttribute("id") == "id_comments") {
+
+                textArea.setAttribute("placeholder", "Comments:");
+            } 
+
 
             //check to append in input
             if (input.getAttribute("name") != "csrfmiddlewaretoken") {
+
+                if(label_form[i].getAttribute("for") == "id_comments") {
+                    label_form[i].style.display = "none";
+                }
+
                 if (label_form[0] == undefined) {
                     input.after(label_form[0]);
                     if(tagP[i] != undefined) {
@@ -61,6 +69,11 @@ function labelFormChanged({ labelForm, tagForm, tagInputs, justTagP, Textarea })
     
                 //check to append in input
                 if (input.getAttribute("name") != "csrfmiddlewaretoken") {
+
+                    if(label_form[i].getAttribute("for") == "id_comments") {
+                        label_form[i].style.display = "none";
+                    }
+
                     if (label_form[0] == undefined) {
                         input.after(label_form[0]);
                         if(tagP[i] != undefined) {

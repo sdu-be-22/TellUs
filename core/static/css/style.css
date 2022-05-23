@@ -725,7 +725,8 @@ textarea {
 }
 
 .pagination {
-   margin-left: 30px;
+   margin-left: 0;
+
 }
 
 footer {
@@ -893,6 +894,8 @@ footer .copyright p a {
 .center .inputbox p textarea {
     margin-bottom: 50px;
     border-radius: 5px;
+    width: 100%;
+    padding: 10px 0 0 20px;
 }
 
 .center .inputbox p img {
@@ -1043,7 +1046,7 @@ footer .copyright p a {
     left: 50%; 
     transform: translate(-50%, -50%); 
     width: 380px; 
-    min-height: 400px ; 
+    min-height: auto; 
     background: #f2f2f2;
     border-radius: 15px;
     border: none;
@@ -1093,6 +1096,18 @@ footer .copyright p a {
 
 }
 
+.notice_descr {
+    display: flex;
+    align-items: center;
+}
+
+.notice_descr .notice_txt {
+    margin-right: 5px;
+    font-size: 23px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
 .style_label_mt25 {
     margin-top: 25px;
 }
@@ -1132,7 +1147,7 @@ footer .copyright p a {
 
 .post_edit {
     padding: 20px 0 10px 0;
-
+   
 }
 .post_edit_block {
     margin-top: 0   ;
@@ -1908,4 +1923,74 @@ footer .copyright p a {
 
 .forgot_password_link:hover:after {
     width: 100%;
+}
+
+
+.hero {
+  overflow: hidden;
+  min-height: 400px;
+  padding: 50px 0 20px 0;
+}
+
+.hero-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+}
+
+.hero-copy {
+    flex: 0 0 500px;
+}
+
+.hero-figure {
+    display: inline-flex;
+    vertical-align: top;
+}
+
+#player span {
+  display: block;
+}
+
+#player .player-info {
+  font-size: 14px;
+}
+
+input.progress {
+  cursor: ew-resize;
+}
+
+input.progress[value] {
+  position: relative;
+  width: 100%;
+  height: 27px;
+  -webkit-appearance: none;
+  background-color: transparent;
+  color: #0270D7;
+}
+
+input.progress[value]:focus {
+  outline: none;
+}
+
+input.progress[value]:after {
+  content: "";
+  position: absolute;
+  top: 13px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+}
+
+input.progress[value]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: currentColor;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+}
+
+.hero-figure-box img {
+    border-radius: 27px;
 }

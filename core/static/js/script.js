@@ -18,6 +18,7 @@ import changeRowsColsTextArea       from "./modules/changeRowsColsTextArea";
 import globeIO              from "./modules/globe";
 import selectFlagChanges    from "./modules/selectFlagChanges";
 import defaultNotificationTxt       from "./modules/defaultNotificationText";
+import telegramSent         from  "./modules/telegramSent";
 
 window.addEventListener('DOMContentLoaded', () => { 
     
@@ -30,9 +31,11 @@ window.addEventListener('DOMContentLoaded', () => {
     defaultNotificationTxt("#notifications-dropdown", 'li', "You haven't received any notifications yet");
     defaultNotificationTxt(".user_list", "#list_userFollwers", "you don't have followers");
     subheaderScroll("subheader", document.body);
+    telegramSent("prefooter_input");
     numericPost(".popular_post_number", "dynamicCountArticles");
     selectFlagChanges(".language_choose_block_select", "option");
     modalWindow('#modal', "exampleModal", "label", "modal_block");
+    modalWindow('#modal2', "exampleModal2", "label", "modal_block");
     changeRowsColsTextArea("#update_data", "textarea", 30, 100);
     changeRowsColsTextArea(".style_label_mt25", "textarea", 10, 37);
 

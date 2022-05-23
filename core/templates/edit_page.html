@@ -68,7 +68,7 @@
                                  
                                 <div class="post_more_info post_edit_more_info">
                           
-                                
+                                  {% if user.is_authenticated %}
                                     <div class="post_edit_more_left">
                                         {{i.create_date}}
                                         <span>
@@ -80,7 +80,23 @@
                                         </span>
 
                                         <a class="post_edit_linkPost" href="/detail/{{i.id}}">go to article</a>
+                                  
                                     </div> 
+                                  {% else %}
+                                    <div class="post_edit_more_left">
+                                      {{i.create_date}}
+                                      <span>
+                                      <i class="fa-solid fa-star"></i>
+                                      <i class="fa-solid fa-star"></i>
+                                      <i class="fa-solid fa-star"></i>
+                                      <i class="fa-solid fa-star"></i>
+                                      <i class="fa-solid fa-star"></i>
+                                      </span>
+                                      {% url 'login_page' as url_login_page %}
+                                      <a class="post_edit_linkPost" href="{{url_login_page}}">go to article</a>
+                                
+                                    </div> 
+                                  {% endif %}
                                     
                                     <div class="post_slider_moreInfo">
                                         
@@ -132,6 +148,11 @@
                 </div>
             </div>
           </section>
+          <div class="pagination">
+  
+            {% include 'pagination.html' with page=list_articles %}
+        
+          </div>
       {% endif %}
       
       
@@ -156,11 +177,7 @@
         <button form="add_form" type="submit" class="btn btn-primary">Add</button>
     </div>
   </div>
-  <div class="pagination">
-  
-    {% include 'pagination.html' with page=list_articles %}
 
-  </div>
   {% endblock %}
   
 

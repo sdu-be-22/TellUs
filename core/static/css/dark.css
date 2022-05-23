@@ -10,27 +10,230 @@ p, span, small{
 	color: #eaeaea;
 }
 
-#box{
-	width: 400px;
-	margin: 0 auto;
-	margin-top: 100px;
-	border: 2px solid rgb(24, 26, 31);
-	border-radius: 5px;
-	text-align: center;
-	padding: 20px;
-	background-color: rgb(49, 54, 63) !important;
-}
-
-#profile_pic{
-	display: block;
-	border-radius: 50%;
-	margin: 10px auto;
-	width: 200px;
-	border: 2px solid rgb(24, 26, 31);
-
-}
+.html::-webkit-scrollbar-thumb {
+    background: #fff; 
+    border-radius: 5rem;
+} 
 
 hr{
 	margin: 20px;
 	background-color: #eaeaea;
+}
+
+
+body{ 
+	background-color: rgb(36, 41, 46) !important; 
+   } 
+	
+   h1, h2, h3, h4, h5, h6 , p{ 
+	color: #fff; 
+   } 
+	
+   p, span, small{ 
+	color: #eaeaea; 
+   } 
+	
+	
+   hr{ 
+	margin: 20px; 
+	background-color: #eaeaea; 
+   } 
+	
+	
+   .subheader_user_name {
+	   color:  #fff;
+   }
+
+
+   .subheader_pass_reset {
+	   color: #fff;
+   }
+
+   .subheader_pass_reset:after {
+	background-color: #fff;
+   }
+
+
+   .header .header_logo .header_logo_txt {
+	color: #fff;
+   }
+
+   .header .header_logo .header_icon_form .header_icons_img .header_icons_img_face {
+		color: #fff;
+   }
+
+   .language_choose_block_select{ 
+	margin-left: 5px; 
+	 background: #5E5DF0; 
+	 border-radius: 999px; 
+	 box-shadow: #5E5DF0 0 10px 10px -10px; 
+	 box-sizing: border-box; 
+	 color: #FFFFFF; 
+	 cursor: pointer; 
+	 font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif; 
+	 font-size: 11px; 
+	 font-weight: 700; 
+	 line-height: 20px; 
+	 opacity: 1; 
+	 outline: 0 solid transparent; 
+	 padding: 8px 18px; 
+	 user-select: none; 
+	 -webkit-user-select: none; 
+	 touch-action: manipulation; 
+	 width: 97px; 
+	 word-break: break-word; 
+	 border: 0; 
+   } 
+   
+
+   .header .header_logo .header_icon_form .header_forms input { 
+    margin-right: 10px; 
+    height: 50px; 
+    padding-left: 20px; 
+    padding-right: 20px; 
+    border-radius: 30px; 
+    border: 3px; 
+    background: #fff; 
+    border: 3px; 
+    background-color: white; 
+    resize: none; 
+ 	color: black; 
+    outline: none; 
+    border-bottom: 3px solid #ccc; 
+	 width: 200px; 
+} 
+
+.header .header_logo .header_icon_form  .header_forms .header_searchBtn {
+	background: #fff; 
+	color: #000; 
+}
+
+.navBar {
+	background-color: rgb(36, 41, 46);
+}
+
+.header .subheader .subheader_navi .subheader_menu .subheader_menu_item a {
+	color: #fff;
+}
+
+.header .subheader .subheader_navi .subheader_menu .subheader_menu_item a:after {
+	background-color: #fff;
+}
+
+
+.header .subheader .subheader_navi .subheader_menu .subheader_user_auth {
+	color: #fff;
+}
+
+.subheader_show  {
+	color: #000;
+	background-color: #fff;
+}
+
+.subheader_show p {
+	color: #000;
+}
+
+.post_sliders .post_sliders_info  .post_slider_item .post_slider_txt {
+	background-color: rgb(0, 0, 0);
+}
+
+.post_more_info, .popular_post_star {
+	color: rgb(128, 128, 128); 
+}
+
+.popular_post_moreInfo .post_link:nth-child(n) {
+	color: rgb(128, 128, 128);
+}
+
+
+.popular_post_moreInfo .post_link:nth-child(n):after {
+	background-color: #fff;
+}
+.popular_post .popular_post_info  .popular_post_item .popular_post_txt  {
+	color: #fff;
+}
+
+.popular_post .popular_post_info  .popular_post_item .popular_post_img, .popular_post .popular_post_info  .popular_post_item .popular_post_txt  {
+	background-color: #000;
+}
+
+.prefooter{ 
+ background-color: rgb(63, 67, 70); 
+} 
+
+.prefooter h2 {
+	color: #fff;
+}
+
+.post_slider_moreInfo .post_link:nth-child(n):after {
+	background: #fff;
+}
+
+.notice_txt, .telegram_bot_descr {
+	color: #000; 
+
+}
+
+.current, .post_linkPagi {
+	color: #fff; 
+
+}
+
+.post_linkPagi:after, .post_edit_linkPost:nth-child(n):after{
+	background: #fff;
+}
+
+.post_edit_btns a {
+	color: #fff; 
+}
+
+.alert {
+	color: #fff;
+} 
+
+#update_data input, .room_formInput {
+
+    background: #fff; 
+    border: 3px; 
+    background-color: white; 
+    resize: none; 
+ 	color: black; 
+    outline: none; 
+    border-bottom: 3px solid #ccc; 
+}
+
+.login , .center{ 
+	background-color:rgb(36, 41, 46) ; 
+   } 
+
+.inputbox label {
+	color: rgb(128, 128, 128);
+}
+
+.login , .center h1 , label , #id_password{ 
+color: white; 
+} 
+
+.rooms h1, .room h1 {
+	color: #fff;
+}
+
+.user_profile_info_post_txt {
+	color: #fff;
+}
+
+.user_profile_info_post_name {
+	color: rgb(128, 128, 128);
+}
+
+.inputbox { 
+color: black; 
+} 
+
+.chat-top_message span{
+	color: #fff;
+} 
+.chat_user_ulist li a, .chat_users_name a {
+	color: #fff;
 }
